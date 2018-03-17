@@ -1,0 +1,52 @@
+{
+  "name": "yokubo-backend",
+  "version": "1.0.0",
+  "description": "Backend of Yokubo, a task management tool",
+  "main": "dist/src/api/index.js",
+  "author": "Markus Hösel",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "./node_modules/.bin/tsc -p .",
+    "start": "source ./env/env.sh && node ./dist/src/api/index.js | ./node_modules/.bin/bunyan",
+    "test": "./node_modules/.bin/mocha -c -A ./dist/src/test/index.js",
+    "migrate": "yarn && ./node_modules/.bin/gulp db:migrate"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "boom": "^7.2.0",
+    "bunyan": "^1.8.12",
+    "cls-bluebird": "^2.1.0",
+    "continuation-local-storage": "^3.2.1",
+    "hapi": "^17.2.3",
+    "hapi-auth-basic": "^5.0.0",
+    "hapi-auth-bearer-token": "^6.0.1",
+    "inert": "^5.1.0",
+    "joi": "^13.1.2",
+    "lodash": "^4.17.5",
+    "moment": "^2.21.0",
+    "sequelize": "^4.37.1",
+    "source-map-support": "^0.5.4",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "@types/bluebird": "^3.5.20",
+    "@types/bluebird-global": "^3.5.5",
+    "@types/boom": "^7.2.0",
+    "@types/bunyan": "^1.8.4",
+    "@types/hapi": "^17.0.6",
+    "@types/inert": "^4.2.7",
+    "@types/joi": "^13.0.6",
+    "@types/lodash": "^4.14.105",
+    "@types/node": "^9.4.7",
+    "@types/sequelize": "^4.27.10",
+    "@types/source-map-support": "^0.4.0",
+    "@types/uuid": "^3.4.3",
+    "tslint": "^5.9.1",
+    "tslint-microsoft-contrib": "^5.0.3",
+    "typescript": "^2.7.2"
+  },
+  "engines": {
+    "node": "8"
+  }
+}
