@@ -1,8 +1,15 @@
 import "./polyfills";
 
+import sequelize from "../shared/util/sequelize";
 import Api from "./Api";
 
-if (!module.parent) {
-    const api = new Api();
-    api.start();
-}
+(async () => {
+    if (!module.parent) {
+
+        sequelize.addModels([__dirname + "/../shared/models"]);
+
+        const api = new Api();
+        api.start();
+
+    }
+})();

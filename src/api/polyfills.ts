@@ -10,7 +10,7 @@ sourceMapSupport.install();
 // preserve data across async callbacks
 const clsNmespace = cls.createNamespace(`CLS_${uuid.v4()}`);
 // tslint:disable-next-line:no-unsafe-any
-(<any>Sequelize).useCLS(clsNmespace);
+(Sequelize as any).useCLS(clsNmespace);
 
 // tslint:disable-next-line
 const clsBluebird = require('cls-bluebird');
