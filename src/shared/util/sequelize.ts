@@ -17,4 +17,6 @@ const sequelize = new Sequelize({
     timezone: "Etc/UTC"
 });
 
+export { Transaction } from "sequelize";
+
 export default sequelize;

@@ -4,7 +4,7 @@ import * as controller from "../../controllers/v1/auth";
 
 export const auth = [
     {
-        method: "GET",
+        method: "POST",
         path: "/v1/auth/register",
         handler: controller.register,
         config: {
@@ -15,14 +15,19 @@ export const auth = [
                 options: {
                     abortEarly: false
                 },
-                query: Joi.object().required().keys({
+                payload: Joi.object().required().keys({
                     username: Joi.string().required(),
-                    password: Joi.string().required()
+                    password: Joi.string().required(),
+                    name: Joi.string().required(),
+                    // imageUid: Joi.string().guid().length(36).optional().allow(null).description("uid of user profile image"),
                 })
             },
             response: {
                 schema: Joi.object().required().keys({
-                    result: Joi.string().required()
+                    tokenType: Joi.string().required(),
+                    refreshToken: Joi.string().required(),
+                    accessToken: Joi.string().required(),
+                    expiresIn: Joi.number().required()
                 })
             },
         }

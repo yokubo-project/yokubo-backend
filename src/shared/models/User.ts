@@ -1,4 +1,9 @@
-import { Table, Column, Model, DataType } from "sequelize-typescript";
+import { Table, Column, Model, DataType, HasOne, HasMany } from "sequelize-typescript";
+import * as bcrypt from "bcrypt";
+import Config from "../Config";
+import { AppUserProfile } from "./AppUserProfile";
+import { AccessToken } from "./AccessToken";
+import { RefreshToken } from "./RefreshToken";
 
 @Table({
     tableName: "Users",
@@ -54,5 +59,28 @@ export class User extends Model<User> {
         defaultValue: null
     })
     public deletedAt: Date;
+
+    @HasOne(() => AppUserProfile)
+    AppUserProfile: AppUserProfile;
+
+    @HasMany(() => AccessToken)
+    AccessTokens: AccessToken[];
+
+    @HasMany(() => RefreshToken)
+    RefreshTokens: RefreshToken[];
+
+    /////////////////////////
+    // Model class methods //
+    /////////////////////////
+
+    public static async hashPassword(password: string): Promise<string> {
+
+        return bcrypt.hash(password, Config.auth.bcryptSaltRounds);
+
+    }
+
+    ////////////////////////////
+    // Model instance methods //
+    ////////////////////////////
 
 }

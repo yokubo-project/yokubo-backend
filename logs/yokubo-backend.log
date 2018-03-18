@@ -1,0 +1,1 @@
+{"name":"yokubo-backend","hostname":"marho","pid":16611,"level":60,"msg":"Uncaught Exception:  { Error: write EPIPE\n    at _errnoException (util.js:1022:11)\n    at WriteWrap.afterWrite (net.js:867:14) code: 'EPIPE', errno: 'EPIPE', syscall: 'write' }","time":"2018-03-18T14:07:47.706Z","v":0}

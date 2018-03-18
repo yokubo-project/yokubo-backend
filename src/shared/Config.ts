@@ -22,6 +22,12 @@ interface ILogging {
     consoleSeverity: string;
 }
 
+interface IAuth {
+    zxcvbnScore: number;
+    bcryptSaltRounds: number;
+    tokenExpiresIn: number;
+}
+
 class Config {
 
     static env: string = process.env.NODE_ENV || "test";
@@ -46,6 +52,12 @@ class Config {
         fileSeverity: process.env.FILE_SEVERITY || "error",
         filePath: process.env.FILE_PATH || `./${packageJson.name}.log`,
         consoleSeverity: process.env.CONSOLE_SEVERITY || "info"
+    };
+
+    static auth: IAuth = {
+        zxcvbnScore: 2,
+        bcryptSaltRounds: 10,
+        tokenExpiresIn: 86400000 // 24 hours
     };
 
 }

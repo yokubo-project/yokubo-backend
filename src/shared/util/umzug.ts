@@ -1,10 +1,9 @@
 import * as path from "path";
-import { Transaction } from "sequelize";
 // tslint:disable-next-line: no-require-imports no-var-requires variable-name
 const Umzug = require("umzug");
 
 import log from "./log";
-import sequelize from "./sequelize";
+import sequelize, { Transaction } from "./sequelize";
 
 log.debug("Creating new Umzug instance");
 export const umzug = new Umzug({
