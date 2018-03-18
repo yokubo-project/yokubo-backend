@@ -11,3 +11,8 @@ export PGPORT=5432
 export PGUSER=postgres
 export PGPASSWORD=password
 export PGDATABASE=yokubo
+
+# Logger settings
+export FILE_SEVERITY=error
+export FILE_PATH=./logs/yokubo-backend.log
+export CONSOLE_SEVERITY=debug

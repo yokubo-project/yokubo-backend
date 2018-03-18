@@ -1,3 +1,5 @@
+const packageJson = require("../../../package.json");
+
 if (!process.env.NODE_ENV) {
     console.error("Error: NODE_ENV not set! Exiting process ...");
     process.exit(1);
@@ -11,6 +13,13 @@ interface IDatabase {
     password: string;
     dbname: string;
     native: boolean;
+}
+
+interface ILogging {
+    name: string;
+    fileSeverity: string;
+    filePath: string;
+    consoleSeverity: string;
 }
 
 class Config {
@@ -29,6 +38,14 @@ class Config {
         password: process.env.PGPASSWORD || "dbpwd",
         dbname: process.env.PGDATABASE || "yokubo",
         native: true
+    };
+
+    // Bunyan config
+    static logging: ILogging = {
+        name: packageJson.name,
+        fileSeverity: process.env.FILE_SEVERITY || "error",
+        filePath: process.env.FILE_PATH || `./${packageJson.name}.log`,
+        consoleSeverity: process.env.CONSOLE_SEVERITY || "info"
     };
 
 }
