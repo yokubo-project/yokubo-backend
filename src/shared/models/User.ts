@@ -79,6 +79,12 @@ export class User extends Model<User> {
 
     }
 
+    public static async comparePassword(password: string, hash: string): Promise<boolean> {
+
+        return bcrypt.compare(password, hash);
+
+    }    
+
     ////////////////////////////
     // Model instance methods //
     ////////////////////////////

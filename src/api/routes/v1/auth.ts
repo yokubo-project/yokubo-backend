@@ -25,11 +25,37 @@ export const auth = [
             response: {
                 schema: Joi.object().required().keys({
                     tokenType: Joi.string().required(),
+                    refreshToken: Joi.string().guid().length(36).required(),
+                    accessToken: Joi.string().guid().length(36).required(),
+                    expiresIn: Joi.number().required()
+                })
+            },
+        }
+    }, 
+    {
+        method: "POST",
+        path: "/v1/auth/token",
+        handler: controller.token,
+        config: {
+            auth: false,
+            description: "Get an access token",
+            tags: ["api", "get", "v1", "auth", "token"],
+            validate: {
+                options: {
+                    abortEarly: false
+                },
+                payload: Joi.object().required().unknown(true).keys({
+                    grantType: Joi.string().required().valid("password", "refreshToken"),
+                })
+            },
+            response: {
+                schema: Joi.object().required().keys({
+                    tokenType: Joi.string().required(),
                     refreshToken: Joi.string().required(),
                     accessToken: Joi.string().required(),
                     expiresIn: Joi.number().required()
                 })
             },
-        }
+        }        
     }
 ];
