@@ -4,6 +4,8 @@ import * as Sequelize from "sequelize";
 import * as sourceMapSupport from "source-map-support";
 import * as uuid from "uuid";
 
+import log from "../shared/util/log";
+
 // initialize source map support for stack traces
 sourceMapSupport.install();
 
@@ -19,4 +21,4 @@ clsBluebird(clsNmespace);
 global.Promise = bluebird;
 
 // tslint:disable-next-line:no-console
-console.log(`Polyfills and utils installed. CLS=${clsNmespace.name}`);
+log.debug(`Polyfills and utils installed. CLS=${clsNmespace.name}`);

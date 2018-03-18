@@ -3,8 +3,10 @@ import { Transaction } from "sequelize";
 // tslint:disable-next-line: no-require-imports no-var-requires variable-name
 const Umzug = require("umzug");
 
+import log from "./log";
 import sequelize from "./sequelize";
 
+log.debug("Creating new Umzug instance");
 export const umzug = new Umzug({
     migrations: {
         params: [
@@ -19,10 +21,10 @@ export const umzug = new Umzug({
     }
 });
 
-umzug.on("migrating", (name: string, migration: any) => console.log({ migrationName: name }, "Started migration"));
-umzug.on("migrated", (name: string, migration: any) => console.log({ migrationName: name }, "Finished migration"));
-umzug.on("reverting", (name: string, migration: any) => console.log({ migrationName: name }, "Started reverting migration"));
-umzug.on("reverted", (name: string, migration: any) => console.log({ migrationName: name }, "Finished reverting migration"));
+umzug.on("migrating", (name: string, migration: any) => log.info({ migrationName: name }, "Started migration"));
+umzug.on("migrated", (name: string, migration: any) => log.info({ migrationName: name }, "Finished migration"));
+umzug.on("reverting", (name: string, migration: any) => log.info({ migrationName: name }, "Started reverting migration"));
+umzug.on("reverted", (name: string, migration: any) => log.info({ migrationName: name }, "Finished reverting migration"));
 
 export async function migrateUp(all: boolean = true): Promise<void> {
     await sequelize.transaction(async (transaction: Transaction) => {

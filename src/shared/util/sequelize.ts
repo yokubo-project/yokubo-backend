@@ -1,7 +1,9 @@
 import { Sequelize } from "sequelize-typescript";
 
+import log from "./log";
 import Config from "../Config";
 
+log.debug("Creating sequelize instance");
 const sequelize = new Sequelize({
     database: Config.database.dbname,
     dialect: Config.database.dialect,

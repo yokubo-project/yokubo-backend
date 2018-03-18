@@ -24,36 +24,28 @@ class Api {
 
     async stop(): Promise<void> {
 
-        log.info("Stopping server");
         log.info("Stopping Hapi server");
+        log.debug("Stopping server");
         await this.server.stop();
 
     }
 
     async start(): Promise<Api> {
 
-        log.info("Starting server");
-
-        log.info("Registering hapi-auth-bearer-token plugin");
+        log.debug("Registering plugins");
         await this.server.register(require("hapi-auth-bearer-token"));
-
-        log.info("Registering hapi-auth-basic plugin");
         await this.server.register(require("hapi-auth-basic"));
-
-        log.info("Registering inert plugin");
         await this.server.register(require("inert"));
 
-        log.info("Registering routes");
+        log.debug("Registering routes");
         await this.server.route(routes);
 
         log.info("Starting Hapi server");
         await this.server.start();
 
-        log.info("Registering SIGINT event");
+        log.debug("Registering event");
         // tslint:disable-next-line:no-floating-promises
         process.on("SIGINT", () => { this.stop(); });
-
-        log.info("Registering SIGTERM event");
         // tslint:disable-next-line:no-floating-promises
         process.on("SIGTERM", () => { this.stop(); });
 
