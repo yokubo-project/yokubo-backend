@@ -1,3 +1,3 @@
-* add register and login endpoints
 * add swagger
 * add devtools
+* add mocha tests

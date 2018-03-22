@@ -8,8 +8,6 @@ import { migrateUp } from "../../shared/util/umzug";
 
     log.debug("Migrating");
     await migrateUp(true);
-
-    log.debug("Explicitly closing sequelize connection");
     sequelize.close();
 
 })();
