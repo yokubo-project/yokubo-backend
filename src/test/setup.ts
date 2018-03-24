@@ -16,6 +16,8 @@ import fixture from "./fixture";
 chai.use(chaiHttp);
 chai.use(chaiJestSnapshot);
 
+let api: Api;
+
 before(async function () {
 
     log.debug("Dropping all tables");
@@ -25,7 +27,7 @@ before(async function () {
     await migrateUp(true);
 
     log.debug("Loading sequelize models");
-    sequelize.addModels([__dirname + "/../shared/models"]);
+    await sequelize.addModels([__dirname + "/../shared/models"]);
 
     log.debug("Importing fixture");
     await bulkImport(fixture);
@@ -33,11 +35,17 @@ before(async function () {
     log.debug("Starting testserver");
 
     log.debug("Creating new API serivce");
-    const api = new Api();
+    api = await new Api();
 
     log.debug("Starting API service");
-    api.start();
+    await api.start();
 
+});
+
+after(async function () {
+    log.debug("Stopping server");
+    await api.stop();
+    process.exit();
 });
 
 // app related tests...

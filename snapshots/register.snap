@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`registration`] = `
+Object {
+  "accessToken": "208c2eaf-2788-4aff-a438-dbb0317f6d8e",
+  "expiresIn": 86400000,
+  "refreshToken": "2809d84d-0013-4272-8d71-2aa92762ba2c",
+  "tokenType": "Bearer",
+}
+`;

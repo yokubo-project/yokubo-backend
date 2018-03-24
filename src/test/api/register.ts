@@ -1,17 +1,25 @@
 import { expect } from "chai";
+import * as path from "path";
 
-import { uids } from "../fixture";
-import { User } from "../../shared/models/User";
+import chaiRequest from "../chaiRequest";
 
+describe("POST /v1/auth/register", () => {
 
-describe("POST /api/v1/auth/register", () => {
+    const SNAPSHOT_FILE = path.join(__dirname, "../../../../snapshots/", `register.snap`);
+
+    const registrationPayload = {
+        username: "new-user@test.com",
+        password: "adsdhas9d8a39h9",
+        name: "New User"
+    };
 
     it("should register user", async () => {
 
-        // TODO: Configure chai-http
+        console.log("SNAPSHOT_FILE", SNAPSHOT_FILE);
 
-        const user = <User>await User.findById(uids.user1);
-        expect(user.uid).to.be.equal(uids.user1);
+        const response = await chaiRequest("POST", "/v1/auth/register").send(registrationPayload);
+        expect(response.status).to.be.equal(200);
+        expect(response.body).to.matchSnapshot(SNAPSHOT_FILE, "registration");
 
     });
 
