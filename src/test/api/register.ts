@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import * as path from "path";
+import { purify } from "../purify";
 
 import chaiRequest from "../chaiRequest";
 
@@ -15,11 +16,11 @@ describe("POST /v1/auth/register", () => {
 
     it("should register user", async () => {
 
-        console.log("SNAPSHOT_FILE", SNAPSHOT_FILE);
-
         const response = await chaiRequest("POST", "/v1/auth/register").send(registrationPayload);
         expect(response.status).to.be.equal(200);
-        expect(response.body).to.matchSnapshot(SNAPSHOT_FILE, "registration");
+
+        const preparedSnapshot = purify(response.body, ["refreshToken", "accessToken"]);
+        expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "registration");
 
     });
 

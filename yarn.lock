@@ -194,6 +194,10 @@
   dependencies:
     "@types/node" "*"
 
+"@types/traverse@^0.6.30":
+  version "0.6.30"
+  resolved "https://registry.yarnpkg.com/@types/traverse/-/traverse-0.6.30.tgz#a53936506dac267c236fb0d47fc4835acb21b522"
+
 "@types/umzug@^2.1.1":
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/@types/umzug/-/umzug-2.1.1.tgz#a22bffd5cc10297730a3a2258b601298a9421597"
@@ -1745,6 +1749,10 @@ tough-cookie@~2.3.3:
   resolved "https://registry.yarnpkg.com/tough-cookie/-/tough-cookie-2.3.4.tgz#ec60cee38ac675063ffc97a5c18970578ee83655"
   dependencies:
     punycode "^1.4.1"
+
+traverse@^0.6.6:
+  version "0.6.6"
+  resolved "https://registry.yarnpkg.com/traverse/-/traverse-0.6.6.tgz#cbdf560fd7b9af632502fed40f918c157ea97137"
 
 tslib@^1.8.0, tslib@^1.8.1:
   version "1.9.0"
