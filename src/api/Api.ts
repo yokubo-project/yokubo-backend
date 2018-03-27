@@ -1,6 +1,6 @@
 import * as Hapi from "hapi";
 
-import { routes } from "./routes/routes";
+import { routes } from "./routes";
 import Config from "./../shared/Config";
 import log from "../shared/util/log";
 

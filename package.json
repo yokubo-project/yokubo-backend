@@ -9,7 +9,7 @@
   "scripts": {
     "build": "./node_modules/.bin/tsc -p .",
     "start": "source ./env/env.sh && node ./dist/src/api/index.js | ./node_modules/.bin/bunyan",
-    "test": "source ./env/test.sh && mocha ./dist/src/test/setup.js -c -t 30000 | ./node_modules/.bin/bunyan",
+    "test": "source ./env/test.sh && mocha ./dist/src/test/setup.js --colors --timeout 60000 --recursive \"./dist/src/**/*.test.js\" | ./node_modules/.bin/bunyan",
     "test:update": "source ./env/test.sh && export CHAI_JEST_SNAPSHOT_UPDATE_ALL=true && mocha ./dist/src/test/setup.js -c -t 30000 | ./node_modules/.bin/bunyan",
     "db:migrate": "source ./env/env.sh && node ./dist/src/scripts/db/migrate.js | ./node_modules/.bin/bunyan",
     "db:migrate-up": "source ./env/env.sh && node ./dist/src/scripts/db/migrateUp.js | ./node_modules/.bin/bunyan",

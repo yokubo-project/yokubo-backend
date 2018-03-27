@@ -3,7 +3,6 @@ import "../api/polyfills";
 const chai = require("chai");
 const chaiJestSnapshot = require("chai-jest-snapshot");
 const chaiHttp = require("chai-http");
-const requireDir = require("require-dir");
 
 import log from "../shared/util/log";
 import sequelize from "../shared/util/sequelize";
@@ -47,9 +46,3 @@ after(async function () {
     await api.stop();
     process.exit();
 });
-
-// app related tests...
-requireDir("./api", {
-    recurse: true
-});
-

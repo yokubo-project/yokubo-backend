@@ -1,65 +1,42 @@
 import * as Boom from "boom";
 import * as Hapi from "hapi";
 import * as Joi from "joi";
-import * as zxcvbn from "zxcvbn";
 import * as moment from "moment";
 import * as _ from "lodash";
 
 import Config from "../../../shared/Config";
-import sequelize, { Transaction } from "../../../shared/util/sequelize";
 import { User } from "../../../shared/models/User";
-import { AppUserProfile } from "../../../shared/models/AppUserProfile";
 import { AccessToken } from "../../../shared/models/AccessToken";
 import { RefreshToken } from "../../../shared/models/RefreshToken";
 
-export async function register(request: Hapi.Request, reply: Hapi.ResponseToolkit): Promise<any> {
-
-    const { username, password, name } = request.payload as any;
-
-    // Error out if user already exists
-    if (await User.find({ where: { username } })) {
-        throw Boom.badRequest("User already exists");
+export const token = [{
+    method: "POST",
+    path: "/v1/auth/token",
+    handler: tokenHandler,
+    config: {
+        auth: false,
+        description: "Get an access token",
+        tags: ["api", "get", "v1", "auth", "token"],
+        validate: {
+            options: {
+                abortEarly: false
+            },
+            payload: Joi.object().required().unknown(true).keys({
+                grantType: Joi.string().required().valid("password", "refreshToken"),
+            })
+        },
+        response: {
+            schema: Joi.object().required().keys({
+                tokenType: Joi.string().required(),
+                refreshToken: Joi.string().required(),
+                accessToken: Joi.string().required(),
+                expiresIn: Joi.number().required()
+            })
+        },
     }
+}];
 
-    // Error out if password is to weak
-    const zxcvbnInfo = zxcvbn(password);
-    if (zxcvbnInfo.score < Config.auth.zxcvbnScore) {
-        throw Boom.badRequest("Password is to weak", {
-            warning: zxcvbnInfo.feedback.warning,
-            score: zxcvbnInfo.score
-        });
-    }
-
-    // Create user within transaction
-    return sequelize.transaction(async (transaction: Transaction) => {
-
-        // Create user
-        const user = await User.create({
-            username,
-            password: await User.hashPassword(password)
-        });
-
-        // Create app user profile and tokens
-        const [, refreshToken, accessToken] = await Promise.all([
-            await user.$create("AppUserProfile", { name }) as AppUserProfile,
-            await user.$create("RefreshToken", {}) as RefreshToken,
-            await user.$create("AccessToken", {
-                validUntil: moment().add(Config.auth.tokenExpiresIn, "milliseconds").toDate()
-            }) as AccessToken
-        ]);
-
-        return {
-            tokenType: "Bearer",
-            refreshToken: refreshToken.token,
-            accessToken: accessToken.token,
-            expiresIn: Config.auth.tokenExpiresIn
-        };
-
-    });
-
-}
-
-export async function token(request: Hapi.Request, reply: Hapi.ResponseToolkit): Promise<any> {
+async function tokenHandler(request: Hapi.Request, reply: Hapi.ResponseToolkit): Promise<any> {
 
     const { grantType } = request.payload as any;
     let user;
@@ -152,7 +129,7 @@ async function preventTimingAttack(): Promise<any> {
     return await Promise.delay(_.random(50, 300));
 }
 
-export function validateSchema(payload: Object, schema: Joi.JoiObject) {
+function validateSchema(payload: Object, schema: Joi.JoiObject) {
     let result = Joi.validate(payload, schema);
     if (result.error) {
         throw new Error(result.error.toString());
