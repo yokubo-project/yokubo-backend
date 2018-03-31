@@ -14,7 +14,8 @@ const sequelize = new Sequelize({
         max: 5,
         min: 0
     },
-    timezone: "Etc/UTC"
+    timezone: "Etc/UTC",
+    logging: Config.logging.consoleSeverity === "debug" ? true : false
 });
 
 export { Transaction } from "sequelize";

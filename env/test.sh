@@ -15,4 +15,7 @@ export PGDATABASE=yokubo-test
 # Logger settings
 export FILE_SEVERITY=error
 export FILE_PATH=./logs/yokubo-backend.log
-export CONSOLE_SEVERITY=debug
+export CONSOLE_SEVERITY=error
+
+# Assets
+export EXTERNAL_ASSETS_URL_HOST=http://127.0.0.1:8080

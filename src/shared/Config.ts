@@ -1,3 +1,5 @@
+import * as path from "path";
+
 const packageJson = require("../../../package.json");
 
 if (!process.env.NODE_ENV) {
@@ -28,6 +30,18 @@ interface IAuth {
     tokenExpiresIn: number;
 }
 
+interface IAssets {
+    imageUploadsPath: string;
+    imageUploadsRelativeUrl: string;
+    externalUrl: string;
+}
+
+interface IImageUpload {
+    supportedExtensions: string[];
+    supportedMimeTypes: string[];
+    maxUpload: number;
+}
+
 class Config {
 
     static env: string = process.env.NODE_ENV || "test";
@@ -54,10 +68,25 @@ class Config {
         consoleSeverity: process.env.CONSOLE_SEVERITY || "info"
     };
 
+    // Auth
     static auth: IAuth = {
         zxcvbnScore: 2,
         bcryptSaltRounds: 10,
         tokenExpiresIn: 86400000 // 24 hours
+    };
+
+    // Assets
+    static assets: IAssets = {
+        imageUploadsPath: path.join(__dirname, "../../../assets/image-uploads/"),
+        imageUploadsRelativeUrl: "/v1/assets/image-uploads/",
+        externalUrl: process.env.EXTERNAL_ASSETS_URL_HOST || "127.0.0.1:8080"
+    };
+
+    // ImageUpload
+    static imageUpload: IImageUpload = {
+        supportedExtensions: ["png", "jpg", "jpeg"],
+        supportedMimeTypes: ["image/jpeg", "image/png"],
+        maxUpload: 20 * 1024 * 1024
     };
 
 }

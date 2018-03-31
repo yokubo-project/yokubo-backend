@@ -3,3 +3,10 @@ node_modules/
 
 # Build directory
 dist/
+
+# Assets directory
+assets/
+
+# Log directory
+logs/
+
