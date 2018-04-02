@@ -1,13 +1,13 @@
 import { Table, Column, Model, DataType, BelongsTo, ForeignKey } from "sequelize-typescript";
 
-import Config from "./../../shared/Config";
-import { User } from "./User";
+import { TaskItem } from "./TaskItem";
+import { TaskMetric } from "./TaskMetric";
 
 @Table({
-    tableName: "Images",
+    tableName: "MetricQuantities",
     paranoid: false
 })
-export class Image extends Model<Image> {
+export class MetricQuantity extends Model<MetricQuantity> {
 
     @Column({
         type: DataType.UUID,
@@ -18,10 +18,10 @@ export class Image extends Model<Image> {
     public uid: string;
 
     @Column({
-        type: DataType.STRING,
+        type: DataType.FLOAT,
         allowNull: false
     })
-    public file: string;
+    public quantity: number;
 
     @Column({
         type: DataType.DATE,
@@ -44,25 +44,25 @@ export class Image extends Model<Image> {
     })
     public deletedAt: Date;
 
-    @ForeignKey(() => User)
+    @ForeignKey(() => TaskItem)
     @Column({
         type: DataType.UUID,
-        allowNull: true,
+        allowNull: false,
     })
-    public UserUid: string;
+    public TaskItemUid: string;
 
-    @BelongsTo(() => User)
-    User: User;
+    @BelongsTo(() => TaskItem)
+    TaskItem: TaskItem;
 
-    @ForeignKey(() => Image)
+    @ForeignKey(() => TaskMetric)
     @Column({
         type: DataType.UUID,
-        allowNull: true,
+        allowNull: false,
     })
-    public ImageUid: string;
+    public TaskMetricUid: string;
 
-    @BelongsTo(() => Image)
-    Image: Image;
+    @BelongsTo(() => TaskMetric)
+    TaskMetric: TaskMetric;
 
     /////////////////////////
     // Model class methods //
@@ -73,14 +73,21 @@ export class Image extends Model<Image> {
     ////////////////////////////
 
     public async publicJsonObject() {
-        const { uid, file } = this;
-        const filePath = `${Config.assets.externalUrl}${Config.assets.imageUploadsRelativeUrl}${file}`;
-
+        const { uid, quantity, createdAt } = this;
         return {
             uid,
-            file: filePath
+            quantity,
+            createdAt,
         };
+    }
 
+    public async fullPublicJsonObject() {
+        const publicJsonObject = this.publicJsonObject();
+        const metric = (await this.get("TaskMetric") as TaskMetric).publicJsonObject();
+        return {
+            ...publicJsonObject,
+            metric,
+        };
     }
 
 }

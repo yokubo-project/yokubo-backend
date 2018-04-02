@@ -1,13 +1,15 @@
-import { Table, Column, Model, DataType, BelongsTo, ForeignKey } from "sequelize-typescript";
+import { Table, Column, Model, DataType, BelongsTo, HasMany, ForeignKey } from "sequelize-typescript";
 
-import Config from "./../../shared/Config";
 import { User } from "./User";
+import { Image } from "./Image";
+import { TaskMetric } from "./TaskMetric";
+import { TaskItem } from "./TaskItem";
 
 @Table({
-    tableName: "Images",
+    tableName: "Tasks",
     paranoid: false
 })
-export class Image extends Model<Image> {
+export class Task extends Model<Task> {
 
     @Column({
         type: DataType.UUID,
@@ -21,7 +23,7 @@ export class Image extends Model<Image> {
         type: DataType.STRING,
         allowNull: false
     })
-    public file: string;
+    public name: string;
 
     @Column({
         type: DataType.DATE,
@@ -47,7 +49,7 @@ export class Image extends Model<Image> {
     @ForeignKey(() => User)
     @Column({
         type: DataType.UUID,
-        allowNull: true,
+        allowNull: false,
     })
     public UserUid: string;
 
@@ -57,12 +59,18 @@ export class Image extends Model<Image> {
     @ForeignKey(() => Image)
     @Column({
         type: DataType.UUID,
-        allowNull: true,
+        allowNull: false,
     })
     public ImageUid: string;
 
     @BelongsTo(() => Image)
     Image: Image;
+
+    @HasMany(() => TaskMetric)
+    TaskMetrics: TaskMetric[];
+
+    @HasMany(() => TaskItem)
+    TaskItems: TaskItem[];
 
     /////////////////////////
     // Model class methods //
@@ -73,14 +81,25 @@ export class Image extends Model<Image> {
     ////////////////////////////
 
     public async publicJsonObject() {
-        const { uid, file } = this;
-        const filePath = `${Config.assets.externalUrl}${Config.assets.imageUploadsRelativeUrl}${file}`;
-
+        const { uid, name, createdAt } = this;
         return {
             uid,
-            file: filePath
+            name,
+            createdAt
         };
+    }
 
+    public async fullpublicJsonObject() {
+        const publicJsonObject = this.publicJsonObject();
+        const image = await (await this.$get("Image") as Image).publicJsonObject();
+        const metrics = (await this.$get("TaskMetric") as TaskMetric[]).map(taskMetric => taskMetric.publicJsonObject());
+        const items = await Promise.all((await this.$get("TaskItem") as TaskItem[]).map(async taskItem => taskItem.fullPublicJsonObject()));
+        return {
+            ...publicJsonObject,
+            image,
+            metrics,
+            items
+        };
     }
 
 }

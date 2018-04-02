@@ -1,13 +1,13 @@
-import { Table, Column, Model, DataType, BelongsTo, ForeignKey } from "sequelize-typescript";
+import { Table, Column, Model, DataType, BelongsTo, ForeignKey, HasMany } from "sequelize-typescript";
 
-import Config from "./../../shared/Config";
-import { User } from "./User";
+import { Task } from "./Task";
+import { MetricQuantity } from "./MetricQuantity";
 
 @Table({
-    tableName: "Images",
+    tableName: "TaskMetrics",
     paranoid: false
 })
-export class Image extends Model<Image> {
+export class TaskMetric extends Model<TaskMetric> {
 
     @Column({
         type: DataType.UUID,
@@ -21,7 +21,13 @@ export class Image extends Model<Image> {
         type: DataType.STRING,
         allowNull: false
     })
-    public file: string;
+    public name: string;
+
+    @Column({
+        type: DataType.STRING,
+        allowNull: false
+    })
+    public unit: string;
 
     @Column({
         type: DataType.DATE,
@@ -44,25 +50,18 @@ export class Image extends Model<Image> {
     })
     public deletedAt: Date;
 
-    @ForeignKey(() => User)
+    @ForeignKey(() => Task)
     @Column({
         type: DataType.UUID,
         allowNull: true,
     })
-    public UserUid: string;
+    public TaskUid: string;
 
-    @BelongsTo(() => User)
-    User: User;
+    @BelongsTo(() => Task)
+    Task: Task;
 
-    @ForeignKey(() => Image)
-    @Column({
-        type: DataType.UUID,
-        allowNull: true,
-    })
-    public ImageUid: string;
-
-    @BelongsTo(() => Image)
-    Image: Image;
+    @HasMany(() => MetricQuantity)
+    MetricQuantities: MetricQuantity[];
 
     /////////////////////////
     // Model class methods //
@@ -73,15 +72,13 @@ export class Image extends Model<Image> {
     ////////////////////////////
 
     public async publicJsonObject() {
-        const { uid, file } = this;
-        const filePath = `${Config.assets.externalUrl}${Config.assets.imageUploadsRelativeUrl}${file}`;
-
+        const { uid, name, unit, createdAt } = this;
         return {
             uid,
-            file: filePath
+            name,
+            unit,
+            createdAt
         };
-
     }
 
 }
-
