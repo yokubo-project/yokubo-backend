@@ -72,7 +72,7 @@ export class MetricQuantity extends Model<MetricQuantity> {
     // Model instance methods //
     ////////////////////////////
 
-    public async publicJsonObject() {
+    public publicJsonObject() {
         const { uid, quantity, createdAt } = this;
         return {
             uid,
@@ -83,7 +83,7 @@ export class MetricQuantity extends Model<MetricQuantity> {
 
     public async fullPublicJsonObject() {
         const publicJsonObject = this.publicJsonObject();
-        const metric = (await this.get("TaskMetric") as TaskMetric).publicJsonObject();
+        const metric = (await this.$get("TaskMetric") as TaskMetric).publicJsonObject();
         return {
             ...publicJsonObject,
             metric,
@@ -91,4 +91,3 @@ export class MetricQuantity extends Model<MetricQuantity> {
     }
 
 }
-

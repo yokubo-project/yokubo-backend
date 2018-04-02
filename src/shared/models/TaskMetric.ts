@@ -71,7 +71,7 @@ export class TaskMetric extends Model<TaskMetric> {
     // Model instance methods //
     ////////////////////////////
 
-    public async publicJsonObject() {
+    public publicJsonObject() {
         const { uid, name, unit, createdAt } = this;
         return {
             uid,

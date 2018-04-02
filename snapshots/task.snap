@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getTasks`] = `
+Array [
+  Object {
+    "createdAt": "2018-04-02T18:47:13.868Z",
+    "image": Object {
+      "file": "http://127.0.0.1:8080/v1/assets/image-uploads/www.test.com/image1",
+      "uid": "0352a729-efe9-4ec0-bec1-f921931b75a2",
+    },
+    "items": Array [
+      Object {
+        "createdAt": "2018-04-02T18:47:13.884Z",
+        "desc": "Desc1",
+        "metricQuantities": Array [
+          Object {
+            "createdAt": "2018-04-02T18:47:13.893Z",
+            "metric": Object {
+              "createdAt": "2018-04-02T18:47:13.875Z",
+              "name": "Metric1",
+              "uid": "7801cee9-6627-4eea-a1cd-2383036c7039",
+              "unit": "Unit1",
+            },
+            "quantity": 1,
+            "uid": "6cc8aea1-ff01-4a35-be07-db57e76f0f3c",
+          },
+          Object {
+            "createdAt": "2018-04-02T18:47:13.893Z",
+            "metric": Object {
+              "createdAt": "2018-04-02T18:47:13.875Z",
+              "name": "Metric2",
+              "uid": "2b7cd65c-29cb-4043-a01b-76b6ad501a1c",
+              "unit": "Unit2",
+            },
+            "quantity": 2,
+            "uid": "87f385f3-0268-47fb-8528-abdef3a21cfa",
+          },
+        ],
+        "name": "Item1",
+        "period": Array [
+          "2018-04-02T11:47:13.119Z",
+          "2018-04-02T18:47:13.120Z",
+        ],
+        "uid": "5850d3f5-393e-4988-ac5b-316352abe6d8",
+      },
+      Object {
+        "createdAt": "2018-04-02T18:47:13.884Z",
+        "desc": null,
+        "metricQuantities": Array [],
+        "name": "Item2",
+        "period": null,
+        "uid": "918d4497-0fe8-47d2-b60e-3d2990befd61",
+      },
+    ],
+    "metrics": Array [
+      Object {
+        "createdAt": "2018-04-02T18:47:13.875Z",
+        "name": "Metric1",
+        "uid": "7801cee9-6627-4eea-a1cd-2383036c7039",
+        "unit": "Unit1",
+      },
+      Object {
+        "createdAt": "2018-04-02T18:47:13.875Z",
+        "name": "Metric2",
+        "uid": "2b7cd65c-29cb-4043-a01b-76b6ad501a1c",
+        "unit": "Unit2",
+      },
+    ],
+    "name": "Task1",
+    "uid": "5db815b9-8e02-49bd-a42c-dd516b8468d9",
+  },
+  Object {
+    "createdAt": "2018-04-02T18:47:13.868Z",
+    "image": Object {
+      "file": "http://127.0.0.1:8080/v1/assets/image-uploads/www.test.com/image1",
+      "uid": "0352a729-efe9-4ec0-bec1-f921931b75a2",
+    },
+    "items": Array [],
+    "metrics": Array [],
+    "name": "Task2",
+    "uid": "517b620c-71a4-44c9-abe6-cfea9a4826b3",
+  },
+]
+`;

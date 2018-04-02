@@ -1,7 +1,6 @@
-import { Table, Column, Model, DataType, BelongsTo, ForeignKey } from "sequelize-typescript";
+import { Table, Column, Model, DataType } from "sequelize-typescript";
 
 import Config from "./../../shared/Config";
-import { User } from "./User";
 
 @Table({
     tableName: "Images",
@@ -44,26 +43,6 @@ export class Image extends Model<Image> {
     })
     public deletedAt: Date;
 
-    @ForeignKey(() => User)
-    @Column({
-        type: DataType.UUID,
-        allowNull: true,
-    })
-    public UserUid: string;
-
-    @BelongsTo(() => User)
-    User: User;
-
-    @ForeignKey(() => Image)
-    @Column({
-        type: DataType.UUID,
-        allowNull: true,
-    })
-    public ImageUid: string;
-
-    @BelongsTo(() => Image)
-    Image: Image;
-
     /////////////////////////
     // Model class methods //
     /////////////////////////
@@ -72,7 +51,7 @@ export class Image extends Model<Image> {
     // Model instance methods //
     ////////////////////////////
 
-    public async publicJsonObject() {
+    public publicJsonObject() {
         const { uid, file } = this;
         const filePath = `${Config.assets.externalUrl}${Config.assets.imageUploadsRelativeUrl}${file}`;
 

@@ -77,7 +77,7 @@ export class TaskItem extends Model<TaskItem> {
     // Model instance methods //
     ////////////////////////////
 
-    public async publicJsonObject() {
+    public publicJsonObject() {
         const { uid, name, desc, period, createdAt } = this;
         return {
             uid,
@@ -90,7 +90,7 @@ export class TaskItem extends Model<TaskItem> {
 
     public async fullPublicJsonObject() {
         const publicJsonObject = this.publicJsonObject();
-        const metricQuantities = await Promise.all((await this.$get("MetricQuantity") as MetricQuantity[]).map(async metricQuantity => metricQuantity.fullPublicJsonObject()));
+        const metricQuantities = await Promise.all((await this.$get("MetricQuantities") as MetricQuantity[]).map(async metricQuantity => metricQuantity.fullPublicJsonObject()));
         return {
             ...publicJsonObject,
             metricQuantities,

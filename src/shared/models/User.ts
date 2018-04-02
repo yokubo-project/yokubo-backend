@@ -4,6 +4,7 @@ import Config from "../Config";
 import { AppUserProfile } from "./AppUserProfile";
 import { AccessToken } from "./AccessToken";
 import { RefreshToken } from "./RefreshToken";
+import { Task } from "./Task";
 
 @Table({
     tableName: "Users",
@@ -68,6 +69,9 @@ export class User extends Model<User> {
 
     @HasMany(() => RefreshToken)
     RefreshTokens: RefreshToken[];
+
+    @HasMany(() => Task)
+    Tasks: Task[];
 
     /////////////////////////
     // Model class methods //

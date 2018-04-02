@@ -80,7 +80,7 @@ export class Task extends Model<Task> {
     // Model instance methods //
     ////////////////////////////
 
-    public async publicJsonObject() {
+    public publicJsonObject() {
         const { uid, name, createdAt } = this;
         return {
             uid,
@@ -89,11 +89,11 @@ export class Task extends Model<Task> {
         };
     }
 
-    public async fullpublicJsonObject() {
+    public async fullPublicJsonObject() {
         const publicJsonObject = this.publicJsonObject();
         const image = await (await this.$get("Image") as Image).publicJsonObject();
-        const metrics = (await this.$get("TaskMetric") as TaskMetric[]).map(taskMetric => taskMetric.publicJsonObject());
-        const items = await Promise.all((await this.$get("TaskItem") as TaskItem[]).map(async taskItem => taskItem.fullPublicJsonObject()));
+        const metrics = (await this.$get("TaskMetrics") as TaskMetric[]).map(taskMetric => taskMetric.publicJsonObject());
+        const items = await Promise.all((await this.$get("TaskItems") as TaskItem[]).map(async taskItem => taskItem.fullPublicJsonObject()));
         return {
             ...publicJsonObject,
             image,
