@@ -2,7 +2,7 @@ import { expect } from "chai";
 import * as path from "path";
 
 import chaiRequest from "../../../test/chaiRequest";
-import { uids } from "../../../test/fixture";
+import { accessToken1, image1, task1 } from "../../../test/fixture";
 import { purify } from "../../../test/purify";
 
 describe("PATCH /v1/task", function () {
@@ -13,10 +13,10 @@ describe("PATCH /v1/task", function () {
 
         const payload = {
             name: "Running",
-            imageUid: uids.image1
+            imageUid: image1.uid
         };
 
-        const res = await chaiRequest("PATCH", `/v1/tasks/${uids.task1}`, uids.accessToken1)
+        const res = await chaiRequest("PATCH", `/v1/tasks/${task1.uid}`, accessToken1.token)
             .send(payload);
 
         expect(res.status).to.be.equal(200);
@@ -32,7 +32,7 @@ describe("PATCH /v1/task", function () {
             name: "Running",
         };
 
-        const res = await chaiRequest("PATCH", `/v1/tasks/${uids.task1}`, uids.accessToken1)
+        const res = await chaiRequest("PATCH", `/v1/tasks/${task1.uid}`, accessToken1.token)
             .send(payload);
 
         expect(res.status).to.be.equal(200);
@@ -45,10 +45,10 @@ describe("PATCH /v1/task", function () {
     it("should patch image of task", async () => {
 
         const payload = {
-            imageUid: uids.image1
+            imageUid: image1.uid
         };
 
-        const res = await chaiRequest("PATCH", `/v1/tasks/${uids.task1}`, uids.accessToken1)
+        const res = await chaiRequest("PATCH", `/v1/tasks/${task1.uid}`, accessToken1.token)
             .send(payload);
 
         expect(res.status).to.be.equal(200);
@@ -65,7 +65,7 @@ describe("PATCH /v1/task", function () {
         };
 
         const path = "/v1/tasks/954f261d-cd52-4070-8e96-b942b4b44a6d";
-        const res = await chaiRequest("PATCH", path, uids.accessToken1)
+        const res = await chaiRequest("PATCH", path, accessToken1.token)
             .send(payload);
 
         expect(res.status).to.be.equal(404);

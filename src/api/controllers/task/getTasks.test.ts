@@ -2,7 +2,7 @@ import { expect } from "chai";
 import * as path from "path";
 
 import chaiRequest from "../../../test/chaiRequest";
-import { uids } from "../../../test/fixture";
+import { accessToken1, task1, task2, task3 } from "../../../test/fixture";
 import { Task } from "../../../shared/models/Task";
 import { purify } from "../../../test/purify";
 
@@ -12,11 +12,11 @@ describe("GET /v1/tasks", function () {
 
     it("should get tasks for the requesting user", async () => {
 
-        const res = await chaiRequest("GET", `/v1/tasks`, uids.accessToken1);
+        const res = await chaiRequest("GET", `/v1/tasks`, accessToken1.token);
         expect(res.status).to.be.equal(200);
 
-        const tasksOwnedByUser = [uids.task1, uids.task2];
-        const tasksNowOwnedByUser = [uids.task3];
+        const tasksOwnedByUser = [task1.uid, task2.uid];
+        const tasksNowOwnedByUser = [task3.uid];
 
         expect(tasksOwnedByUser.every(uid => res.body.some((task: Task) => uid === task.uid))).to.be.equal(true);
         expect(tasksNowOwnedByUser.every(uid => res.body.every((task: Task) => uid !== task.uid))).to.be.equal(true);

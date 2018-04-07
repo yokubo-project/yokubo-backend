@@ -2,7 +2,7 @@ import { expect } from "chai";
 import * as path from "path";
 
 import chaiRequest from "../../../test/chaiRequest";
-import { uids } from "../../../test/fixture";
+import { accessToken1 } from "../../../test/fixture";
 
 describe("POST /v1/images", function () {
 
@@ -12,7 +12,7 @@ describe("POST /v1/images", function () {
 
     it("should upload jpg", async () => {
 
-        const uploadRes = await chaiRequest("POST", "/v1/images", uids.accessToken1)
+        const uploadRes = await chaiRequest("POST", "/v1/images", accessToken1.token)
             .set("Content-Type", "multipart/form-data")
             .attach("image", testimageJpg, null);
 
@@ -27,7 +27,7 @@ describe("POST /v1/images", function () {
 
     it("should upload png", async () => {
 
-        const uploadRes = await chaiRequest("POST", "/v1/images", uids.accessToken1)
+        const uploadRes = await chaiRequest("POST", "/v1/images", accessToken1.token)
             .set("Content-Type", "multipart/form-data")
             .attach("image", testimagePng, null);
 
@@ -42,7 +42,7 @@ describe("POST /v1/images", function () {
 
     it("should upload multiple images", async () => {
 
-        const uploadRes = await chaiRequest("POST", "/v1/images", uids.accessToken1)
+        const uploadRes = await chaiRequest("POST", "/v1/images", accessToken1.token)
             .set("Content-Type", "multipart/form-data")
             .attach("image", testimageJpg, null)
             .attach("image", testimagePng, null);
@@ -62,7 +62,7 @@ describe("POST /v1/images", function () {
 
     it("should fail uploading gif", async () => {
 
-        const res = await chaiRequest("POST", "/v1/images", uids.accessToken1)
+        const res = await chaiRequest("POST", "/v1/images", accessToken1.token)
             .set("Content-Type", "multipart/form-data")
             .attach("image", testimageGif, null);
 
@@ -72,7 +72,7 @@ describe("POST /v1/images", function () {
 
     it("should fail when trying to send multipart without attachments", async () => {
 
-        const res = await chaiRequest("POST", "/v1/images", uids.accessToken1)
+        const res = await chaiRequest("POST", "/v1/images", accessToken1.token)
             .set("Content-Type", "multipart/form-data");
 
         expect(res.status).to.be.equal(400);
@@ -81,7 +81,7 @@ describe("POST /v1/images", function () {
 
     it("should fail when one of multiple file is not supported", async () => {
 
-        const res = await chaiRequest("POST", "/v1/images", uids.accessToken1)
+        const res = await chaiRequest("POST", "/v1/images", accessToken1.token)
             .set("Content-Type", "multipart/form-data")
             .attach("image", testimageJpg, null)
             .attach("image", testimagePng, null)

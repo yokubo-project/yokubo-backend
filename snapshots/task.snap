@@ -8,6 +8,14 @@ Object {
 }
 `;
 
+exports[`deleteNonExistingTaskMetric`] = `
+Object {
+  "error": "Not Found",
+  "message": "Not Found",
+  "statusCode": 404,
+}
+`;
+
 exports[`deleteTask`] = `
 Object {
   "createdAt": "__PLACEHOLDER_FOR_createdAt__",
@@ -19,6 +27,15 @@ Object {
   "metrics": Array [],
   "name": "Task1",
   "uid": "5db815b9-8e02-49bd-a42c-dd516b8468d9",
+}
+`;
+
+exports[`deleteTaskMetric`] = `
+Object {
+  "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+  "name": "Metric1",
+  "uid": "7801cee9-6627-4eea-a1cd-2383036c7039",
+  "unit": "Unit1",
 }
 `;
 
@@ -319,6 +336,33 @@ Object {
 }
 `;
 
+exports[`patchTaskMetric`] = `
+Object {
+  "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+  "name": "New Name",
+  "uid": "__PLACEHOLDER_FOR_uid__",
+  "unit": "New Metric",
+}
+`;
+
+exports[`patchTaskMetricName`] = `
+Object {
+  "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+  "name": "New Name",
+  "uid": "__PLACEHOLDER_FOR_uid__",
+  "unit": "Unit1",
+}
+`;
+
+exports[`patchTaskMetricWithNoNewValues`] = `
+Object {
+  "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+  "name": "Metric1",
+  "uid": "__PLACEHOLDER_FOR_uid__",
+  "unit": "Unit1",
+}
+`;
+
 exports[`patchTaskName`] = `
 Object {
   "createdAt": "__PLACEHOLDER_FOR_createdAt__",
@@ -397,6 +441,15 @@ Object {
   "metrics": Array [],
   "name": "Running",
   "uid": "__PLACEHOLDER_FOR_uid__",
+}
+`;
+
+exports[`postTaskMetric`] = `
+Object {
+  "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+  "name": "Distance",
+  "uid": "__PLACEHOLDER_FOR_uid__",
+  "unit": "Miles",
 }
 `;
 

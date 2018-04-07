@@ -2,7 +2,7 @@ import { expect } from "chai";
 import * as path from "path";
 
 import chaiRequest from "../../../test/chaiRequest";
-import { uids } from "../../../test/fixture";
+import { accessToken1, image1 } from "../../../test/fixture";
 import { purify } from "../../../test/purify";
 
 describe("POST /v1/task", function () {
@@ -13,10 +13,10 @@ describe("POST /v1/task", function () {
 
         const payload = {
             name: "Running",
-            imageUid: uids.image1
+            imageUid: image1.uid
         };
 
-        const res = await chaiRequest("POST", `/v1/tasks`, uids.accessToken1)
+        const res = await chaiRequest("POST", `/v1/tasks`, accessToken1.token)
             .send(payload);
 
         expect(res.status).to.be.equal(200);
@@ -30,7 +30,7 @@ describe("POST /v1/task", function () {
 
         const payload = {
             name: "Running",
-            imageUid: uids.image1,
+            imageUid: image1.uid,
             metrics: [
                 {
                     name: "Distance",
@@ -42,7 +42,7 @@ describe("POST /v1/task", function () {
                 }
             ]
         };
-        const res = await chaiRequest("POST", `/v1/tasks`, uids.accessToken1)
+        const res = await chaiRequest("POST", `/v1/tasks`, accessToken1.token)
             .send(payload);
 
         expect(res.status).to.be.equal(200);
