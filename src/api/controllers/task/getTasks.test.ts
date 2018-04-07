@@ -4,6 +4,7 @@ import * as path from "path";
 import chaiRequest from "../../../test/chaiRequest";
 import { uids } from "../../../test/fixture";
 import { Task } from "../../../shared/models/Task";
+import { purify } from "../../../test/purify";
 
 describe("GET /v1/tasks", function () {
 
@@ -20,7 +21,8 @@ describe("GET /v1/tasks", function () {
         expect(tasksOwnedByUser.every(uid => res.body.some((task: Task) => uid === task.uid))).to.be.equal(true);
         expect(tasksNowOwnedByUser.every(uid => res.body.every((task: Task) => uid !== task.uid))).to.be.equal(true);
 
-        expect(res.body).to.matchSnapshot(SNAPSHOT_FILE, "getTasks");
+        const preparedSnapshot = purify(res.body, ["createdAt", "period"]);
+        expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "getTasks");
 
     });
 
