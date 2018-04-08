@@ -1,4 +1,4 @@
-import "../../api/polyfills";
+import "../shared/util/polyfills";
 
 import log from "../../shared/util/log";
 import sequelize from "../../shared/util/sequelize";
