@@ -1,4 +1,4 @@
-import "../api/polyfills";
+import "../shared/util/polyfills";
 
 const chai = require("chai");
 const chaiJestSnapshot = require("chai-jest-snapshot");

@@ -215,9 +215,9 @@ Array [
 
 exports[`patchMetricQuantity`] = `
 Object {
-  "createdAt": "2018-04-08T09:55:06.030Z",
+  "createdAt": "__PLACEHOLDER_FOR_createdAt__",
   "metric": Object {
-    "createdAt": "2018-04-08T09:55:06.019Z",
+    "createdAt": "__PLACEHOLDER_FOR_createdAt__",
     "name": "Metric1",
     "uid": "7801cee9-6627-4eea-a1cd-2383036c7039",
     "unit": "Unit1",

@@ -5,7 +5,7 @@ import chaiRequest from "../../../test/chaiRequest";
 import { accessToken1, task1, metricQuantity1 } from "../../../test/fixture";
 import { purify } from "../../../test/purify";
 
-describe("PATCH v1/tasks/${task1.uid}/quantities", function () {
+describe("PATCH /v1/tasks/{taskUid}/quantities", function () {
 
     const SNAPSHOT_FILE = path.join(__dirname, "../../../../../snapshots/", `task.snap`);
 
@@ -23,7 +23,7 @@ describe("PATCH v1/tasks/${task1.uid}/quantities", function () {
 
         expect(res.status).to.be.equal(200);
 
-        const preparedSnapshot = purify(res.body, []);
+        const preparedSnapshot = purify(res.body, ["createdAt"]);
         expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "patchMetricQuantity");
 
     });
