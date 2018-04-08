@@ -10,6 +10,10 @@ import { patchTask as patchTaskV1 } from "./controllers/task/patchTask";
 import { postTaskMetric as postTaskMetricV1 } from "./controllers/task/postTaskMetric";
 import { patchTaskMetric as patchTaskMetricV1 } from "./controllers/task/patchTaskMetrics";
 import { deleteTaskMetric as deleteTaskMetricV1 } from "./controllers/task/deleteTaskMetric";
+import { postTaskItem as postTaskItemV1 } from "./controllers/task/postTaskItem";
+import { patchTaskItem as patchTaskItemV1 } from "./controllers/task/patchTaskItem";
+import { deleteTaskItem as deleteTaskItemV1 } from "./controllers/task/deleteTaskItem";
+import { patchMetricQuantity as patchMetricQuantityV1 } from "./controllers/task/patchMetricQuantity";
 
 export const routes = (<any[]>[]).concat(
     registerV1,
@@ -23,5 +27,9 @@ export const routes = (<any[]>[]).concat(
     postTaskV1,
     postTaskMetricV1,
     patchTaskMetricV1,
-    deleteTaskMetricV1
+    deleteTaskMetricV1,
+    postTaskItemV1,
+    patchTaskItemV1,
+    deleteTaskItemV1,
+    patchMetricQuantityV1
 );

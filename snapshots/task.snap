@@ -8,6 +8,14 @@ Object {
 }
 `;
 
+exports[`deleteNonExistingTaskItem`] = `
+Object {
+  "error": "Not Found",
+  "message": "Not Found",
+  "statusCode": 404,
+}
+`;
+
 exports[`deleteNonExistingTaskMetric`] = `
 Object {
   "error": "Not Found",
@@ -27,6 +35,17 @@ Object {
   "metrics": Array [],
   "name": "Task1",
   "uid": "5db815b9-8e02-49bd-a42c-dd516b8468d9",
+}
+`;
+
+exports[`deleteTaskItem`] = `
+Object {
+  "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+  "desc": "Desc1",
+  "metricQuantities": Array [],
+  "name": "Item1",
+  "period": "__PLACEHOLDER_FOR_period__",
+  "uid": "5850d3f5-393e-4988-ac5b-316352abe6d8",
 }
 `;
 
@@ -194,7 +213,37 @@ Array [
 ]
 `;
 
+exports[`patchMetricQuantity`] = `
+Object {
+  "createdAt": "2018-04-08T09:55:06.030Z",
+  "metric": Object {
+    "createdAt": "2018-04-08T09:55:06.019Z",
+    "name": "Metric1",
+    "uid": "7801cee9-6627-4eea-a1cd-2383036c7039",
+    "unit": "Unit1",
+  },
+  "quantity": 40,
+  "uid": "6cc8aea1-ff01-4a35-be07-db57e76f0f3c",
+}
+`;
+
+exports[`patchNonExistingMetricQuantity`] = `
+Object {
+  "error": "Not Found",
+  "message": "Not Found",
+  "statusCode": 404,
+}
+`;
+
 exports[`patchNonExistingTask`] = `
+Object {
+  "error": "Not Found",
+  "message": "Not Found",
+  "statusCode": 404,
+}
+`;
+
+exports[`patchNonExistingTaskItem`] = `
 Object {
   "error": "Not Found",
   "message": "Not Found",
@@ -336,6 +385,142 @@ Object {
 }
 `;
 
+exports[`patchTaskItem`] = `
+Object {
+  "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+  "desc": "New Desc",
+  "metricQuantities": Array [
+    Object {
+      "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+      "metric": Object {
+        "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+        "name": "Metric1",
+        "uid": "__PLACEHOLDER_FOR_uid__",
+        "unit": "Unit1",
+      },
+      "quantity": 1,
+      "uid": "__PLACEHOLDER_FOR_uid__",
+    },
+    Object {
+      "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+      "metric": Object {
+        "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+        "name": "Metric2",
+        "uid": "__PLACEHOLDER_FOR_uid__",
+        "unit": "Unit2",
+      },
+      "quantity": 2,
+      "uid": "__PLACEHOLDER_FOR_uid__",
+    },
+  ],
+  "name": "New Name",
+  "period": "__PLACEHOLDER_FOR_period__",
+  "uid": "__PLACEHOLDER_FOR_uid__",
+}
+`;
+
+exports[`patchTaskItemName`] = `
+Object {
+  "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+  "desc": "Desc1",
+  "metricQuantities": Array [
+    Object {
+      "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+      "metric": Object {
+        "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+        "name": "Metric1",
+        "uid": "__PLACEHOLDER_FOR_uid__",
+        "unit": "Unit1",
+      },
+      "quantity": 1,
+      "uid": "__PLACEHOLDER_FOR_uid__",
+    },
+    Object {
+      "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+      "metric": Object {
+        "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+        "name": "Metric2",
+        "uid": "__PLACEHOLDER_FOR_uid__",
+        "unit": "Unit2",
+      },
+      "quantity": 2,
+      "uid": "__PLACEHOLDER_FOR_uid__",
+    },
+  ],
+  "name": "New Name",
+  "period": "__PLACEHOLDER_FOR_period__",
+  "uid": "__PLACEHOLDER_FOR_uid__",
+}
+`;
+
+exports[`patchTaskItemWithMetrics`] = `
+Object {
+  "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+  "desc": "Desc1",
+  "metricQuantities": Array [
+    Object {
+      "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+      "metric": Object {
+        "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+        "name": "Metric2",
+        "uid": "__PLACEHOLDER_FOR_uid__",
+        "unit": "Unit2",
+      },
+      "quantity": 2,
+      "uid": "__PLACEHOLDER_FOR_uid__",
+    },
+    Object {
+      "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+      "metric": Object {
+        "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+        "name": "Metric1",
+        "uid": "__PLACEHOLDER_FOR_uid__",
+        "unit": "Unit1",
+      },
+      "quantity": 3333,
+      "uid": "__PLACEHOLDER_FOR_uid__",
+    },
+  ],
+  "name": "New Name",
+  "period": "__PLACEHOLDER_FOR_period__",
+  "uid": "__PLACEHOLDER_FOR_uid__",
+}
+`;
+
+exports[`patchTaskItemWithNoNewValues`] = `
+Object {
+  "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+  "desc": "Desc1",
+  "metricQuantities": Array [
+    Object {
+      "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+      "metric": Object {
+        "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+        "name": "Metric1",
+        "uid": "__PLACEHOLDER_FOR_uid__",
+        "unit": "Unit1",
+      },
+      "quantity": 1,
+      "uid": "__PLACEHOLDER_FOR_uid__",
+    },
+    Object {
+      "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+      "metric": Object {
+        "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+        "name": "Metric2",
+        "uid": "__PLACEHOLDER_FOR_uid__",
+        "unit": "Unit2",
+      },
+      "quantity": 2,
+      "uid": "__PLACEHOLDER_FOR_uid__",
+    },
+  ],
+  "name": "Item1",
+  "period": "__PLACEHOLDER_FOR_period__",
+  "uid": "__PLACEHOLDER_FOR_uid__",
+}
+`;
+
 exports[`patchTaskMetric`] = `
 Object {
   "createdAt": "__PLACEHOLDER_FOR_createdAt__",
@@ -440,6 +625,107 @@ Object {
   "items": Array [],
   "metrics": Array [],
   "name": "Running",
+  "uid": "__PLACEHOLDER_FOR_uid__",
+}
+`;
+
+exports[`postTaskItem`] = `
+Object {
+  "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+  "desc": "Desc of the item",
+  "metricQuantities": Array [
+    Object {
+      "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+      "metric": Object {
+        "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+        "name": "Metric1",
+        "uid": "__PLACEHOLDER_FOR_uid__",
+        "unit": "Unit1",
+      },
+      "quantity": 30,
+      "uid": "__PLACEHOLDER_FOR_uid__",
+    },
+    Object {
+      "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+      "metric": Object {
+        "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+        "name": "Metric2",
+        "uid": "__PLACEHOLDER_FOR_uid__",
+        "unit": "Unit2",
+      },
+      "quantity": 24.5,
+      "uid": "__PLACEHOLDER_FOR_uid__",
+    },
+  ],
+  "name": "Name of the item",
+  "period": "__PLACEHOLDER_FOR_period__",
+  "uid": "__PLACEHOLDER_FOR_uid__",
+}
+`;
+
+exports[`postTaskItemWithEmptyMetricsArray`] = `
+Object {
+  "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+  "desc": "Desc of the item",
+  "metricQuantities": Array [],
+  "name": "Name of the item",
+  "period": null,
+  "uid": "__PLACEHOLDER_FOR_uid__",
+}
+`;
+
+exports[`postTaskItemWithNameAndDesc`] = `
+Object {
+  "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+  "desc": "Desc of the item",
+  "metricQuantities": Array [],
+  "name": "Name of the item",
+  "period": null,
+  "uid": "__PLACEHOLDER_FOR_uid__",
+}
+`;
+
+exports[`postTaskItemWithNameAndMetric`] = `
+Object {
+  "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+  "desc": null,
+  "metricQuantities": Array [
+    Object {
+      "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+      "metric": Object {
+        "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+        "name": "Metric1",
+        "uid": "__PLACEHOLDER_FOR_uid__",
+        "unit": "Unit1",
+      },
+      "quantity": 30,
+      "uid": "__PLACEHOLDER_FOR_uid__",
+    },
+    Object {
+      "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+      "metric": Object {
+        "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+        "name": "Metric2",
+        "uid": "__PLACEHOLDER_FOR_uid__",
+        "unit": "Unit2",
+      },
+      "quantity": 24.5,
+      "uid": "__PLACEHOLDER_FOR_uid__",
+    },
+  ],
+  "name": "Name of the item",
+  "period": null,
+  "uid": "__PLACEHOLDER_FOR_uid__",
+}
+`;
+
+exports[`postTaskItemWithNameAndPeriod`] = `
+Object {
+  "createdAt": "__PLACEHOLDER_FOR_createdAt__",
+  "desc": null,
+  "metricQuantities": Array [],
+  "name": "Name of the item",
+  "period": "__PLACEHOLDER_FOR_period__",
   "uid": "__PLACEHOLDER_FOR_uid__",
 }
 `;
