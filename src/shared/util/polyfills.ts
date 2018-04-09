@@ -25,4 +25,5 @@ fetch.Promise = bluebird;
 // make fetch available globally
 (global as any).fetch = require("node-fetch");
 
+// tslint:disable-next-line:no-console
 log.info(`Polyfills and utils installed. CLS=${clsNmespace.name}`);
