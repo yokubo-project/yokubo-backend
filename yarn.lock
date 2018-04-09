@@ -1122,7 +1122,7 @@ lodash.values@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/lodash.values/-/lodash.values-4.3.0.tgz#a3a6c2b0ebecc5c2cba1c17e6e620fe81b53d347"
 
-lodash@^4.17.0, lodash@^4.17.1, lodash@^4.17.5:
+lodash@^4.17.0, lodash@^4.17.1, lodash@^4.17.2, lodash@^4.17.5:
   version "4.17.5"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
 
@@ -1510,7 +1510,7 @@ regenerator-runtime@^0.11.0:
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
 
-request@^2.81.0:
+request@^2.79.0, request@^2.81.0:
   version "2.85.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.85.0.tgz#5a03615a47c61420b3eb99b7dba204f83603e1fa"
   dependencies:
@@ -1655,6 +1655,13 @@ source-map-support@^0.5.4:
 source-map@^0.6.0:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
+
+sparkpost@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/sparkpost/-/sparkpost-2.1.2.tgz#efeee98fa091598b4d6d72b32e487d7a86c7e95c"
+  dependencies:
+    lodash "^4.17.2"
+    request "^2.79.0"
 
 split@^1.0.0:
   version "1.0.1"

@@ -42,6 +42,12 @@ interface IImageUpload {
     maxUpload: number;
 }
 
+interface IMailing {
+    endpoint: string;
+    apiKey: string;
+    from: string;
+}
+
 class Config {
 
     static env: string = process.env.NODE_ENV || "test";
@@ -87,6 +93,13 @@ class Config {
         supportedExtensions: ["png", "jpg", "jpeg"],
         supportedMimeTypes: ["image/jpeg", "image/png"],
         maxUpload: 20 * 1024 * 1024
+    };
+
+    // Mailing
+    static mailing: IMailing = {
+        endpoint: "https://api.eu.sparkpost.com:443",
+        apiKey: process.env.MAIL_API_KEY || "",
+        from: process.env.MAIL_FROM || "mailing@localhost.com"
     };
 
 }
