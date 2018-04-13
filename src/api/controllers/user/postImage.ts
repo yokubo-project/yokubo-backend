@@ -27,7 +27,7 @@ export const postImage = [{
             scope: ["default_user"]
         },
         description: "Registers a user",
-        tags: ["api", "get", "v1", "auth", "register"],
+        tags: ["api", "post", "v1", "auth", "image"],
         payload: {
             maxBytes: Config.imageUpload.maxUpload,
             output: "stream",
@@ -51,7 +51,7 @@ async function postImageHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
     log.debug({ files }, "Extracted files");
 
     if (files.length === 0) {
-        throw Boom.badRequest(`Error: No files have been attached.`);
+        throw Boom.badRequest(`No files have been attached.`);
     }
 
     // Check mime type of each file
@@ -61,7 +61,7 @@ async function postImageHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
         const fileExtension = file.split(".")[file.split(".").length - 1];
         if (!_.includes(Config.imageUpload.supportedExtensions, fileExtension)) {
             fs.unlink(file);
-            throw Boom.badRequest("Error: Unsupported file extension found.");
+            throw Boom.badRequest("Unsupported file extension found.");
         }
 
         // Read in the first 4100 bytes of the file which usually contains mime-type information
@@ -70,12 +70,12 @@ async function postImageHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
 
         if (!filetype) {
             fs.unlink(file);
-            throw Boom.badRequest("Error: No mime-type found.");
+            throw Boom.badRequest("No mime-type found.");
         }
 
         if (!_.includes(Config.imageUpload.supportedMimeTypes, filetype.mime)) {
             fs.unlink(file);
-            throw Boom.badRequest("Error: Got unsupported mime-type.");
+            throw Boom.badRequest("Got unsupported mime-type.");
         }
 
         // File is ok
@@ -122,7 +122,7 @@ async function postImageHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
 
             });
 
-            throw Boom.badGateway("Error: Unable to process image upload");
+            throw Boom.badGateway("Unable to process image upload");
 
         }
 

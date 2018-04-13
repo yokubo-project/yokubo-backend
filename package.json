@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "./node_modules/.bin/tsc -p .",
+    "build": "rimraf ./dist && ./node_modules/.bin/tsc -p .",
     "start": "source ./env/env.sh && node ./dist/src/api/index.js | ./node_modules/.bin/bunyan",
     "test": "source ./env/test.sh && mocha ./dist/src/test/setup.js --exit --colors --timeout 60000 --recursive \"./dist/src/**/*.test.js\" | ./node_modules/.bin/bunyan",
     "test:update": "export CHAI_JEST_SNAPSHOT_UPDATE_ALL=true && yarn test",

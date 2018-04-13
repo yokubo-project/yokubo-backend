@@ -6,11 +6,11 @@ import chaiRequest from "../../../test/chaiRequest";
 
 describe("POST /v1/auth/register", () => {
 
-    const SNAPSHOT_FILE = path.join(__dirname, "../../../snapshots/", `register.snap`);
+    const SNAPSHOT_FILE = path.join(__dirname, "../../../../../snapshots/", `register.snap`);
 
     const registrationPayload = {
         username: "new-user@test.com",
-        password: "adsdhas9d8a39h9",
+        password: "mynewpwd42",
         name: "New User"
     };
 

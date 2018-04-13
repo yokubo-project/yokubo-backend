@@ -10,6 +10,7 @@ import { User } from "../../../shared/models/User";
 import { AppUserProfile } from "../../../shared/models/AppUserProfile";
 import { AccessToken } from "../../../shared/models/AccessToken";
 import { RefreshToken } from "../../../shared/models/RefreshToken";
+import { Token } from "./_schema";
 
 export const register = [{
     method: "POST",
@@ -18,7 +19,7 @@ export const register = [{
     config: {
         auth: false,
         description: "Registers a user",
-        tags: ["api", "get", "v1", "auth", "register"],
+        tags: ["api", "post", "v1", "auth", "register"],
         validate: {
             options: {
                 abortEarly: false
@@ -31,12 +32,7 @@ export const register = [{
             })
         },
         response: {
-            schema: Joi.object().required().keys({
-                tokenType: Joi.string().required(),
-                refreshToken: Joi.string().guid().length(36).required(),
-                accessToken: Joi.string().guid().length(36).required(),
-                expiresIn: Joi.number().required()
-            })
+            schema: Token
         },
     }
 }];

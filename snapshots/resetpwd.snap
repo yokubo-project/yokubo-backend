@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`resetpwd`] = `
+Object {
+  "accessToken": "__PLACEHOLDER_FOR_accessToken__",
+  "expiresIn": 86400000,
+  "refreshToken": "__PLACEHOLDER_FOR_refreshToken__",
+  "tokenType": "Bearer",
+}
+`;
+
+exports[`resetpwdNotMatchingError`] = `
+Object {
+  "error": "Bad Request",
+  "message": "Current Pwd does not match",
+  "statusCode": 400,
+}
+`;
+
+exports[`resetpwdWeakError`] = `
+Object {
+  "error": "Bad Request",
+  "message": "Password is to weak",
+  "statusCode": 400,
+}
+`;

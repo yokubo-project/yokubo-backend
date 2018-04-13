@@ -3,7 +3,6 @@ import * as Joi from "joi";
 import * as Boom from "boom";
 import * as _ from "lodash";
 
-// import { User } from "../../../shared/models/User";
 import { Task } from "../../../shared/models/Task";
 import { FullTaskSchema } from "./_schema";
 
@@ -36,7 +35,6 @@ async function patchTaskHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
 
     const { imageUid, ...restPayload } = request.payload as any;
 
-    // const user: User = (request.auth.credentials as any).user;
     const task = await Task.find({
         where: {
             uid: request.params.taskUid,

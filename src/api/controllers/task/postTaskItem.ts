@@ -54,7 +54,7 @@ async function postTaskItemHandler(request: Hapi.Request, reply: Hapi.ResponseTo
         const [fromAt, toAt] = period;
 
         if (moment(fromAt).isAfter(toAt) === true) {
-            throw Boom.badRequest("Error: Payload contains invalid period (fromAt is not after toAt)");
+            throw Boom.badRequest("Payload contains invalid period (fromAt is not after toAt)");
         }
     }
 

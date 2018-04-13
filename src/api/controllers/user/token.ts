@@ -2,12 +2,13 @@ import * as Boom from "boom";
 import * as Hapi from "hapi";
 import * as Joi from "joi";
 import * as moment from "moment";
-import * as _ from "lodash";
 
 import Config from "../../../shared/Config";
 import { User } from "../../../shared/models/User";
 import { AccessToken } from "../../../shared/models/AccessToken";
 import { RefreshToken } from "../../../shared/models/RefreshToken";
+import { Token } from "./_schema";
+import { preventTimingAttack } from "../../../shared/util/helpers";
 
 export const token = [{
     method: "POST",
@@ -16,7 +17,7 @@ export const token = [{
     config: {
         auth: false,
         description: "Get an access token",
-        tags: ["api", "get", "v1", "auth", "token"],
+        tags: ["api", "post", "v1", "auth", "token"],
         validate: {
             options: {
                 abortEarly: false
@@ -26,12 +27,7 @@ export const token = [{
             })
         },
         response: {
-            schema: Joi.object().required().keys({
-                tokenType: Joi.string().required(),
-                refreshToken: Joi.string().required(),
-                accessToken: Joi.string().required(),
-                expiresIn: Joi.number().required()
-            })
+            schema: Token
         },
     }
 }];
@@ -123,10 +119,6 @@ async function tokenHandler(request: Hapi.Request, reply: Hapi.ResponseToolkit):
         expiresIn: Config.auth.tokenExpiresIn
     };
 
-}
-
-async function preventTimingAttack(): Promise<any> {
-    return await Promise.delay(_.random(50, 300));
 }
 
 function validateSchema(payload: Object, schema: Joi.JoiObject) {
