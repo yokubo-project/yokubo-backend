@@ -1,11 +1,10 @@
-import log from "./log";
 import Config from "../Config";
 
 const SparkPost = require("sparkpost");
 
 const options = {
     endpoint: Config.mailing.endpoint
-  };
+};
 const client = new SparkPost(Config.mailing.apiKey, options);
 
 export interface Recipient {
@@ -16,7 +15,7 @@ export async function sendMail(subject: string, html: string, recipients: Recipi
 
     try {
 
-        const res = await client.transmissions.send({
+        return client.transmissions.send({
             options: {
                 sandbox: false
             },
@@ -28,12 +27,10 @@ export async function sendMail(subject: string, html: string, recipients: Recipi
             recipients
         });
 
-        return(res);
-
     } catch (err) {
 
-        log.error(`Error: Unable to send mail. Reason: ${err.toString()}`);
-        throw err;
+        // No logging of possible error as logger could try to send mail which may again produce error and so on
+        // TODO: USe different channel to inform mailing is not possible
 
     }
 

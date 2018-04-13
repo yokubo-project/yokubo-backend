@@ -21,7 +21,11 @@ interface ILogging {
     name: string;
     fileSeverity: string;
     filePath: string;
+    fileRoatationPeriod: string;
+    fileCount: number;
     consoleSeverity: string;
+    mailSeverity: string;
+    mailReceiver: string;
 }
 
 interface IAuth {
@@ -71,7 +75,11 @@ class Config {
         name: packageJson.name,
         fileSeverity: process.env.FILE_SEVERITY || "error",
         filePath: process.env.FILE_PATH || `./${packageJson.name}.log`,
-        consoleSeverity: process.env.CONSOLE_SEVERITY || "info"
+        fileRoatationPeriod: "1d",
+        fileCount: 14,
+        consoleSeverity: process.env.CONSOLE_SEVERITY || "info",
+        mailSeverity: process.env.MAIL_SEVERITY || "fatal",
+        mailReceiver: process.env.MAIL_RECEIVER || "mail@localhost.org"
     };
 
     // Auth
