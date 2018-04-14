@@ -43,7 +43,7 @@ async function resetPwdHandler(request: Hapi.Request, reply: Hapi.ResponseToolki
 
     // Error out if current pwd does not match
     if (!await User.comparePassword(currentPwd, user.password)) {
-        await preventTimingAttack(); // Prevent timing attacks
+        await preventTimingAttack();
         throw Boom.badRequest("Current Pwd does not match");
     }
 

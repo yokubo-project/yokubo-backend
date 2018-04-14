@@ -1,6 +1,7 @@
 import * as moment from "moment";
 
 const nextYear = moment().add(1, "years").toDate();
+const oneYearAgo = moment().subtract(1, "years").toDate();
 
 ////////////////////////////
 //        Users           //
@@ -53,6 +54,21 @@ export const refreshToken2 = {
     token: "e75078ea-7b34-4a4e-815c-e2f809d55caa",
 };
 
+////////////////////////////
+//    Pwd Reset Tokens    //
+////////////////////////////
+
+export const pwdResetToken1 = {
+    UserUid: user1.uid,
+    token: "d1f8d847-f428-4417-a9c3-5bdba16733ca",
+    validUntil: oneYearAgo // expired token
+};
+
+export const pwdResetToken2 = {
+    UserUid: user2.uid,
+    token: "0d6d3ef1-3411-4546-aa54-ca0eb28a8d62",
+    validUntil: nextYear
+};
 
 ////////////////////////////
 //          Images        //
@@ -173,6 +189,8 @@ const fixture = {
     AccessToken: [accessToken1, accessToken2],
 
     RefreshToken: [refreshToken1, refreshToken2],
+
+    PwdResetToken: [pwdResetToken1, pwdResetToken2],
 
     Image: [image1, image2],
 

@@ -56,13 +56,13 @@ async function tokenHandler(request: Hapi.Request, reply: Hapi.ResponseToolkit):
 
             // Error out if user does not exist
             if (!user) {
-                await preventTimingAttack(); // Prevent timing attacks
+                await preventTimingAttack();
                 throw Boom.badRequest("Invalid login");
             }
 
             // Error out if password is wrong
             if (!await User.comparePassword(password, user.password)) {
-                await preventTimingAttack(); // Prevent timing attacks
+                await preventTimingAttack();
                 throw Boom.badRequest("Invalid login");
             }
 
@@ -86,7 +86,7 @@ async function tokenHandler(request: Hapi.Request, reply: Hapi.ResponseToolkit):
 
             // Error out if refresh token does not exist
             if (!tokenInstance) {
-                await preventTimingAttack(); // Prevent timing attacks
+                await preventTimingAttack();
                 throw Boom.badRequest("Invalid login");
             }
 

@@ -52,6 +52,10 @@ interface IMailing {
     from: string;
 }
 
+interface IStaticWebpages {
+    forgotPwdLink: string;
+}
+
 class Config {
 
     static env: string = process.env.NODE_ENV || "test";
@@ -86,7 +90,7 @@ class Config {
     static auth: IAuth = {
         zxcvbnScore: 2,
         bcryptSaltRounds: 10,
-        tokenExpiresIn: 86400000 // 24 hours
+        tokenExpiresIn: 86400000, // 24 hours
     };
 
     // Assets
@@ -108,6 +112,11 @@ class Config {
         endpoint: "https://api.eu.sparkpost.com:443",
         apiKey: process.env.MAIL_API_KEY || "",
         from: process.env.MAIL_FROM || "mailing@localhost.com"
+    };
+
+    // Static pages
+    static pages: IStaticWebpages = {
+        forgotPwdLink: `${process.env.STATIC_WEBPAGES_URL_HOST}/html/reset-password`
     };
 
 }

@@ -4,6 +4,7 @@ import Config from "../Config";
 import { AccessToken } from "./AccessToken";
 import { RefreshToken } from "./RefreshToken";
 import { Task } from "./Task";
+import { PwdResetToken } from "./PwdResetToken";
 
 @Table({
     tableName: "Users",
@@ -71,6 +72,9 @@ export class User extends Model<User> {
 
     @HasMany(() => RefreshToken)
     RefreshTokens: RefreshToken[];
+
+    @HasMany(() => PwdResetToken)
+    PwdResetTokens: PwdResetToken[];
 
     @HasMany(() => Task)
     Tasks: Task[];
