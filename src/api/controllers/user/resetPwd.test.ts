@@ -3,16 +3,16 @@ import * as path from "path";
 
 import { purify } from "../../../test/purify";
 import chaiRequest from "../../../test/chaiRequest";
-import { accessToken1 } from "../../../test/fixture";
+import { accessToken1, user1Pwd } from "../../../test/fixture";
 
 describe("POST /v1/auth/resetpwd", () => {
 
-    const SNAPSHOT_FILE = path.join(__dirname, "../../../../../snapshots/", `resetpwd.snap`);
+    const SNAPSHOT_FILE = path.join(__dirname, "../../../../../snapshots/", `user.snap`);
 
     it("should reset pwd", async () => {
 
         const response = await chaiRequest("POST", "/v1/auth/resetpwd", accessToken1.token).send({
-            currentPwd: "mynewpwd42",
+            currentPwd: user1Pwd,
             newPwd: "What3ver!1!$"
         });
 
@@ -40,7 +40,7 @@ describe("POST /v1/auth/resetpwd", () => {
     it("should fail as new pwd is to weak", async () => {
 
         const response = await chaiRequest("POST", "/v1/auth/resetpwd", accessToken1.token).send({
-            currentPwd: "mynewpwd42",
+            currentPwd: user1Pwd,
             newPwd: "weak"
         });
 

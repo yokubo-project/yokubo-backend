@@ -11,13 +11,14 @@ export const user1 = {
     username: "user1@test.com",
     password: "$2a$10$it67eRCyDYm9NY6DZ0aoee7OA/jbBRSSCgEqSOKm1pHKdKrlgBEzu", // mynewpwd42
 };
+export const user1Pwd = "mynewpwd42";
 
 export const user2 = {
     uid: "368d83d6-d367-4dc4-a6a2-a6cc167604f4",
     username: "user2@test.com",
     password: "$2a$10$it67eRCyDYm9NY6DZ0aoee7OA/jbBRSSCgEqSOKm1pHKdKrlgBEzu", // mynewpwd42
 };
-
+export const user2Pwd = "mynewpwd42";
 
 ////////////////////////////
 //    App User Profiles   //

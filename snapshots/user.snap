@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`failRegistrationPwdToWeak`] = `
+Object {
+  "error": "Bad Request",
+  "message": "Password is to weak",
+  "statusCode": 400,
+}
+`;
+
+exports[`failRegistrationWithExistingUser`] = `
+Object {
+  "error": "Bad Request",
+  "message": "User already exists",
+  "statusCode": 400,
+}
+`;
+
+exports[`failToGetTokenViaRefreshToken`] = `
+Object {
+  "error": "Bad Request",
+  "message": "Invalid login",
+  "statusCode": 400,
+}
+`;
+
+exports[`failToGetTokenWithNonExistingUser`] = `
+Object {
+  "error": "Bad Request",
+  "message": "Invalid login",
+  "statusCode": 400,
+}
+`;
+
+exports[`failToGetTokenWithWrongPwd`] = `
+Object {
+  "error": "Bad Request",
+  "message": "Invalid login",
+  "statusCode": 400,
+}
+`;
+
+exports[`getTokenViaPwd`] = `
+Object {
+  "accessToken": "__PLACEHOLDER_FOR_accessToken__",
+  "expiresIn": 86400000,
+  "refreshToken": "__PLACEHOLDER_FOR_refreshToken__",
+  "tokenType": "Bearer",
+}
+`;
+
+exports[`getTokenViaRefreshToken`] = `
+Object {
+  "accessToken": "__PLACEHOLDER_FOR_accessToken__",
+  "expiresIn": 86400000,
+  "refreshToken": "__PLACEHOLDER_FOR_refreshToken__",
+  "tokenType": "Bearer",
+}
+`;
+
+exports[`registration`] = `
+Object {
+  "accessToken": "__PLACEHOLDER_FOR_accessToken__",
+  "expiresIn": 86400000,
+  "refreshToken": "__PLACEHOLDER_FOR_refreshToken__",
+  "tokenType": "Bearer",
+}
+`;
+
+exports[`resetpwd`] = `
+Object {
+  "accessToken": "__PLACEHOLDER_FOR_accessToken__",
+  "expiresIn": 86400000,
+  "refreshToken": "__PLACEHOLDER_FOR_refreshToken__",
+  "tokenType": "Bearer",
+}
+`;
+
+exports[`resetpwdNotMatchingError`] = `
+Object {
+  "error": "Bad Request",
+  "message": "Current Pwd does not match",
+  "statusCode": 400,
+}
+`;
+
+exports[`resetpwdWeakError`] = `
+Object {
+  "error": "Bad Request",
+  "message": "Password is to weak",
+  "statusCode": 400,
+}
+`;
