@@ -32,12 +32,10 @@ describe("POST /v1/auth/register", () => {
             password: "somethingNew42!!",
             name: "New User"
         };
-
         const response = await chaiRequest("POST", "/v1/auth/register").send(registrationPayload);
-        expect(response.status).to.be.equal(400);
 
-        const preparedSnapshot = purify(response.body, ["refreshToken", "accessToken"]);
-        expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "failRegistrationWithExistingUser");
+        expect(response.status).to.be.equal(400);
+        expect(response.body).to.matchSnapshot(SNAPSHOT_FILE, "failRegistrationWithExistingUser");
 
     });
 
@@ -48,12 +46,24 @@ describe("POST /v1/auth/register", () => {
             password: "weak",
             name: "New User"
         };
-
         const response = await chaiRequest("POST", "/v1/auth/register").send(registrationPayload);
-        expect(response.status).to.be.equal(400);
 
-        const preparedSnapshot = purify(response.body, ["refreshToken", "accessToken"]);
-        expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "failRegistrationPwdToWeak");
+        expect(response.status).to.be.equal(400);
+        expect(response.body).to.matchSnapshot(SNAPSHOT_FILE, "failRegistrationPwdToWeak");
+
+    });
+
+    it("should fail registering new user with invalid email", async () => {
+
+        const registrationPayload = {
+            username: "not an email",
+            password: "weak",
+            name: "New User"
+        };
+        const response = await chaiRequest("POST", "/v1/auth/register").send(registrationPayload);
+
+        expect(response.status).to.be.equal(400);
+        expect(response.body).to.matchSnapshot(SNAPSHOT_FILE, "failRegistrationWithNonValidEmail");
 
     });
 

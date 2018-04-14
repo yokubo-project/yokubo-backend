@@ -17,6 +17,14 @@ module.exports = {
                     notEmpty: true
                 }
             },
+            name: {
+                type: DataType.STRING,
+                allowNull: false,
+                unique: false,
+                validate: {
+                    notEmpty: true
+                }
+            },            
             password: {
                 type: DataType.STRING(2048),
                 allowNull: false,

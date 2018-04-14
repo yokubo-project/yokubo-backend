@@ -103,4 +103,3 @@ export class Task extends Model<Task> {
     }
 
 }
-

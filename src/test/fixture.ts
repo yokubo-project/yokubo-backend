@@ -10,6 +10,7 @@ export const user1 = {
     uid: "12ab55e3-1418-418b-abbf-35d8cc68d477",
     username: "user1@test.com",
     password: "$2a$10$it67eRCyDYm9NY6DZ0aoee7OA/jbBRSSCgEqSOKm1pHKdKrlgBEzu", // mynewpwd42
+    name: "User 1"
 };
 export const user1Pwd = "mynewpwd42";
 
@@ -17,23 +18,9 @@ export const user2 = {
     uid: "368d83d6-d367-4dc4-a6a2-a6cc167604f4",
     username: "user2@test.com",
     password: "$2a$10$it67eRCyDYm9NY6DZ0aoee7OA/jbBRSSCgEqSOKm1pHKdKrlgBEzu", // mynewpwd42
-};
-export const user2Pwd = "mynewpwd42";
-
-////////////////////////////
-//    App User Profiles   //
-////////////////////////////
-
-export const appUserProfile1 = {
-    UserUid: user1.uid,
-    name: "User 1"
-};
-
-export const appUserProfile2 = {
-    UserUid: user2.uid,
     name: "User 2"
 };
-
+export const user2Pwd = "mynewpwd42";
 
 ////////////////////////////
 //      Access Tokens     //
@@ -182,8 +169,6 @@ export const metricQuantity2 = {
 const fixture = {
 
     User: [user1, user2],
-
-    AppUserProfile: [appUserProfile1, appUserProfile2],
 
     AccessToken: [accessToken1, accessToken2],
 

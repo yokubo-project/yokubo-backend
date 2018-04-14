@@ -1,7 +1,6 @@
-import { Table, Column, Model, DataType, HasOne, HasMany } from "sequelize-typescript";
+import { Table, Column, Model, DataType, HasMany } from "sequelize-typescript";
 import * as bcrypt from "bcrypt";
 import Config from "../Config";
-import { AppUserProfile } from "./AppUserProfile";
 import { AccessToken } from "./AccessToken";
 import { RefreshToken } from "./RefreshToken";
 import { Task } from "./Task";
@@ -29,6 +28,12 @@ export class User extends Model<User> {
         }
     })
     public username: string;
+
+    @Column({
+        type: DataType.STRING,
+        allowNull: false
+    })
+    public name: string;
 
     @Column({
         type: DataType.STRING,
@@ -61,9 +66,6 @@ export class User extends Model<User> {
     })
     public deletedAt: Date;
 
-    @HasOne(() => AppUserProfile)
-    AppUserProfile: AppUserProfile;
-
     @HasMany(() => AccessToken)
     AccessTokens: AccessToken[];
 
@@ -87,10 +89,19 @@ export class User extends Model<User> {
 
         return bcrypt.compare(password, hash);
 
-    }    
+    }
 
     ////////////////////////////
     // Model instance methods //
     ////////////////////////////
+
+    public publicJsonObject() {
+        const { uid, username, name } = this;
+        return {
+            uid,
+            username,
+            name
+        };
+    }
 
 }

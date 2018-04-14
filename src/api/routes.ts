@@ -15,6 +15,7 @@ import { patchTaskItem } from "./controllers/task/patchTaskItem";
 import { deleteTaskItem } from "./controllers/task/deleteTaskItem";
 import { patchMetricQuantity } from "./controllers/task/patchMetricQuantity";
 import { resetPwd } from "./controllers/user/resetPwd";
+import { patchUser } from "./controllers/user/patchUser";
 
 export const routes = (<any[]>[]).concat(
     register,
@@ -33,5 +34,6 @@ export const routes = (<any[]>[]).concat(
     patchTaskItem,
     deleteTaskItem,
     patchMetricQuantity,
-    resetPwd
+    resetPwd,
+    patchUser
 );

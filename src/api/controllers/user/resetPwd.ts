@@ -8,7 +8,7 @@ import Config from "../../../shared/Config";
 import { User } from "../../../shared/models/User";
 import { AccessToken } from "../../../shared/models/AccessToken";
 import { RefreshToken } from "../../../shared/models/RefreshToken";
-import { Token } from "./_schema";
+import { TokenSchema } from "./_schema";
 import { preventTimingAttack } from "../../../shared/util/helpers";
 
 export const resetPwd = [{
@@ -31,7 +31,7 @@ export const resetPwd = [{
             })
         },
         response: {
-            schema: Token
+            schema: TokenSchema
         },
     }
 }];
@@ -57,7 +57,7 @@ async function resetPwdHandler(request: Hapi.Request, reply: Hapi.ResponseToolki
     }
 
     // Save new password
-    user.update({
+    await user.update({
         password: await User.hashPassword(newPwd)
     });
 

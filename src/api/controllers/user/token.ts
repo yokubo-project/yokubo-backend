@@ -7,7 +7,7 @@ import Config from "../../../shared/Config";
 import { User } from "../../../shared/models/User";
 import { AccessToken } from "../../../shared/models/AccessToken";
 import { RefreshToken } from "../../../shared/models/RefreshToken";
-import { Token } from "./_schema";
+import { TokenSchema } from "./_schema";
 import { preventTimingAttack } from "../../../shared/util/helpers";
 
 export const token = [{
@@ -27,7 +27,7 @@ export const token = [{
             })
         },
         response: {
-            schema: Token
+            schema: TokenSchema
         },
     }
 }];

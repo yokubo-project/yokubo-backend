@@ -7,10 +7,9 @@ import * as moment from "moment";
 import Config from "../../../shared/Config";
 import sequelize, { Transaction } from "../../../shared/util/sequelize";
 import { User } from "../../../shared/models/User";
-import { AppUserProfile } from "../../../shared/models/AppUserProfile";
 import { AccessToken } from "../../../shared/models/AccessToken";
 import { RefreshToken } from "../../../shared/models/RefreshToken";
-import { Token } from "./_schema";
+import { TokenSchema } from "./_schema";
 
 export const register = [{
     method: "POST",
@@ -25,14 +24,14 @@ export const register = [{
                 abortEarly: false
             },
             payload: Joi.object().required().keys({
-                username: Joi.string().required(),
+                username: Joi.string().trim().email().required(),
                 password: Joi.string().required(),
                 name: Joi.string().required(),
                 imageUid: Joi.string().guid().length(36).optional().allow(null).description("uid of user profile image"),
             })
         },
         response: {
-            schema: Token
+            schema: TokenSchema
         },
     }
 }];
@@ -61,12 +60,12 @@ async function registerHandler(request: Hapi.Request, reply: Hapi.ResponseToolki
         // Create user
         const user = await User.create({
             username,
-            password: await User.hashPassword(password)
+            password: await User.hashPassword(password),
+            name,
         });
 
         // Create app user profile and tokens
-        const [, refreshToken, accessToken] = await Promise.all([
-            await user.$create("AppUserProfile", { name }) as AppUserProfile,
+        const [refreshToken, accessToken] = await Promise.all([
             await user.$create("RefreshToken", {}) as RefreshToken,
             await user.$create("AccessToken", {
                 validUntil: moment().add(Config.auth.tokenExpiresIn, "milliseconds").toDate()

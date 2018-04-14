@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`failPatchingUserWithNonValidEmail`] = `
+Object {
+  "error": "Bad Request",
+  "message": "Invalid request payload input",
+  "statusCode": 400,
+}
+`;
+
 exports[`failRegistrationPwdToWeak`] = `
 Object {
   "error": "Bad Request",
@@ -12,6 +20,14 @@ exports[`failRegistrationWithExistingUser`] = `
 Object {
   "error": "Bad Request",
   "message": "User already exists",
+  "statusCode": 400,
+}
+`;
+
+exports[`failRegistrationWithNonValidEmail`] = `
+Object {
+  "error": "Bad Request",
+  "message": "Invalid request payload input",
   "statusCode": 400,
 }
 `;
@@ -55,6 +71,30 @@ Object {
   "expiresIn": 86400000,
   "refreshToken": "__PLACEHOLDER_FOR_refreshToken__",
   "tokenType": "Bearer",
+}
+`;
+
+exports[`patchName`] = `
+Object {
+  "name": "John Doe",
+  "uid": "12ab55e3-1418-418b-abbf-35d8cc68d477",
+  "username": "user1@test.com",
+}
+`;
+
+exports[`patchNameAndUsername`] = `
+Object {
+  "name": "John Doe",
+  "uid": "12ab55e3-1418-418b-abbf-35d8cc68d477",
+  "username": "john@doe.com",
+}
+`;
+
+exports[`patchUsername`] = `
+Object {
+  "name": "User 1",
+  "uid": "12ab55e3-1418-418b-abbf-35d8cc68d477",
+  "username": "john@doe.com",
 }
 `;
 
