@@ -2,7 +2,7 @@ import { expect } from "chai";
 import * as path from "path";
 
 import chaiRequest from "../../../test/chaiRequest";
-import { user1, user2, pwdResetToken2 } from "../../../test/fixture";
+import { user1, user2 } from "../../../test/fixture";
 import { PwdResetToken } from "../../../shared/models/PwdResetToken";
 import { purify } from "../../../test/purify";
 

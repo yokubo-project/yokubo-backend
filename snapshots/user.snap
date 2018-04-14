@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`deleteUser`] = `
+Object {
+  "name": "User 1",
+  "uid": "12ab55e3-1418-418b-abbf-35d8cc68d477",
+  "username": "user1@test.com",
+}
+`;
+
 exports[`failGettingPwdTokenAsUserDoesNotExist`] = `
 Object {
   "error": "Internal Server Error",
@@ -36,6 +44,14 @@ exports[`failRegistrationWithNonValidEmail`] = `
 Object {
   "error": "Bad Request",
   "message": "Invalid request payload input",
+  "statusCode": 400,
+}
+`;
+
+exports[`failToDeleteUserWithWrongPwd`] = `
+Object {
+  "error": "Bad Request",
+  "message": "Current password does not match",
   "statusCode": 400,
 }
 `;
@@ -139,7 +155,7 @@ Object {
 exports[`resetpwdNotMatchingError`] = `
 Object {
   "error": "Bad Request",
-  "message": "Current Pwd does not match",
+  "message": "Current password does not match",
   "statusCode": 400,
 }
 `;
@@ -149,5 +165,38 @@ Object {
   "error": "Bad Request",
   "message": "Password is to weak",
   "statusCode": 400,
+}
+`;
+
+exports[`setForgottenPwd`] = `
+Object {
+  "accessToken": "__PLACEHOLDER_FOR_accessToken__",
+  "expiresIn": 86400000,
+  "refreshToken": "__PLACEHOLDER_FOR_refreshToken__",
+  "tokenType": "Bearer",
+}
+`;
+
+exports[`setForgottenPwdErrorInvalidToken`] = `
+Object {
+  "error": "Not Found",
+  "message": "Not Found",
+  "statusCode": 404,
+}
+`;
+
+exports[`setForgottenPwdErrorTooWeak`] = `
+Object {
+  "error": "Bad Request",
+  "message": "Password is to weak",
+  "statusCode": 400,
+}
+`;
+
+exports[`setForgottenPwdErrorUserNotFound`] = `
+Object {
+  "error": "Not Found",
+  "message": "Not Found",
+  "statusCode": 404,
 }
 `;

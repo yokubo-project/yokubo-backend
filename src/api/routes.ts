@@ -17,6 +17,8 @@ import { patchMetricQuantity } from "./controllers/task/patchMetricQuantity";
 import { resetPwd } from "./controllers/user/resetPwd";
 import { patchUser } from "./controllers/user/patchUser";
 import { forgotPwd } from "./controllers/user/forgotPwd";
+import { deleteUser } from "./controllers/user/deleteUser";
+import { setForgottenPwd } from "./controllers/user/setForgottenPwd";
 
 export const routes = (<any[]>[]).concat(
     register,
@@ -37,5 +39,7 @@ export const routes = (<any[]>[]).concat(
     patchMetricQuantity,
     resetPwd,
     patchUser,
-    forgotPwd
+    forgotPwd,
+    deleteUser,
+    setForgottenPwd
 );
