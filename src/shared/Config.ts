@@ -56,6 +56,11 @@ interface IStaticWebpages {
     forgotPwdLink: string;
 }
 
+interface ITest {
+    user1Email: string;
+    user2Email: string;
+}
+
 class Config {
 
     static env: string = process.env.NODE_ENV || "test";
@@ -117,6 +122,12 @@ class Config {
     // Static pages
     static pages: IStaticWebpages = {
         forgotPwdLink: `${process.env.STATIC_WEBPAGES_URL_HOST}/html/reset-password`
+    };
+
+    // Test Config
+    static test: ITest = {
+        user1Email: process.env.TESTUSER_1_EMAIL || "user1@test.com",
+        user2Email: process.env.TESTUSER_2_EMAIL || "user2@test.com"
     };
 
 }

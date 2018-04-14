@@ -12,3 +12,6 @@ logs/
 
 # Env
 env/
+
+# Snapshots
+snapshots/
