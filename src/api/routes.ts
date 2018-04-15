@@ -19,6 +19,7 @@ import { patchUser } from "./controllers/user/patchUser";
 import { forgotPwd } from "./controllers/user/forgotPwd";
 import { deleteUser } from "./controllers/user/deleteUser";
 import { setForgottenPwd } from "./controllers/user/setForgottenPwd";
+import { getUser } from "./controllers/user/getUser";
 
 export const routes = (<any[]>[]).concat(
     register,
@@ -41,5 +42,6 @@ export const routes = (<any[]>[]).concat(
     patchUser,
     forgotPwd,
     deleteUser,
-    setForgottenPwd
+    setForgottenPwd,
+    getUser
 );

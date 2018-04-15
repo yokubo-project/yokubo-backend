@@ -7,4 +7,5 @@
 * setup netdata
 * add deployment script to dev and prod server
 * add email account
+* add pwd reset page
 * release v1 :P

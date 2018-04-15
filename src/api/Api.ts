@@ -62,7 +62,7 @@ class Api {
                 });
 
                 if (!accessToken) {
-                    return { isValid: false, token, artifacts: {} };
+                    return { isValid: false, credentials: { accessToken }, artifacts: {} };
                 }
 
                 const credentials = {
@@ -138,11 +138,13 @@ class Api {
 }
 
 // Log uncaughtExceptions and exit service as we don't know in which state service is
-if (Config.env !== "test") {
-    process.on("uncaughtException", function (err) {
-        log.fatal(err, "Got uncaught exception");
-        process.exit(1);
-    });
-}
+process.on("uncaughtException", function (err) {
+    log.fatal(err, "Got uncaught exception");
+    process.exit(1);
+});
+process.on("unhandledRejection", function (err) {
+    log.fatal(err, "Got uncaught exception");
+});
+
 
 export default Api;
