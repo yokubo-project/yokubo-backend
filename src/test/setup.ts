@@ -19,14 +19,14 @@ let api: Api;
 
 before(async function () {
 
+    log.debug("Loading sequelize models");
+    await sequelize.addModels([__dirname + "/../shared/models"]);
+
     log.debug("Dropping all tables");
     await dropTables();
 
     log.debug("Migrating");
     await migrateUp(true);
-
-    log.debug("Loading sequelize models");
-    await sequelize.addModels([__dirname + "/../shared/models"]);
 
     log.debug("Importing fixture");
     await bulkImport(fixture);

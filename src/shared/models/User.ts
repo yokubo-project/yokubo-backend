@@ -47,6 +47,16 @@ export class User extends Model<User> {
     public password: string;
 
     @Column({
+        type: DataType.BOOLEAN,
+        allowNull: false,
+        validate: {
+            notEmpty: true
+        },
+        defaultValue: false
+    })
+    public isAdmin: boolean;
+
+    @Column({
         type: DataType.DATE,
         allowNull: false,
         defaultValue: DataType.NOW

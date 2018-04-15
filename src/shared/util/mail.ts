@@ -22,7 +22,7 @@ interface MailResult {
 export async function sendMail(subject: string, html: string, recipients: Recipient[]): Promise<MailResult> {
 
     // Return stub if we are in test env and sending of mails is not set
-    if (Config.env === "test" && !process.env.SEND_TEST_MAILS) {
+    if (Config.env === "test" && !Config.test.sendMails) {
 
         return Promise.resolve({
             results: {

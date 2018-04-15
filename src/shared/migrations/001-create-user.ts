@@ -24,7 +24,7 @@ module.exports = {
                 validate: {
                     notEmpty: true
                 }
-            },            
+            },
             password: {
                 type: DataType.STRING(2048),
                 allowNull: false,
@@ -32,6 +32,11 @@ module.exports = {
                 validate: {
                     notEmpty: true
                 }
+            },
+            isAdmin: {
+                type: DataType.BOOLEAN,
+                allowNull: false,
+                defaultValue: false
             },
             createdAt: {
                 type: DataType.DATE,

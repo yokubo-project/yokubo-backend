@@ -57,8 +57,15 @@ interface IStaticWebpages {
 }
 
 interface ITest {
+    sendMails: boolean;
     user1Email: string;
     user2Email: string;
+}
+
+interface IAdmin {
+    username: string;
+    password: string;
+    name: string;
 }
 
 class Config {
@@ -88,7 +95,7 @@ class Config {
         fileCount: 14,
         consoleSeverity: process.env.CONSOLE_SEVERITY || "info",
         mailSeverity: process.env.MAIL_SEVERITY || "fatal",
-        mailReceiver: process.env.MAIL_RECEIVER || "mail@localhost.org"
+        mailReceiver: process.env.MAIL_RECEIVER || "mail@localhost.com"
     };
 
     // Auth
@@ -124,10 +131,18 @@ class Config {
         forgotPwdLink: `${process.env.STATIC_WEBPAGES_URL_HOST}/html/reset-password`
     };
 
-    // Test Config
+    // Test
     static test: ITest = {
+        sendMails: process.env.SEND_TEST_MAILS === "true" || false,
         user1Email: process.env.TESTUSER_1_EMAIL || "user1@test.com",
         user2Email: process.env.TESTUSER_2_EMAIL || "user2@test.com"
+    };
+
+    // Admin user
+    static admin: IAdmin = {
+        username: process.env.ADMIN_USERNAME || "admin",
+        password: process.env.ADMIN_PWD || "password",
+        name: process.env.ADMIN_NAME || "Administrator"
     };
 
 }

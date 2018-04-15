@@ -8,6 +8,9 @@ import log from "../shared/util/log";
 
 import { AccessToken } from "../shared/models/AccessToken";
 import { User } from "../shared/models/User";
+import { preventTimingAttack } from "../shared/util/helpers";
+
+const packageJson = require("../../../package.json");
 
 class Api {
 
@@ -38,11 +41,12 @@ class Api {
     async start(): Promise<Api> {
 
         log.debug("Registering plugins");
-        await this.server.register(require("hapi-auth-bearer-token"));
-        await this.server.register(require("hapi-auth-basic"));
-        await this.server.register(require("inert"));
+        await this.server.register(require("inert")); // Static file serving
+        await this.server.register(require("hapi-auth-bearer-token")); // Authentication
+        await this.server.register(require("hapi-auth-basic")); // Authentication for Swagger
+        await this.server.register(require("vision")); // Template rendering for Swagger
 
-        this.server.auth.strategy("default", "bearer-access-token", {
+        this.server.auth.strategy("bearer", "bearer-access-token", {
             validate: async (request: Hapi.Request, token: string, h: any) => {
 
                 Joi.assert(token, Joi.string().guid().length(36));
@@ -70,7 +74,50 @@ class Api {
             }
 
         });
-        this.server.auth.default("default");
+
+        // Basic strategy is only used for admin tools
+        this.server.auth.strategy("simple", "basic", {
+            validate: async (request: Hapi.Request, username: string, password: string, h: any) => {
+
+                const user = await User.findOne({ where: { username } });
+                if (!user || user.isAdmin === false) {
+                    return { credentials: null, isValid: false };
+                }
+                if (!await User.comparePassword(password, user.password)) {
+                    await preventTimingAttack();
+                    return { credentials: null, isValid: false };
+                }
+
+                const credentials = {
+                    scope: "admin_user", // admin scope
+                    user: user
+                };
+                return { isValid: true, credentials };
+
+            }
+        });
+
+        await this.server.register({
+            plugin: require("hapi-swagger"),
+            options: {
+                auth: "simple", // Require authentication to access Swagger documentation
+                info: {
+                    title: "Yokubo API Documentation",
+                    version: packageJson.version,
+                },
+                securityDefinitions: { // Add a Bearer Token field to the header in order to be able to perform authorized request
+                    "default": {
+                        type: "apiKey",
+                        name: "Authorization",
+                        in: "header",
+                        "x-keyPrefix": "Bearer "
+                    },
+                },
+                security: [{ "default": [] }],
+            }
+        } as any);
+
+        this.server.auth.default("bearer");
 
 
         log.debug("Registering routes");
