@@ -117,8 +117,49 @@ class Api {
             }
         } as any);
 
-        this.server.auth.default("bearer");
+        await this.server.register({
+            plugin: require("good"),
+            options: {
+                ops: {
+                    interval: 1000 * 60 // every minute
+                },
+                includes: {
+                    request: ["headers", "payload"],
+                    response: ["payload"]
+                },
+                reporters: {
+                    bunyan: [{
+                        module: "good-bunyan",
+                        args: [
+                            { ops: "*", response: "*", log: "*", error: "*", request: "*" },
+                            {
+                                logger: log,
+                                levels: {
+                                    error: "fatal",
+                                    log: "info",
+                                    ops: "info",
+                                    request: "debug",
+                                    response: "debug"
+                                },
+                                formatters: {
+                                    error: (data: any): any => {
+                                        return [data, `ERROR ${data.url.path}`];
+                                    },
+                                    request: (data: any): any => {
+                                        return [data, `<-- ${data.path}`];
+                                    },
+                                    response: (data: any): any => {
+                                        return [data, `--> ${data.path}`];
+                                    }
+                                }
+                            }
+                        ]
+                    }]
+                }
+            }
+        } as any);
 
+        this.server.auth.default("bearer");
 
         log.debug("Registering routes");
         await this.server.route(routes);
