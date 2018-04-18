@@ -8,14 +8,14 @@
   "private": false,
   "scripts": {
     "build": "rimraf ./dist && ./node_modules/.bin/tsc -p .",
-    "start": "source ./env/env.sh && node ./dist/src/api/index.js | ./node_modules/.bin/bunyan",
-    "test": "source ./env/test.sh && mocha ./dist/src/test/setup.js --exit --colors --timeout 60000 --recursive \"./dist/src/**/*.test.js\" | ./node_modules/.bin/bunyan",
+    "start": "export NODE_ENV=production && node ./dist/src/api/index.js | ./node_modules/.bin/bunyan",
+    "db:migrate": "export NODE_ENV=production && node ./dist/src/scripts/db/migrate.js | ./node_modules/.bin/bunyan",
+    "db:migrate-up": "export NODE_ENV=production && node ./dist/src/scripts/db/migrateUp.js | ./node_modules/.bin/bunyan",
+    "db:migrate-down": "export NODE_ENV=production && node ./dist/src/scripts/db/migrateDown.js | ./node_modules/.bin/bunyan",
+    "db:drop-tables": "export NODE_ENV=production && node ./dist/src/scripts/db/dropTables.js | ./node_modules/.bin/bunyan",
+    "test": "export NODE_ENV=test && mocha ./dist/src/test/setup.js --exit --colors --timeout 60000 --recursive \"./dist/src/**/*.test.js\" | ./node_modules/.bin/bunyan",
     "test:update": "export CHAI_JEST_SNAPSHOT_UPDATE_ALL=true && yarn test",
-    "test:withMails": "export SEND_TEST_MAILS=true && yarn test",
-    "db:migrate": "source ./env/env.sh && node ./dist/src/scripts/db/migrate.js | ./node_modules/.bin/bunyan",
-    "db:migrate-up": "source ./env/env.sh && node ./dist/src/scripts/db/migrateUp.js | ./node_modules/.bin/bunyan",
-    "db:migrate-down": "source ./env/env.sh && node ./dist/src/scripts/db/migrateDown.js | ./node_modules/.bin/bunyan",
-    "db:drop-tables": "source ./env/env.sh && node ./dist/src/scripts/db/dropTables.js | ./node_modules/.bin/bunyan"
+    "test:sendMails": "export SEND_TEST_MAILS=true && yarn test"
   },
   "dependencies": {
     "@types/chai": "^4.1.2",
@@ -27,6 +27,7 @@
     "bunyan": "^1.8.12",
     "cls-bluebird": "^2.1.0",
     "continuation-local-storage": "^3.2.1",
+    "dotenv": "^5.0.1",
     "file-type": "^7.6.0",
     "fs-extra": "^5.0.0",
     "good": "^8.1.1",
@@ -66,6 +67,7 @@
     "@types/bunyan": "^1.8.4",
     "@types/chai-jest-snapshot": "^1.3.2",
     "@types/continuation-local-storage": "^3.2.1",
+    "@types/dotenv": "^4.0.3",
     "@types/file-type": "^5.2.1",
     "@types/fs-extra": "^5.0.1",
     "@types/hapi": "^17.0.6",

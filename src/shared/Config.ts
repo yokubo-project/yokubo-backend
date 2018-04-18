@@ -7,6 +7,12 @@ if (!process.env.NODE_ENV) {
     process.exit(1);
 }
 
+if (process.env.NODE_ENV === "test") {
+    require("dotenv").config({path: path.join(__dirname, "../../../env/test.env")});
+} else {
+    require("dotenv").config({path: path.join(__dirname, "../../../env/prod.env")});
+}
+
 interface IDatabase {
     dialect: string;
     host: string;
