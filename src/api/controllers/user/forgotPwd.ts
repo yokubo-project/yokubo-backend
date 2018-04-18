@@ -44,7 +44,6 @@ async function forgotPwdHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
     if (!user) {
         await preventTimingAttack();
         return {
-            token: uuid.v4(),
             validUntil: moment().add(Config.auth.tokenExpiresIn, "milliseconds").toDate() 
         };
     }   
