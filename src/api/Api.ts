@@ -1,8 +1,11 @@
 import * as Hapi from "hapi";
 import * as Joi from "joi";
 import * as moment from "moment";
+import * as path from "path";
+const HapiReactViews = require("hapi-react-views");
 
-import { routes } from "./routes";
+import { routes as ApiRoutes } from "./routes";
+import { routes as ViewRoutes } from "../views/routes";
 import Config from "./../shared/Config";
 import log from "../shared/util/log";
 
@@ -159,10 +162,18 @@ class Api {
             }
         } as any);
 
+        await (this.server as any).views({
+            engines: {
+                js: HapiReactViews
+            },
+            relativeTo: path.join(__dirname + "/.."),
+            path: "views"
+        });
+
         this.server.auth.default("bearer");
 
-        log.debug("Registering routes");
-        await this.server.route(routes);
+        log.debug("Registering api routes");
+        await this.server.route([].concat(...ApiRoutes, ...ViewRoutes));
 
         log.info(`Starting Hapi server at ${Config.host}:${Config.port}`);
         await this.server.start();

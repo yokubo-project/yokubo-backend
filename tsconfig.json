@@ -1,26 +1,27 @@
 {
-    "compileOnSave": true,
-    "compilerOptions": {
-      "experimentalDecorators": true,
-      "emitDecoratorMetadata": true,
-      "strict": true,
-      "alwaysStrict": true,
-      "forceConsistentCasingInFileNames": true,
-      "noFallthroughCasesInSwitch": true,
-      "noImplicitReturns": true,
-      "noUnusedLocals": true,
-      "noUnusedParameters": false,
-      "noImplicitAny": true,
-      "noImplicitThis": true,
-      "strictNullChecks": true,
-      "target": "es6",
-      "module": "commonjs",
-      "outDir": "dist/src",
-      "removeComments": true,
-      "sourceMap": true,
-      "strictPropertyInitialization": false
-    },
-    "include": [
-      "src"
-    ]
-  }
+  "compileOnSave": true,
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strict": true,
+    "alwaysStrict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "dist/src",
+    "removeComments": true,
+    "sourceMap": true,
+    "strictPropertyInitialization": false,
+    "jsx": "react",
+  },
+  "include": [
+    "src"
+  ],
+}

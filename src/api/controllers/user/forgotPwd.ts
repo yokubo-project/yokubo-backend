@@ -2,7 +2,6 @@ import * as Boom from "boom";
 import * as Hapi from "hapi";
 import * as Joi from "joi";
 import * as moment from "moment";
-import * as uuid from "uuid";
 
 import Config from "../../../shared/Config";
 import { User } from "../../../shared/models/User";
