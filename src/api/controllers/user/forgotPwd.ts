@@ -43,9 +43,9 @@ async function forgotPwdHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
     if (!user) {
         await preventTimingAttack();
         return {
-            validUntil: moment().add(Config.auth.tokenExpiresIn, "milliseconds").toDate() 
+            validUntil: moment().add(Config.auth.tokenExpiresIn, "milliseconds").toDate()
         };
-    }   
+    }
 
     // Try to return already existing PwdResetToken
     const pwdResetToken = await PwdResetToken.findOne({
@@ -71,7 +71,7 @@ async function forgotPwdHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
     // Send mail
     try {
         const subject = "Reset Password";
-        const html = `<html><body><p>Click the following link to reset your password: ${Config.pages.forgotPwdLink}</p></body></html>`;
+        const html = `<html><body><p>Click the following link to reset your password: ${Config.pages.forgotPwdLink}${newPwdResetToken.token}</p></body></html>`;
         const recipients = [{ address: user.username }];
         await sendMail(subject, html, recipients);
     } catch (err) {

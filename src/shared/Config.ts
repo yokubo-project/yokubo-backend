@@ -134,7 +134,7 @@ class Config {
 
     // Static pages
     static pages: IStaticWebpages = {
-        forgotPwdLink: `${process.env.STATIC_WEBPAGES_URL_HOST}/html/reset-password`
+        forgotPwdLink: `${process.env.STATIC_WEBPAGES_URL_HOST}/views/v1/pwd-reset-form/`
     };
 
     // Test
