@@ -1,4 +1,4 @@
-import "..//util/polyfills";
+import "./util/polyfills";
 
 import log from "./util/log";
 import sequelize from "./util/sequelize";

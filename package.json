@@ -8,7 +8,7 @@
   "private": false,
   "scripts": {
     "build": "rimraf ./dist && ./node_modules/.bin/tsc -p .",
-    "start": "export NODE_ENV=production && node ./dist/src/api/index.js | ./node_modules/.bin/bunyan",
+    "start": "export NODE_ENV=production && node ./dist/src/index.js | ./node_modules/.bin/bunyan",
     "db:migrate": "export NODE_ENV=production && node ./dist/src/scripts/db/migrate.js | ./node_modules/.bin/bunyan",
     "db:migrate-up": "export NODE_ENV=production && node ./dist/src/scripts/db/migrateUp.js | ./node_modules/.bin/bunyan",
     "db:migrate-down": "export NODE_ENV=production && node ./dist/src/scripts/db/migrateDown.js | ./node_modules/.bin/bunyan",

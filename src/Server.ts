@@ -166,7 +166,7 @@ class Api {
             engines: {
                 js: HapiReactViews
             },
-            relativeTo: path.join(__dirname + "/.."),
+            relativeTo: path.join(__dirname),
             path: "views",
             compileOptions: {
                 renderMethod: "renderToString"
