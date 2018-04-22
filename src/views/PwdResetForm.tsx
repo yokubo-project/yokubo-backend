@@ -18,7 +18,7 @@ class View extends React.Component<IProps, {}> {
         return (
             <html className={"background"}>
                 <head>
-                    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8080/v1/assets/PwdResetForm.css" />
+                    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8080/v1/assets/css/PwdResetForm.css" />
                     <title>{this.props.title}</title>
 
                 </head>
@@ -27,7 +27,7 @@ class View extends React.Component<IProps, {}> {
 
                     <div className={"card"}>
 
-                        {this.props.error && <h1>{this.props.error}</h1>}
+                        {this.props.error && <h2 className={"errorText"}>{this.props.error}</h2>}
                         <form action="/views/v1/pwd-reset-process" method="post">
                             <input type="password" name="newPwd" placeholder="Enter password" className={"pwdInputText"} />
                             <input type="hidden" name="token" value={this.props.token} />

@@ -88,3 +88,8 @@
         width: 100%;
     }
 }
+
+.errorText {
+    color:	#dc143c;
+    font-size: 26px;    
+}
