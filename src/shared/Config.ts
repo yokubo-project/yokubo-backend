@@ -43,6 +43,7 @@ interface IAuth {
 interface IAssets {
     imageUploadsPath: string;
     imageUploadsRelativeUrl: string;
+    backgroundImagePath: string;
     externalUrl: string;
 }
 
@@ -115,6 +116,7 @@ class Config {
     static assets: IAssets = {
         imageUploadsPath: path.join(__dirname, "../../../assets/image-uploads/"),
         imageUploadsRelativeUrl: "/v1/assets/image-uploads/",
+        backgroundImagePath: "/v1/assets/bg.jpg",
         externalUrl: process.env.EXTERNAL_ASSETS_URL_HOST || "127.0.0.1:8080"
     };
 

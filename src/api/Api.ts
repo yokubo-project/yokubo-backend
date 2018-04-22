@@ -167,7 +167,10 @@ class Api {
                 js: HapiReactViews
             },
             relativeTo: path.join(__dirname + "/.."),
-            path: "views"
+            path: "views",
+            compileOptions: {
+                renderMethod: "renderToString"
+            }
         });
 
         this.server.auth.default("bearer");

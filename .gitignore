@@ -4,8 +4,8 @@ node_modules/
 # Build directory
 dist/
 
-# Assets directory
-assets/
+# Assets image uploads directory
+assets/image-uploads
 
 # Log directory
 logs/

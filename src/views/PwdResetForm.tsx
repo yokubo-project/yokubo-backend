@@ -1,19 +1,11 @@
 import * as React from "react";
+import "./PwdResetForm";
 
 interface IProps {
     title: string;
     token: string;
     error: string;
 }
-
-const styles = {
-    card: {
-        margin: "auto",
-        width: "50%",
-        border: "3px solid green",
-        padding: 10
-    }
-};
 
 class View extends React.Component<IProps, {}> {
 
@@ -24,23 +16,22 @@ class View extends React.Component<IProps, {}> {
     render() {
 
         return (
-            <html>
+            <html className={"background"}>
                 <head>
+                    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8080/v1/assets/PwdResetForm.css" />
                     <title>{this.props.title}</title>
+
                 </head>
                 <body>
-                    <h1>Yokubo</h1>
-                    <div style={styles.card}>
+                    <h1 className={"brand"}>Yokubo</h1>
+
+                    <div className={"card"}>
 
                         {this.props.error && <h1>{this.props.error}</h1>}
                         <form action="/views/v1/pwd-reset-process" method="post">
-                            <span>New Password:</span>
-                            <br />
-                            <input type="password" name="newPwd" />
-                            <br />
-                            <br />
+                            <input type="password" name="newPwd" placeholder="Enter password" className={"pwdInputText"} />
                             <input type="hidden" name="token" value={this.props.token} />
-                            <input type="submit" value="Submit" />
+                            <input type="submit" value="Set password" className={"submitButton"} />
                         </form>
 
                     </div>
