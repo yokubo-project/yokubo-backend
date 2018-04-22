@@ -8,14 +8,14 @@ import log from "../shared/util/log";
 import sequelize from "../shared/util/sequelize";
 import { migrateUp } from "../shared/util/umzug";
 import { dropTables, bulkImport } from "../shared/util/helpers";
-import Api from "../api/Api";
+import Server from "../Server";
 import fixture from "./fixture";
 
 // Configuring chai plugins
 chai.use(chaiHttp);
 chai.use(chaiJestSnapshot);
 
-let api: Api;
+let server: Server;
 
 before(async function () {
 
@@ -33,16 +33,16 @@ before(async function () {
 
     log.debug("Starting testserver");
 
-    log.debug("Creating new API serivce");
-    api = await new Api();
+    log.debug("Creating new server");
+    server = await new Server();
 
-    log.debug("Starting API service");
-    await api.start();
+    log.debug("Starting server");
+    await server.start();
 
 });
 
 
-beforeEach(async function() {
+beforeEach(async function () {
 
     log.debug("Dropping all tables");
     await dropTables();

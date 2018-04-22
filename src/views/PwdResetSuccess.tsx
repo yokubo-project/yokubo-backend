@@ -15,7 +15,7 @@ class View extends React.Component<IProps, {}> {
         return (
             <html className={"background"}>
                 <head>
-                    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8080/v1/assets/css/PwdResetSuccess.css" />
+                    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8080/api/assets/css/PwdResetSuccess.css" />
                     <title>{this.props.title}</title>
 
                 </head>

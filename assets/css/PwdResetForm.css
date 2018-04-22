@@ -21,7 +21,7 @@
 .background {
     text-align: center;
     width: 100%;
-    background: url(http://127.0.0.1:8080/v1/assets/bg.jpg) center/cover fixed;
+    background: url(http://127.0.0.1:8080/api/v1/assets/bg.jpg) center/cover fixed;
     flex-grow: 1;
 }
 

@@ -1,25 +1,25 @@
-import { register } from "./controllers/user/register";
-import { token } from "./controllers/user/token";
-import { postImage } from "./controllers/user/postImage";
-import { assets } from "./controllers/user/assets";
-import { getTasks } from "./controllers/task/getTasks";
-import { getTask } from "./controllers/task/getTask";
-import { deleteTask } from "./controllers/task/deleteTask";
-import { patchTask } from "./controllers/task/patchTask";
-import { postTask } from "./controllers/task/postTask";
-import { postTaskMetric } from "./controllers/task/postTaskMetric";
-import { patchTaskMetric } from "./controllers/task/patchTaskMetrics";
-import { deleteTaskMetric } from "./controllers/task/deleteTaskMetric";
-import { postTaskItem } from "./controllers/task/postTaskItem";
-import { patchTaskItem } from "./controllers/task/patchTaskItem";
-import { deleteTaskItem } from "./controllers/task/deleteTaskItem";
-import { patchMetricQuantity } from "./controllers/task/patchMetricQuantity";
-import { resetPwd } from "./controllers/user/resetPwd";
-import { patchUser } from "./controllers/user/patchUser";
-import { forgotPwd } from "./controllers/user/forgotPwd";
-import { deleteUser } from "./controllers/user/deleteUser";
-import { setForgottenPwd } from "./controllers/user/setForgottenPwd";
-import { getUser } from "./controllers/user/getUser";
+import { register } from "./user/register";
+import { token } from "./user/token";
+import { postImage } from "./user/postImage";
+import { assets } from "./user/assets";
+import { getTasks } from "./task/getTasks";
+import { getTask } from "./task/getTask";
+import { deleteTask } from "./task/deleteTask";
+import { patchTask } from "./task/patchTask";
+import { postTask } from "./task/postTask";
+import { postTaskMetric } from "./task/postTaskMetric";
+import { patchTaskMetric } from "./task/patchTaskMetrics";
+import { deleteTaskMetric } from "./task/deleteTaskMetric";
+import { postTaskItem } from "./task/postTaskItem";
+import { patchTaskItem } from "./task/patchTaskItem";
+import { deleteTaskItem } from "./task/deleteTaskItem";
+import { patchMetricQuantity } from "./task/patchMetricQuantity";
+import { resetPwd } from "./user/resetPwd";
+import { patchUser } from "./user/patchUser";
+import { forgotPwd } from "./user/forgotPwd";
+import { deleteUser } from "./user/deleteUser";
+import { setForgottenPwd } from "./user/setForgottenPwd";
+import { getUser } from "./user/getUser";
 
 export const routes = (<any[]>[]).concat(
     register,

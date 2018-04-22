@@ -35,7 +35,7 @@ export const routes = (<any[]>[]).concat([
 
             const { token, newPwd } = request.payload as any;
 
-            const res = await fetch(`http://127.0.0.1:${Config.port}/v1/auth/setforgottenpwd`, {
+            const res = await fetch(`http://127.0.0.1:${Config.port}/api/v1/auth/setforgottenpwd`, {
                 method: "POST",
                 body: JSON.stringify({ token, newPwd })
             });
