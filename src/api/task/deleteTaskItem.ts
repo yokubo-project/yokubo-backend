@@ -2,7 +2,7 @@ import * as Hapi from "hapi";
 import * as Boom from "boom";
 
 import { TaskItemSchema } from "./_schema";
-import { TaskItem } from "../../shared/models/TaskItem";
+import { TaskItem } from "../../models/TaskItem";
 
 export const deleteTaskItem = [{
     method: "DELETE",

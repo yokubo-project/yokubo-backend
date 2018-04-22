@@ -1,5 +1,5 @@
 import * as Hapi from "hapi";
-import { User } from "../../shared/models/User";
+import { User } from "../../models/User";
 import { UserSchema } from "./_schema";
 
 export const getUser = [{

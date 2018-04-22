@@ -1,9 +1,9 @@
 import * as Boom from "boom";
 import * as Hapi from "hapi";
 import * as Joi from "joi";
-import { User } from "../../shared/models/User";
+import { User } from "../../models/User";
 import { UserSchema } from "./_schema";
-import { preventTimingAttack } from "../../shared/util/helpers";
+import { preventTimingAttack } from "../../util/helpers";
 
 export const deleteUser = [{
     method: "DELETE",

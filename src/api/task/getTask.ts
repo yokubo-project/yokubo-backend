@@ -1,7 +1,7 @@
 import * as Hapi from "hapi";
 import * as Boom from "boom";
 
-import { Task } from "../../shared/models/Task";
+import { Task } from "../../models/Task";
 import { FullTaskSchema } from "./_schema";
 
 export const getTask = [{

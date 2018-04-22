@@ -1,7 +1,7 @@
-import "../shared/util/polyfills";
+import "..//util/polyfills";
 
-import log from "./shared/util/log";
-import sequelize from "./shared/util/sequelize";
+import log from "./util/log";
+import sequelize from "./util/sequelize";
 import Server from "./Server";
 
 (async () => {
@@ -10,7 +10,7 @@ import Server from "./Server";
         log.debug("Starting ...");
 
         log.debug("Loading sequelize models");
-        sequelize.addModels([__dirname + "/../shared/models"]);
+        sequelize.addModels([__dirname + "/../models"]);
 
         log.debug("Creating new server");
         const server = new Server();

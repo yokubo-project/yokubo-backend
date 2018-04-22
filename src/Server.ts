@@ -6,12 +6,12 @@ const HapiReactViews = require("hapi-react-views");
 
 import { routes as ApiRoutes } from "./api/routes";
 import { routes as ViewRoutes } from "./views/routes";
-import Config from "./shared/Config";
-import log from "./shared/util/log";
+import Config from "./Config";
+import log from "./util/log";
 
-import { AccessToken } from "./shared/models/AccessToken";
-import { User } from "./shared/models/User";
-import { preventTimingAttack } from "./shared/util/helpers";
+import { AccessToken } from "./models/AccessToken";
+import { User } from "./models/User";
+import { preventTimingAttack } from "./util/helpers";
 
 const packageJson = require("../../../package.json");
 

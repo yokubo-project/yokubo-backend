@@ -1,5 +1,5 @@
 import * as moment from "moment";
-import Config from "../shared/Config";
+import Config from "../Config";
 
 const nextYear = moment().add(1, "years").toDate();
 const oneYearAgo = moment().subtract(1, "years").toDate();

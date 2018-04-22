@@ -1,5 +1,5 @@
 const chai = require("chai");
-import Config from "./../shared/Config";
+import Config from "./../Config";
 
 export default function chaiRequest(verb: string, path: string, accessToken?: string) {
 

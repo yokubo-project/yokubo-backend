@@ -1,8 +1,8 @@
-import "../../shared/util/polyfills";
+import "../../util/polyfills";
 
-import log from "../../shared/util/log";
-import sequelize from "../../shared/util/sequelize";
-import { dropTables } from "../../shared/util/helpers";
+import log from "../../util/log";
+import sequelize from "../../util/sequelize";
+import { dropTables } from "../../util/helpers";
 
 (async () => {
 

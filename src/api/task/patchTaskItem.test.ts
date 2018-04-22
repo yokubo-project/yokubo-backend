@@ -2,9 +2,9 @@ import { expect } from "chai";
 import * as path from "path";
 import * as moment from "moment";
 
-import chaiRequest from "../../test/chaiRequest";
+import chaiRequest from "../../util/chaiRequest";
 import { accessToken1, task1, taskItem1, metricQuantity1, metricQuantity2 } from "../../test/fixture";
-import { purify } from "../../test/purify";
+import { purify } from "../../util/purify";
 
 describe("PATCH /api/v1/tasks/{taskUid}/items", function () {
 

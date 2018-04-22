@@ -1,6 +1,6 @@
 import { Table, Column, Model, DataType } from "sequelize-typescript";
 
-import Config from "./../../shared/Config";
+import Config from "./../Config";
 
 @Table({
     tableName: "Images",

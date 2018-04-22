@@ -2,7 +2,7 @@ import * as Hapi from "hapi";
 import * as Boom from "boom";
 
 import { TaskMetricSchema } from "./_schema";
-import { TaskMetric } from "../../shared/models/TaskMetric";
+import { TaskMetric } from "../../models/TaskMetric";
 
 export const deleteTaskMetric = [{
     method: "DELETE",

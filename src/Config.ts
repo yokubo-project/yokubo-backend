@@ -1,6 +1,6 @@
 import * as path from "path";
 
-const packageJson = require("../../../package.json");
+const packageJson = require("../../package.json");
 
 if (!process.env.NODE_ENV) {
     console.error("Error: NODE_ENV not set! Exiting process ...");
@@ -8,9 +8,9 @@ if (!process.env.NODE_ENV) {
 }
 
 if (process.env.NODE_ENV === "test") {
-    require("dotenv").config({ path: path.join(__dirname, "../../../env/test.env") });
+    require("dotenv").config({ path: path.join(__dirname, "../../env/test.env") });
 } else {
-    require("dotenv").config({ path: path.join(__dirname, "../../../env/prod.env") });
+    require("dotenv").config({ path: path.join(__dirname, "../../env/prod.env") });
 }
 
 interface IDatabase {
@@ -114,7 +114,7 @@ class Config {
 
     // Assets
     static assets: IAssets = {
-        imageUploadsPath: path.join(__dirname, "../../../assets/image-uploads/"),
+        imageUploadsPath: path.join(__dirname, "../../assets/image-uploads/"),
         imageUploadsRelativeUrl: "/api/v1/assets/image-uploads/",
         backgroundImagePath: "/api/v1/assets/bg.jpg",
         externalUrl: process.env.EXTERNAL_ASSETS_URL_HOST || "127.0.0.1:8080"

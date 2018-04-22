@@ -1,6 +1,6 @@
 import * as Hapi from "hapi";
 import * as Joi from "joi";
-import { User } from "../../shared/models/User";
+import { User } from "../../models/User";
 import { UserSchema } from "./_schema";
 
 export const patchUser = [{

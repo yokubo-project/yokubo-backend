@@ -9,11 +9,11 @@ import * as uuid from "uuid";
 import * as multiparty from "multiparty";
 import * as _ from "lodash";
 
-import Config from "../../shared/Config";
-import sequelize, { Transaction } from "../../shared/util/sequelize";
-import log from "../../shared/util/log";
+import Config from "../../Config";
+import sequelize, { Transaction } from "../../util/sequelize";
+import log from "../../util/log";
 import * as _schema from "./_schema";
-import { Image } from "../../shared/models/Image";
+import { Image } from "../../models/Image";
 
 // ensure user upload dir exists
 fs.ensureDirSync(Config.assets.imageUploadsPath);

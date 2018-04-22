@@ -1,12 +1,12 @@
 import * as Hapi from "hapi";
 import * as Joi from "joi";
 
-import { Task } from "../../shared/models/Task";
+import { Task } from "../../models/Task";
 import { FullTaskSchema } from "./_schema";
-import { User } from "../../shared/models/User";
+import { User } from "../../models/User";
 import { Transaction } from "sequelize";
-import sequelize from "../../shared/util/sequelize";
-import { TaskMetric } from "../../shared/models/TaskMetric";
+import sequelize from "../../util/sequelize";
+import { TaskMetric } from "../../models/TaskMetric";
 
 export const postTask = [{
     method: "POST",

@@ -3,12 +3,12 @@ import * as Hapi from "hapi";
 import * as Joi from "joi";
 import * as moment from "moment";
 
-import Config from "../../shared/Config";
-import { User } from "../../shared/models/User";
-import { preventTimingAttack } from "../../shared/util/helpers";
-import { PwdResetToken } from "../../shared/models/PwdResetToken";
-import log from "../../shared/util/log";
-import { sendMail } from "../../shared/util/mail";
+import Config from "../../Config";
+import { User } from "../../models/User";
+import { preventTimingAttack } from "../../util/helpers";
+import { PwdResetToken } from "../../models/PwdResetToken";
+import log from "../../util/log";
+import { sendMail } from "../../util/mail";
 
 export const forgotPwd = [{
     method: "POST",

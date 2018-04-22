@@ -1,13 +1,13 @@
-import "../shared/util/polyfills";
+import "../util/polyfills";
 
 const chai = require("chai");
 const chaiJestSnapshot = require("chai-jest-snapshot");
 const chaiHttp = require("chai-http");
 
-import log from "../shared/util/log";
-import sequelize from "../shared/util/sequelize";
-import { migrateUp } from "../shared/util/umzug";
-import { dropTables, bulkImport } from "../shared/util/helpers";
+import log from "../util/log";
+import sequelize from "../util/sequelize";
+import { migrateUp } from "../util/umzug";
+import { dropTables, bulkImport } from "../util/helpers";
 import Server from "../Server";
 import fixture from "./fixture";
 
@@ -20,7 +20,7 @@ let server: Server;
 before(async function () {
 
     log.debug("Loading sequelize models");
-    await sequelize.addModels([__dirname + "/../shared/models"]);
+    await sequelize.addModels([__dirname + "/../models"]);
 
     log.debug("Dropping all tables");
     await dropTables();
@@ -51,7 +51,7 @@ beforeEach(async function () {
     await migrateUp(true);
 
     log.debug("Loading sequelize models");
-    await sequelize.addModels([__dirname + "/../shared/models"]);
+    await sequelize.addModels([__dirname + "/../models"]);
 
     log.debug("Importing fixture");
     await bulkImport(fixture);

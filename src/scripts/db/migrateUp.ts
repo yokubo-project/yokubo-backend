@@ -1,13 +1,13 @@
-import "../../shared/util/polyfills";
+import "../../util/polyfills";
 
-import log from "../../shared/util/log";
-import sequelize from "../../shared/util/sequelize";
-import { migrateUp } from "../../shared/util/umzug";
+import log from "../../util/log";
+import sequelize from "../../util/sequelize";
+import { migrateUp } from "../../util/umzug";
 
 (async () => {
 
     log.debug("Loading sequelize models");
-    await sequelize.addModels([__dirname + "/../../shared/models"]);
+    await sequelize.addModels([__dirname + "/../../models"]);
 
     log.debug("Migrating up");
     await migrateUp(false);

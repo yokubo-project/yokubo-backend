@@ -1,7 +1,7 @@
 import * as Hapi from "hapi";
 import * as Joi from "joi";
 
-import { TaskMetric } from "../../shared/models/TaskMetric";
+import { TaskMetric } from "../../models/TaskMetric";
 import { TaskMetricSchema } from "./_schema";
 
 export const postTaskMetric = [{

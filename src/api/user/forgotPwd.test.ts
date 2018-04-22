@@ -1,10 +1,10 @@
 import { expect } from "chai";
 import * as path from "path";
 
-import chaiRequest from "../../test/chaiRequest";
+import chaiRequest from "../../util/chaiRequest";
 import { user1, user2 } from "../../test/fixture";
-import { PwdResetToken } from "../../shared/models/PwdResetToken";
-import { purify } from "../../test/purify";
+import { PwdResetToken } from "../../models/PwdResetToken";
+import { purify } from "../../util/purify";
 
 describe("POST /api/v1/auth/forgotpwd", () => {
 

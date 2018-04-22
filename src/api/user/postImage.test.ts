@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import * as path from "path";
 
-import chaiRequest from "../../test/chaiRequest";
+import chaiRequest from "../../util/chaiRequest";
 import { accessToken1 } from "../../test/fixture";
 
 describe("POST /api/v1/images", function () {

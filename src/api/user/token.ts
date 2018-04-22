@@ -3,12 +3,12 @@ import * as Hapi from "hapi";
 import * as Joi from "joi";
 import * as moment from "moment";
 
-import Config from "../../shared/Config";
-import { User } from "../../shared/models/User";
-import { AccessToken } from "../../shared/models/AccessToken";
-import { RefreshToken } from "../../shared/models/RefreshToken";
+import Config from "../../Config";
+import { User } from "../../models/User";
+import { AccessToken } from "../../models/AccessToken";
+import { RefreshToken } from "../../models/RefreshToken";
 import { TokenSchema } from "./_schema";
-import { preventTimingAttack } from "../../shared/util/helpers";
+import { preventTimingAttack } from "../../util/helpers";
 
 export const token = [{
     method: "POST",

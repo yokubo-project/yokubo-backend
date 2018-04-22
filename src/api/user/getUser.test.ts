@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import * as path from "path";
 
-import chaiRequest from "../../test/chaiRequest";
+import chaiRequest from "../../util/chaiRequest";
 import { accessToken1 } from "../../test/fixture";
 
 describe("GET /api/v1/auth/user", () => {

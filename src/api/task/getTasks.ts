@@ -1,8 +1,8 @@
 import * as Hapi from "hapi";
 import * as Joi from "joi";
 
-import { User } from "../../shared/models/User";
-import { Task } from "../../shared/models/Task";
+import { User } from "../../models/User";
+import { Task } from "../../models/Task";
 import { FullTaskSchema } from "./_schema";
 
 export const getTasks = [{

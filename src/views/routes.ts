@@ -1,5 +1,5 @@
 import * as Hapi from "hapi";
-import Config from "../shared/Config";
+import Config from "../Config";
 
 export const routes = (<any[]>[]).concat([
     {

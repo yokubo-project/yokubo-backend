@@ -3,7 +3,7 @@ import * as Boom from "boom";
 import * as Joi from "joi";
 
 import { MetricQuantitySchema } from "./_schema";
-import { MetricQuantity } from "../../shared/models/MetricQuantity";
+import { MetricQuantity } from "../../models/MetricQuantity";
 
 export const patchMetricQuantity = [{
     method: "PATCH",

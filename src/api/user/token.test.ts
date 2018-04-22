@@ -1,8 +1,8 @@
 import { expect } from "chai";
 import * as path from "path";
 
-import { purify } from "../../test/purify";
-import chaiRequest from "../../test/chaiRequest";
+import { purify } from "../../util/purify";
+import chaiRequest from "../../util/chaiRequest";
 import { user1, user1Pwd, refreshToken1 } from "../../test/fixture";
 
 describe("POST /api/v1/auth/token", () => {

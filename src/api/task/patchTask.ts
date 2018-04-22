@@ -3,7 +3,7 @@ import * as Joi from "joi";
 import * as Boom from "boom";
 import * as _ from "lodash";
 
-import { Task } from "../../shared/models/Task";
+import { Task } from "../../models/Task";
 import { FullTaskSchema } from "./_schema";
 
 export const patchTask = [{

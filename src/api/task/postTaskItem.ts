@@ -3,9 +3,9 @@ import * as Boom from "boom";
 import * as Joi from "joi";
 import * as moment from "moment";
 
-import { TaskItem } from "../../shared/models/TaskItem";
+import { TaskItem } from "../../models/TaskItem";
 import { TaskItemSchema } from "./_schema";
-import { MetricQuantity } from "../../shared/models/MetricQuantity";
+import { MetricQuantity } from "../../models/MetricQuantity";
 
 export const postTaskItem = [{
     method: "POST",

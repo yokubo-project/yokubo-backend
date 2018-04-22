@@ -1,5 +1,6 @@
 import { Table, Column, Model, DataType, HasMany } from "sequelize-typescript";
 import * as bcrypt from "bcrypt";
+
 import Config from "../Config";
 import { AccessToken } from "./AccessToken";
 import { RefreshToken } from "./RefreshToken";

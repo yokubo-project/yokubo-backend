@@ -1,10 +1,10 @@
 import { expect } from "chai";
 import * as path from "path";
 
-import chaiRequest from "../../test/chaiRequest";
+import chaiRequest from "../../util/chaiRequest";
 import { accessToken1, task1, task2, task3 } from "../../test/fixture";
-import { Task } from "../../shared/models/Task";
-import { purify } from "../../test/purify";
+import { Task } from "../../models/Task";
+import { purify } from "../../util/purify";
 
 describe("GET /api/v1/tasks", function () {
 
