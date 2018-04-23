@@ -13,7 +13,7 @@ import { AccessToken } from "./models/AccessToken";
 import { User } from "./models/User";
 import { preventTimingAttack } from "./util/helpers";
 
-const packageJson = require("../../../package.json");
+const packageJson = require("../../package.json");
 
 class Api {
 
