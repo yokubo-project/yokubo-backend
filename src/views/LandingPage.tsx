@@ -1,4 +1,5 @@
 import * as React from "react";
+import Config from "../Config";
 
 interface IProps {
     title: string;
@@ -15,9 +16,8 @@ class View extends React.Component<IProps, {}> {
         return (
             <html className={"background"}>
                 <head>
-                    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8080/api/v1/assets/css/LandingPage.css" />
+                    <link rel="stylesheet" type="text/css" href={`${Config.assets.externalUrl}/api/v1/assets/css/LandingPage.css`} />
                     <title>{this.props.title}</title>
-
                 </head>
                 <body>
                     <h1 className={"brand"}>Yokubo</h1>
