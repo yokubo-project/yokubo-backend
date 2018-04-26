@@ -169,7 +169,7 @@ class Api {
             relativeTo: path.join(__dirname),
             path: "views",
             compileOptions: {
-                renderMethod: "renderToString"
+                renderMethod: "renderToStaticMarkup"
             }
         });
 
