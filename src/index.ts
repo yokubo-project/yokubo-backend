@@ -10,7 +10,7 @@ import Server from "./Server";
         log.debug("Starting ...");
 
         log.debug("Loading sequelize models");
-        sequelize.addModels([__dirname + "/../models"]);
+        sequelize.addModels([__dirname + "/models"]);
 
         log.debug("Creating new server");
         const server = new Server();
