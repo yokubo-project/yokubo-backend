@@ -1,61 +1,39 @@
+.background {
+    text-align: center;
+    background: url(http://127.0.0.1:8080/api/v1/assets/bg.jpg) center/cover fixed;
+    flex-grow: 1;
+}
 
-@media (min-width: 750px) {
+@media (min-width: 800px) {
     .maincontainer {
         display: flex;
-        align-items: center; /*horizontal centering*/
-        justify-content: center; /*vertical centering*/
+        align-items: center;
+        justify-content: center;
     }
 }
-@media (max-width: 749px) {
+
+@media (max-width: 799px) {
     .maincontainer {
         padding: 10px;
     }
 }
 
 .subcontainer {
-    /* display: inline-block; */
     padding: 20px;
 }
 
-@media (min-width: 750px) {
-    .card {
-        background-color: rgba(0, 0, 0, 0.5);
-        border-radius: 10px;
-        padding: 10px 10px 15px 10px;   
-        margin-top: 10px;
-    }
-}
-@media (max-width: 749px) {
-    .card {
-        background-color: rgba(0, 0, 0, 0.5);
-        border-radius: 10px;
-        padding: 10px 10px 15px 10px;
-        margin-top: 10px;
-    }
+.card {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 10px 10px 15px 10px;
+    margin-top: 10px;
 }
 
-.background {
-    text-align: center;
-    width: 100%;
-    background: url(https://www.yokubo.org/api/v1/assets/bg.jpg) center/cover fixed;
-    flex-grow: 1;
-}
-
-@media (min-width: 750px) {
-    .brand {
-        color: white;
-        margin-top: 72px;
-        margin-bottom: 0;
-        font-size: 72px;    
-    }
-}
-@media (max-width: 749px) {
-    .brand {
-        color: white;
-        margin-top: 75px;
-        margin-bottom: 0;
-        font-size: 75px;    
-    }    
+.brand {
+    color: white;
+    margin-top: 42px;
+    margin-bottom: 0;
+    font-size: 72px;
 }
 
 .text {
@@ -66,10 +44,30 @@
 }
 
 .android-main-menu {
-    background: url(https://www.yokubo.org/api/v1/assets/android-main-menu-and-list-view.png) no-repeat;
+    background: url(http://127.0.0.1:8080/api/v1/assets/android-main-menu-and-list-view.png) no-repeat;
     background-size: 100%;
-    height: 620px; 
-    width: 520px;
+}
+
+@media (min-width: 1050px) {
+    .android-main-menu {
+        height: 620px;
+        width: 520px;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 1049px) {
+    .android-main-menu {
+        height: 520px;
+        width: 420px;
+    }
+}
+
+@media (max-width: 799px) {
+    .android-main-menu {
+        height: 520px;
+        width: 90%;
+        margin: 0 auto;
+    }
 }
 
 .footer {
@@ -81,34 +79,56 @@
     background-color: #815259;
     color: white;
     text-align: center;
- }
- 
- .mail-contact {
-     font-size: 22px;
-     text-align: left;
-     padding: 20px 15px 0 15px;
-     margin: 0;
-     float: left;
- }
+}
 
- .links-section {
-     float: right;
-     padding: 20px 15px 0 15px;
-     margin: 0;
- }
+.link-section {
+    float: right;
+    padding: 25px 15px 0 15px;
+    margin: 0;
+}
 
- .link {
+.link {
     color: white;
     padding-right: 25px;
     font-size: 22px;
     text-decoration: none;
- }
+}
 
- .copyright {
+.link:hover {
+    text-decoration: underline;
+}
+
+@media (min-width: 800px) {
+    .link-desktop {
+        color: white;
+        padding-right: 25px;
+        font-size: 22px;
+        text-decoration: none;
+    }
+    .link-desktop:hover {
+        text-decoration: underline;
+    }
+}
+
+@media (max-width: 799px) {
+    .link-desktop {
+        display: none;
+    }
+}
+
+.copyright {
     color: white;
-    padding-right: 25px;
-    font-size: 22px;   
-    float: right;
-    padding: 20px 15px 0 15px;
-    margin: 0;     
- }
+    padding-left: 25px;
+    font-size: 22px;
+    float: left;
+    padding: 25px 15px 0 15px;
+    margin: 0;
+}
+
+.download-section {
+    margin: 30px 0 0 0;
+}
+
+.download {
+    margin: 10px 5px 10px 5px;
+}

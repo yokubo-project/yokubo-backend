@@ -27,15 +27,20 @@ class View extends React.Component<IProps, {}> {
 
                         <div className={"subcontainer"}>
                             <div className={"card"}>
-                                <h2 className={"text"}>&#8226; Placeholder 1</h2>
+                                <h2 className={"text"}>&#8226; Track your projects</h2>
                             </div>
 
                             <div className={"card"}>
-                                <h2 className={"text"}>&#8226; Placeholder 2.</h2>
+                                <h2 className={"text"}>&#8226; Get insights and stats</h2>
                             </div>
 
                             <div className={"card"}>
-                                <h2 className={"text"}>&#8226; Placeholder 3.</h2>
+                                <h2 className={"text"}>&#8226; Be more productive</h2>
+                            </div>
+
+                            <div className={"download-section"}>
+                                <img className={"download"} src={"http://127.0.0.1:8080/api/v1/assets/download_android.svg"} width="200px" />
+                                <img className={"download"} src={"http://127.0.0.1:8080/api/v1/assets/download_ios.png"} width="200px" />
                             </div>
                         </div>
 
@@ -47,16 +52,13 @@ class View extends React.Component<IProps, {}> {
                     </div>
 
                     <div className={"footer"}>
-                        <p className={"mail-contact"}>
-                            <strong>Contact: </strong>
-                            <a className={"link"} href="mailto:mail@yokubo.org">mail@yokubo.org</a>
-                        </p>
-                        <div className={"links-section"}>
+                        <div className={"copyright"}>© 2018 Yokubo</div>
+
+                        <div className={"link-section"}>
                             <a className={"link"} href="privacy">Privacy</a>
                             <a className={"link"} href="about">About</a>
-                            <a className={"link"} href="about">Github</a>
+                            <a className={"link-desktop"} href="about">Github</a>
                         </div>
-                        <div className={"copyright"}>© 2018 Yokubo</div>
                     </div>
 
                 </body>

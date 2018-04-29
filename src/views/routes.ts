@@ -35,6 +35,7 @@ export const routes = (<any[]>[]).concat([
 
             const { token, newPwd } = request.payload as any;
 
+            // Make local request to the api
             const res = await fetch(`http://127.0.0.1:${Config.port}/api/v1/auth/setforgottenpwd`, {
                 method: "POST",
                 body: JSON.stringify({ token, newPwd })
@@ -45,6 +46,8 @@ export const routes = (<any[]>[]).concat([
                 return h.view("PwdResetForm", { title: "PwdReset", token: request.params.token, error: "Password to weak. Please choose a stronger one." });
             } else if (res.status === 404) {
                 return h.view("PwdResetForm", { title: "PwdReset", token: request.params.token, error: "Invalid Request. Either the user does not exist or the email link is not valid anymore." });
+            } else if (res.status !== 200) {
+                return h.view("PwdResetForm", { title: "PwdReset", token: request.params.token, error: "Sorry, an unknown error occured. Our team got notified and will fix this soon. Please try again later." });
             }
 
             return h.view("PwdResetSuccess", { title: "PwdReset", token: request.params.token });

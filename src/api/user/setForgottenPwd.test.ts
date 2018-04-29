@@ -55,9 +55,11 @@ describe("POST /api/v1/auth/setforgottenpwd", () => {
     it("should fail setting password if user does not exist anymore", async () => {
 
         const token = pwdResetToken2.token;
-        await User.destroy({where: {
-            uid: user2.uid
-        }}); // Delete user from db
+        await User.destroy({
+            where: {
+                uid: user2.uid
+            }
+        }); // Delete user from db
 
         const response = await chaiRequest("POST", "/api/v1/auth/setforgottenpwd").send({
             newPwd: "weak",
