@@ -1,5 +1,3 @@
 * refactore readme
-* refactore model names
-* setup raven + sentry
-* setup netdata
+* refactore tslint rules
 * release v1 :P

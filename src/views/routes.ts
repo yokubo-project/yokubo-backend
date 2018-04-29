@@ -5,34 +5,24 @@ export const routes = (<any[]>[]).concat([
     {
         method: "GET",
         path: "/",
-        config: {
-            auth: false,
-        },
+        config: { auth: false },
         handler: (request: Hapi.Request, h: any) => {
-
             return h.view("LandingPage", { title: "Yokubo" });
         }
     },
     {
         method: "GET",
         path: "/views/v1/pwd-reset-form/{token}",
-        config: {
-            auth: false,
-        },
+        config: { auth: false },
         handler: (request: Hapi.Request, h: any) => {
-
             return h.view("PwdResetForm", { title: "PwdReset", token: request.params.token });
-
         }
     },
     {
         method: "POST",
         path: "/views/v1/pwd-reset-process",
-        config: {
-            auth: false,
-        },
+        config: { auth: false },
         handler: async (request: Hapi.Request, h: any) => {
-
             const { token, newPwd } = request.payload as any;
 
             // Make local request to the api
@@ -51,7 +41,14 @@ export const routes = (<any[]>[]).concat([
             }
 
             return h.view("PwdResetSuccess", { title: "PwdReset", token: request.params.token });
-
         }
-    }
+    },
+    {
+        method: "GET",
+        path: "/views/v1/privacy",
+        config: { auth: false },
+        handler: (request: Hapi.Request, h: any) => {
+            return h.view("Privacy", { title: "Yokubo - Privacy" });
+        }
+    },
 ]);
