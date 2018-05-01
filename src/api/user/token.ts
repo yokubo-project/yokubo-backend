@@ -9,6 +9,7 @@ import { AccessToken } from "../../models/AccessToken";
 import { RefreshToken } from "../../models/RefreshToken";
 import { TokenSchema } from "./_schema";
 import { preventTimingAttack } from "../../util/helpers";
+import { errorCodes } from "./_errorCodes";
 
 export const token = [{
     method: "POST",
@@ -57,13 +58,13 @@ async function tokenHandler(request: Hapi.Request, reply: Hapi.ResponseToolkit):
             // Error out if user does not exist
             if (!user) {
                 await preventTimingAttack();
-                throw Boom.badRequest("Invalid login");
+                throw Boom.badRequest(errorCodes.INVALID_LOGIN);
             }
 
             // Error out if password is wrong
             if (!await User.comparePassword(password, user.password)) {
                 await preventTimingAttack();
-                throw Boom.badRequest("Invalid login");
+                throw Boom.badRequest(errorCodes.INVALID_LOGIN);
             }
 
             break;
@@ -87,7 +88,7 @@ async function tokenHandler(request: Hapi.Request, reply: Hapi.ResponseToolkit):
             // Error out if refresh token does not exist
             if (!tokenInstance) {
                 await preventTimingAttack();
-                throw Boom.badRequest("Invalid login");
+                throw Boom.badRequest(errorCodes.INVALID_LOGIN);
             }
 
             user = await tokenInstance.$get("User", {}) as User;
@@ -98,8 +99,7 @@ async function tokenHandler(request: Hapi.Request, reply: Hapi.ResponseToolkit):
             break;
 
         default:
-
-            throw new Error(`Invalid grantType: ${grantType}`);
+            throw Boom.badRequest(errorCodes.INVALID_GRANT_TYPE);
     }
 
     user.save(); // Update timestamp

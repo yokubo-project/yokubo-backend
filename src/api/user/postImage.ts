@@ -14,6 +14,7 @@ import sequelize, { Transaction } from "../../util/sequelize";
 import log from "../../util/log";
 import * as _schema from "./_schema";
 import { Image } from "../../models/Image";
+import { errorCodes } from "./_errorCodes";
 
 // ensure user upload dir exists
 fs.ensureDirSync(Config.assets.imageUploadsPath);
@@ -51,7 +52,7 @@ async function postImageHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
     log.debug({ files }, "Extracted files");
 
     if (files.length === 0) {
-        throw Boom.badRequest(`No files have been attached.`);
+        throw Boom.badRequest(errorCodes.NO_FILES_ATTACHED);
     }
 
     // Check mime type of each file
@@ -61,7 +62,7 @@ async function postImageHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
         const fileExtension = file.split(".")[file.split(".").length - 1];
         if (!_.includes(Config.imageUpload.supportedExtensions, fileExtension)) {
             fs.unlink(file);
-            throw Boom.badRequest("Unsupported file extension found.");
+            throw Boom.badRequest(errorCodes.UNSUPPORTED_FILE_EXT);
         }
 
         // Read in the first 4100 bytes of the file which usually contains mime-type information
@@ -70,12 +71,12 @@ async function postImageHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
 
         if (!filetype) {
             fs.unlink(file);
-            throw Boom.badRequest("No mime-type found.");
+            throw Boom.badRequest(errorCodes.MIME_TYPE_MISSING);
         }
 
         if (!_.includes(Config.imageUpload.supportedMimeTypes, filetype.mime)) {
             fs.unlink(file);
-            throw Boom.badRequest("Got unsupported mime-type.");
+            throw Boom.badRequest(errorCodes.UNSUPPORTED_MIME_TYPE);
         }
 
         // File is ok
@@ -122,7 +123,7 @@ async function postImageHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
 
             });
 
-            throw Boom.badGateway("Unable to process image upload");
+            throw Boom.badGateway(errorCodes.UNABLE_TO_PROCESS_REQUEST);
 
         }
 

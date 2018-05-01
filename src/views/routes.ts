@@ -32,7 +32,7 @@ export const routes = (<any[]>[]).concat([
             });
             const resJson = await res.json();
 
-            if (res.status === 400 && resJson.message === "Password is to weak") {
+            if (res.status === 400 && resJson.message === "PasswordWeak") {
                 return h.view("PwdResetForm", { title: "PwdReset", token: request.params.token, error: "Password to weak. Please choose a stronger one." });
             } else if (res.status === 404) {
                 return h.view("PwdResetForm", { title: "PwdReset", token: request.params.token, error: "Invalid Request. Either the user does not exist or the email link is not valid anymore." });

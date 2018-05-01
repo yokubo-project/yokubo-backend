@@ -4,6 +4,7 @@ import * as Joi from "joi";
 import { User } from "../../models/User";
 import { UserSchema } from "./_schema";
 import { preventTimingAttack } from "../../util/helpers";
+import { errorCodes } from "./_errorCodes";
 
 export const deleteUser = [{
     method: "DELETE",
@@ -37,7 +38,7 @@ async function deleteUserHandler(request: Hapi.Request, reply: Hapi.ResponseTool
     // Error out if current pwd does not match
     if (!await User.comparePassword(currentPwd, user.password)) {
         await preventTimingAttack();
-        throw Boom.badRequest("Current password does not match");
+        throw Boom.badRequest(errorCodes.PASSWORDS_DONT_MATCH);
     }
 
     // Delete user

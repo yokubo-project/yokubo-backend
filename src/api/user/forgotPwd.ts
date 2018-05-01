@@ -9,6 +9,7 @@ import { preventTimingAttack } from "../../util/helpers";
 import { PwdResetToken } from "../../models/PwdResetToken";
 import log from "../../util/log";
 import { sendMail } from "../../util/mail";
+import { errorCodes } from "./_errorCodes";
 
 export const forgotPwd = [{
     method: "POST",
@@ -76,7 +77,7 @@ async function forgotPwdHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
         await sendMail(subject, html, recipients);
     } catch (err) {
         log.error(`Unable to send PwdReset mail to recipient ${user.username}`);
-        Boom.badData(`Unable to send PwdReset mail to recipient ${user.username}`);
+        Boom.badGateway(errorCodes.UNABLE_TO_SEND_MAIL);
     }
 
     return newPwdResetToken.publicJsonObject();

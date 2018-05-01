@@ -10,6 +10,7 @@ import { User } from "../../models/User";
 import { AccessToken } from "../../models/AccessToken";
 import { RefreshToken } from "../../models/RefreshToken";
 import { TokenSchema } from "./_schema";
+import { errorCodes } from "./_errorCodes";
 
 export const register = [{
     method: "POST",
@@ -42,13 +43,13 @@ async function registerHandler(request: Hapi.Request, reply: Hapi.ResponseToolki
 
     // Error out if user already exists
     if (await User.find({ where: { username } })) {
-        throw Boom.badRequest("User already exists");
+        throw Boom.badRequest(errorCodes.USER_ALREADY_EXISTS);
     }
 
     // Error out if password is to weak
     const zxcvbnInfo = zxcvbn(password);
     if (zxcvbnInfo.score < Config.auth.zxcvbnScore) {
-        throw Boom.badRequest("Password is to weak", {
+        throw Boom.badRequest(errorCodes.PASSWORD_WEAK, {
             warning: zxcvbnInfo.feedback.warning,
             score: zxcvbnInfo.score
         });

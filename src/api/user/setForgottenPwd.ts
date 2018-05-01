@@ -12,6 +12,7 @@ import { TokenSchema } from "./_schema";
 import { PwdResetToken } from "../../models/PwdResetToken";
 import sequelize from "../../util/sequelize";
 import { Transaction } from "sequelize";
+import { errorCodes } from "./_errorCodes";
 
 export const setForgottenPwd = [{
     method: "POST",
@@ -39,7 +40,7 @@ export const setForgottenPwd = [{
 async function setForgottenPwdHandler(request: Hapi.Request, reply: Hapi.ResponseToolkit): Promise<any> {
 
     const { token, newPwd } = request.payload as any;
-    
+
     // Error out if token does not exist
     const pwdResetToken = await PwdResetToken.find({
         where: {
@@ -56,7 +57,7 @@ async function setForgottenPwdHandler(request: Hapi.Request, reply: Hapi.Respons
     // Error out if new password is to weak
     const zxcvbnInfo = zxcvbn(newPwd);
     if (zxcvbnInfo.score < Config.auth.zxcvbnScore) {
-        throw Boom.badRequest("Password is to weak", {
+        throw Boom.badRequest(errorCodes.PASSWORD_WEAK, {
             warning: zxcvbnInfo.feedback.warning,
             score: zxcvbnInfo.score
         });
