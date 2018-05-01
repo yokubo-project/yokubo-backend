@@ -6,6 +6,7 @@ import * as moment from "moment";
 import { TaskItem } from "../../models/TaskItem";
 import { TaskItemSchema } from "./_schema";
 import { MetricQuantity } from "../../models/MetricQuantity";
+import { errorCodes } from "./_errorCodes";
 
 export const postTaskItem = [{
     method: "POST",
@@ -54,7 +55,7 @@ async function postTaskItemHandler(request: Hapi.Request, reply: Hapi.ResponseTo
         const [fromAt, toAt] = period;
 
         if (moment(fromAt).isAfter(toAt) === true) {
-            throw Boom.badRequest("Payload contains invalid period (fromAt is not after toAt)");
+            throw Boom.badRequest(errorCodes.INVALID_TIME_PERIOD);
         }
     }
 

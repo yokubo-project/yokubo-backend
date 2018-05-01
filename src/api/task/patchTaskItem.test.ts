@@ -110,7 +110,7 @@ describe("PATCH /api/v1/tasks/{taskUid}/items", function () {
 
         const payload = {
             name: "New Name",
-            desc: "New Desc"            
+            desc: "New Desc"
         };
         const taskItemUid = "954f261d-cd52-4070-8e96-b942b4b44a6d";
 
@@ -121,6 +121,27 @@ describe("PATCH /api/v1/tasks/{taskUid}/items", function () {
 
         const preparedSnapshot = purify(res.body, ["createdAt", "uid", "period"]);
         expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "patchNonExistingTaskItem");
+
+    });
+
+    it("should fail patching task item with invalid period (from date cannot be after to date)", async () => {
+
+        const payload = {
+            name: "New Name",
+            desc: "New Desc",
+            period: [
+                moment().toISOString(),
+                moment().subtract(10, "hours").toISOString(),
+            ],
+        };
+
+        const res = await chaiRequest("PATCH", `/api/v1/tasks/${task1.uid}/items/${taskItem1.uid}`, accessToken1.token)
+            .send(payload);
+
+        expect(res.status).to.be.equal(400);
+
+        const preparedSnapshot = purify(res.body, ["createdAt", "uid", "period"]);
+        expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "patchTaskItemWithWrongTimePeriod");
 
     });
 

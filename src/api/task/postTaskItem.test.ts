@@ -131,6 +131,37 @@ describe("POST /api/v1/tasks/{taskUid}/items", function () {
 
         expect(res.status).to.be.equal(400);
 
+        const preparedSnapshot = purify(res.body, ["createdAt", "uid", "period"]);
+        expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "postTaskItemWithoutName");
+
     });
-        
+
+    it("should fail posting task item with invalid period (from date cannot be after to date)", async () => {
+
+        const fromAt = moment().subtract(7, "hours").toISOString();
+        const toAt = moment().toISOString();
+
+        const payload = {
+            name: "Name of the item",
+            desc: "Desc of the item",
+            period: [toAt, fromAt],
+            metrics: [{
+                TaskMetricUid: taskMetric1.uid,
+                quantity: 30
+            }, {
+                TaskMetricUid: taskMetric2.uid,
+                quantity: 24.5
+            }]
+        };
+
+        const res = await chaiRequest("POST", `/api/v1/tasks/${task1.uid}/items`, accessToken1.token)
+            .send(payload);
+
+        expect(res.status).to.be.equal(400);
+
+        const preparedSnapshot = purify(res.body, ["createdAt", "uid", "period"]);
+        expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "postTaskItemWithWrongTimePeriod");
+
+    });
+
 });
