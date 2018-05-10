@@ -52,4 +52,21 @@ describe("POST /api/v1/task", function () {
 
     });
 
+    it("should post task and assign default image", async () => {
+
+        const payload = {
+            name: "Running",
+            imageUid: null
+        };
+
+        const res = await chaiRequest("POST", `/api/v1/tasks`, accessToken1.token)
+            .send(payload);
+
+        expect(res.status).to.be.equal(200);
+
+        const preparedSnapshot = purify(res.body, ["createdAt", "period", "uid", "file"]);
+        expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "postTaskWithDefaultImage");
+
+    });
+
 });
