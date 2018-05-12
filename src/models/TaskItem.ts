@@ -1,4 +1,5 @@
 import { Table, Column, Model, DataType, BelongsTo, ForeignKey, HasMany } from "sequelize-typescript";
+import * as moment from "moment";
 
 import { Task } from "./Task";
 import { MetricQuantity } from "./MetricQuantity";
@@ -68,7 +69,7 @@ export class TaskItem extends Model<TaskItem> {
 
     @HasMany(() => MetricQuantity)
     MetricQuantities: MetricQuantity[];
-    
+
     /////////////////////////
     // Model class methods //
     /////////////////////////
@@ -79,12 +80,22 @@ export class TaskItem extends Model<TaskItem> {
 
     public publicJsonObject() {
         const { uid, name, desc, period, createdAt } = this;
+
+        let duration;
+        if (period) {
+            const start = moment.utc(period[0]);
+            const end = moment.utc(period[1]);
+            duration = end.diff(start); // milliseconds
+            duration = (duration - (duration % 1000)) / 1000; // seconds
+        }
+
         return {
             uid,
             name,
             desc,
             period,
-            createdAt
+            createdAt,
+            duration
         };
     }
 

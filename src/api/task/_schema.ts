@@ -26,9 +26,10 @@ export const TaskItemSchema = Joi.object().keys({
     uid: Joi.string().guid().length(36).required(),
     name: Joi.string().required(),
     desc: Joi.string().required().allow(null),
-    period: Joi.array().allow(null).items(Joi.date().iso().required()).length(2).required().allow(null),
+    period: Joi.array().allow(null).items(Joi.date().iso().required()).length(2).required(),
     createdAt: Joi.date().iso().required(),
-    metricQuantities: Joi.array().items(MetricQuantitySchema).required()
+    metricQuantities: Joi.array().items(MetricQuantitySchema).required(),
+    duration: Joi.number().allow(null).description("Duration in seconds")
 }).label("TaskItemSchema");
 
 export const FullTaskSchema = TaskSchema.keys({
