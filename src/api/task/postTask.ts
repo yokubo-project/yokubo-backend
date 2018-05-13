@@ -60,11 +60,21 @@ async function postTaskHandler(request: Hapi.Request, reply: Hapi.ResponseToolki
 
             const fallbackImageExtension = fallbackImage.split(".")[fallbackImage.split(".").length - 1];
             const file = `${uuid.v4()}.${fallbackImageExtension}`;
+            const thumbnail = `${uuid.v4()}.thumbnail.${fallbackImageExtension}`;
 
-            await copyFilePromisified(
-                path.join(__dirname, "../../../../assets/task-backgrounds/", fallbackImage),
-                path.join(__dirname, "../../../../assets/image-uploads/", file)
+            await Promise.all(
+                [
+                    copyFilePromisified(
+                        path.join(__dirname, "../../../../assets/task-backgrounds/", fallbackImage),
+                        path.join(__dirname, "../../../../assets/image-uploads/", file)
+                    ),
+                    copyFilePromisified(
+                        path.join(__dirname, "../../../../assets/task-backgrounds/", fallbackImage),
+                        path.join(__dirname, "../../../../assets/image-uploads/", thumbnail)
+                    )
+                ]
             );
+
             const image = await Image.create({ file });
             imageUid = image.uid;
         } catch (err) {
