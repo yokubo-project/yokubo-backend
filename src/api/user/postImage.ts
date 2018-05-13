@@ -2,6 +2,7 @@ import * as Boom from "boom";
 import * as Hapi from "hapi";
 import * as Joi from "joi";
 import * as fs from "fs-extra";
+import * as im from "imagemagick";
 import * as path from "path";
 import * as readChunk from "read-chunk";
 import * as fileType from "file-type";
@@ -18,6 +19,9 @@ import { errorCodes } from "./_errorCodes";
 
 // ensure user upload dir exists
 fs.ensureDirSync(Config.assets.imageUploadsPath);
+
+// promisify
+const convert: (args: any) => Promise<im.Features> = Promise.promisify(im.convert, { context: im }) as any;
 
 export const postImage = [{
     method: "POST",
@@ -94,9 +98,15 @@ async function postImageHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
             return await Promise.map(validFilesProperties, async (validFileProperties) => {
 
                 // Move file on disk
-                const file = `${uuid.v4()}.${validFileProperties.filetype.ext}`;
+                const uuidv4 = uuid.v4();
+                const file = `${uuidv4}.${validFileProperties.filetype.ext}`;
                 const filepath = path.join(Config.assets.imageUploadsPath, file);
                 await fs.move(validFileProperties.file, filepath);
+
+                // Create thumbnail image
+                const thumbnail = `${uuidv4}.thumbnail.${validFileProperties.filetype.ext}`;
+                const thumbnailPath = path.join(Config.assets.imageUploadsPath, thumbnail);
+                await convert([filepath, "-resize", Config.assets.thumbSize, thumbnailPath]);
 
                 // Save to db
                 const image = await Image.create({

@@ -55,9 +55,19 @@ export class Image extends Model<Image> {
         const { uid, file } = this;
         const filePath = `${Config.assets.externalUrl}${Config.assets.imageUploadsRelativeUrl}${file}`;
 
+        const thumbnailTemp = file;
+        const thumbnailArr = thumbnailTemp.split(".");
+        const thumbnailSize = thumbnailArr.length;
+        thumbnailArr.splice(thumbnailSize - 1, 0, "thumbnail");
+        const thumbnail = thumbnailArr.join(".");
+
+        // Thumbnail has same uid as image but with thumbnail size in its filename
+        const thumbnailPath = `${Config.assets.externalUrl}${Config.assets.imageUploadsRelativeUrl}${thumbnail}`;
+
         return {
             uid,
-            file: filePath
+            file: filePath,
+            thumbnail: thumbnailPath
         };
 
     }

@@ -64,7 +64,7 @@ describe("POST /api/v1/task", function () {
 
         expect(res.status).to.be.equal(200);
 
-        const preparedSnapshot = purify(res.body, ["createdAt", "period", "uid", "file"]);
+        const preparedSnapshot = purify(res.body, ["createdAt", "period", "uid", "file", "thumbnail"]);
         expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "postTaskWithDefaultImage");
 
     });

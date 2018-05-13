@@ -45,6 +45,7 @@ interface IAssets {
     imageUploadsRelativeUrl: string;
     backgroundImagePath: string;
     externalUrl: string;
+    thumbSize: string;
 }
 
 interface IImageUpload {
@@ -117,7 +118,8 @@ class Config {
         imageUploadsPath: path.join(__dirname, "../../assets/image-uploads/"),
         imageUploadsRelativeUrl: "/api/v1/assets/image-uploads/",
         backgroundImagePath: "/api/v1/assets/bg.jpg",
-        externalUrl: process.env.EXTERNAL_ASSETS_URL_HOST || "127.0.0.1:8080"
+        externalUrl: process.env.EXTERNAL_ASSETS_URL_HOST || "127.0.0.1:8080",
+        thumbSize: "128x128",
     };
 
     // ImageUpload

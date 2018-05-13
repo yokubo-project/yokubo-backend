@@ -77,12 +77,12 @@ export const pwdResetToken2 = {
 
 export const image1 = {
     uid: "0352a729-efe9-4ec0-bec1-f921931b75a2",
-    file: "image1",
+    file: "image1.png",
 };
 
 export const image2 = {
     uid: "89d317b7-2edb-41cf-822f-2f002d3b394e",
-    file: "profileImage1",
+    file: "profileImage1.png",
 };
 
 
