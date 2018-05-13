@@ -119,7 +119,7 @@ class Config {
         imageUploadsRelativeUrl: "/api/v1/assets/image-uploads/",
         backgroundImagePath: "/api/v1/assets/bg.jpg",
         externalUrl: process.env.EXTERNAL_ASSETS_URL_HOST || "127.0.0.1:8080",
-        thumbSize: "128x128",
+        thumbSize: "256x256",
     };
 
     // ImageUpload
