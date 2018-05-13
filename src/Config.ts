@@ -108,7 +108,7 @@ class Config {
 
     // Auth
     static auth: IAuth = {
-        zxcvbnScore: 2,
+        zxcvbnScore: 1,
         bcryptSaltRounds: 10,
         tokenExpiresIn: 86400000, // 24 hours
     };
