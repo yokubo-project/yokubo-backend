@@ -41,7 +41,7 @@ describe("POST /api/v1/auth/resetpwd", () => {
 
         const response = await chaiRequest("POST", "/api/v1/auth/resetpwd", accessToken1.token).send({
             currentPwd: user1Pwd,
-            newPwd: "weak"
+            newPwd: "test"
         });
 
         expect(response.status).to.be.equal(400);

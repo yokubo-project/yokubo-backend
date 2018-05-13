@@ -58,9 +58,10 @@ async function postTaskHandler(request: Hapi.Request, reply: Hapi.ResponseToolki
             const fallbackImages = await readDirPromisified(path.join(__dirname, "../../../../assets/task-backgrounds/"));
             const fallbackImage = fallbackImages[randomNumber(1, fallbackImages.length) - 1]; // choose fallback image randomly
 
+            const uuidv4 = uuid.v4();
             const fallbackImageExtension = fallbackImage.split(".")[fallbackImage.split(".").length - 1];
-            const file = `${uuid.v4()}.${fallbackImageExtension}`;
-            const thumbnail = `${uuid.v4()}.thumbnail.${fallbackImageExtension}`;
+            const file = `${uuidv4}.${fallbackImageExtension}`;
+            const thumbnail = `${uuidv4}.thumbnail.${fallbackImageExtension}`;
 
             await Promise.all(
                 [

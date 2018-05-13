@@ -41,7 +41,7 @@ describe("POST /api/v1/auth/setforgottenpwd", () => {
     it("should fail setting password if too weak", async () => {
 
         const response = await chaiRequest("POST", "/api/v1/auth/setforgottenpwd").send({
-            newPwd: "weak",
+            newPwd: "test",
             token: pwdResetToken2.token
         });
 

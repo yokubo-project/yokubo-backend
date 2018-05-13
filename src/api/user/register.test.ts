@@ -43,7 +43,7 @@ describe("POST /api/v1/auth/register", () => {
 
         const registrationPayload = {
             username: "new-user@test.com",
-            password: "weak",
+            password: "test",
             name: "New User"
         };
         const response = await chaiRequest("POST", "/api/v1/auth/register").send(registrationPayload);
