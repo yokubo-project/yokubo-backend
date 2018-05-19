@@ -1,6 +1,6 @@
 .background {
     text-align: center;
-    background: url(http://127.0.0.1:8080/api/v1/assets/bg.jpg) center/cover fixed;
+    background: url(https://www.yokubo.org/api/v1/assets/bg.jpg) center/cover fixed;
     flex-grow: 1;
 }
 
@@ -54,7 +54,7 @@
 
 @media (min-width: 750px) {
     .submitButton {
-        background-color: #815259;
+        background-color: rgba(0, 0, 0, 0.5);
         border: 0 none;
         cursor: pointer;
         border-radius: 3px;
@@ -68,7 +68,7 @@
 
 @media (max-width: 749px) {
     .submitButton {
-        background-color: #815259;
+        background-color: rgba(0, 0, 0, 0.5);
         border: 0 none;
         cursor: pointer;
         border-radius: 3px;
@@ -81,6 +81,6 @@
 }
 
 .errorText {
-    color: #815259;
-    font-size: 26px;
+    color: red;
+    font-size: 20px;
 }

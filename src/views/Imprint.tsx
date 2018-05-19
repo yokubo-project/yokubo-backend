@@ -12,12 +12,11 @@ class View extends React.Component<IProps, {}> {
     }
 
     render() {
-
         return (
             <html>
                 <head>
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
-                    <link rel="stylesheet" type="text/css" href={`${Config.assets.externalUrl}/api/v1/assets/css/${Config.env === "production" ? "prod" : "dev"}/Privacy.css`} />
+                    <link rel="stylesheet" type="text/css" href={`${Config.assets.externalUrl}/api/v1/assets/css/${Config.env === "production" ? "prod" : "dev"}/Imprint.css`} />
                     <title>{this.props.title}</title>
                 </head>
                 <body className={"background"}>
@@ -28,7 +27,7 @@ class View extends React.Component<IProps, {}> {
                     </div>
 
                     <div className={"card"}>
-                        <h1>Privacy</h1>
+                        <h1>Imprint</h1>
                         <h2 className={"subheader"}>We are currently working on it...</h2>
                         <p className={"text"}>It will be available soon!</p>
                     </div>

@@ -17,11 +17,11 @@ class View extends React.Component<IProps, {}> {
             <html>
                 <head>
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
-                    <link rel="stylesheet" type="text/css" href={`${Config.assets.externalUrl}/api/v1/assets/css/LandingPage.css`} />
+                    <link rel="stylesheet" type="text/css" href={`${Config.assets.externalUrl}/api/v1/assets/css/${Config.env === "production" ? "prod" : "dev"}/LandingPage.css`} />
                     <title>{this.props.title}</title>
                 </head>
                 <body className={"background"}>
-                    <h1 className={"brand"}>Yokubo</h1>
+                    <img className={"brand"} src={`${Config.assets.externalUrl}/api/v1/assets/yokubo_logo.png`} />
 
                     <div className={"maincontainer"}>
 
@@ -39,8 +39,7 @@ class View extends React.Component<IProps, {}> {
                             </div>
 
                             <div className={"download-section"}>
-                                <img className={"download"} src={"http://127.0.0.1:8080/api/v1/assets/download_android.svg"} width="200px" />
-                                <img className={"download"} src={"http://127.0.0.1:8080/api/v1/assets/download_ios.png"} width="200px" />
+                                <img className={"download"} src={`${Config.assets.externalUrl}/api/v1/assets/download_android.svg`} width="200px" />
                             </div>
                         </div>
 
@@ -53,11 +52,10 @@ class View extends React.Component<IProps, {}> {
 
                     <div className={"footer"}>
                         <div className={"copyright"}>© 2018 Yokubo</div>
-
                         <div className={"link-section"}>
-                            <a className={"link"} href="privacy">Privacy</a>
-                            <a className={"link"} href="about">About</a>
-                            <a className={"link-desktop"} href="about">Github</a>
+                            <a className={"link"} href="/views/v1/privacy">Privacy</a>
+                            <a className={"link"} href="/views/v1/imprint">Imprint</a>
+                            <a className={"link-desktop"} href="https://github.com/yokubo-app">Github</a>
                         </div>
                     </div>
 

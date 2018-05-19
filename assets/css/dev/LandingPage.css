@@ -1,0 +1,133 @@
+.background {
+    text-align: center;
+    background: url(http://127.0.0.1:8080/api/v1/assets/bg.jpg) center/cover fixed;
+    flex-grow: 1;
+}
+
+@media (min-width: 800px) {
+    .maincontainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 799px) {
+    .maincontainer {
+        padding: 10px;
+    }
+}
+
+.subcontainer {
+    padding: 20px;
+}
+
+.card {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 10px 10px 15px 10px;
+    margin-top: 10px;
+}
+
+.brand {
+    width: 300px;
+    margin-top: 42px;
+    margin-bottom: 0;
+}
+
+.text {
+    color: white;
+    font-size: 26px;
+    margin: 5px;
+    padding: 0 20px 0 20px;
+}
+
+.android-main-menu {
+    background: url(http://127.0.0.1:8080/api/v1/assets/android-main-menu-and-list-view.png) no-repeat;
+    background-size: 100%;
+}
+
+@media (min-width: 1050px) {
+    .android-main-menu {
+        height: 620px;
+        width: 520px;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 1049px) {
+    .android-main-menu {
+        height: 520px;
+        width: 420px;
+    }
+}
+
+@media (max-width: 799px) {
+    .android-main-menu {
+        height: 520px;
+        width: 90%;
+        margin: 0 auto;
+    }
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 75px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    text-align: center;
+}
+
+.link-section {
+    float: right;
+    padding: 32px 15px 0 15px;
+    margin: 0;
+}
+
+.link {
+    color: white;
+    padding-right: 25px;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+@media (min-width: 600px) {
+    .link-desktop {
+        color: white;
+        padding-right: 25px;
+        font-size: 16px;
+        text-decoration: none;
+    }
+    .link-desktop:hover {
+        text-decoration: underline;
+    }
+}
+
+@media (max-width: 599px) {
+    .link-desktop {
+        display: none;
+    }
+}
+
+.copyright {
+    color: white;
+    padding-left: 25px;
+    font-size: 16px;
+    float: left;
+    padding: 32px 15px 0 15px;
+    margin: 0;
+}
+
+.download-section {
+    margin: 30px 0 0 0;
+}
+
+.download {
+    margin: 10px 5px 10px 5px;
+}

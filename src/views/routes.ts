@@ -51,4 +51,12 @@ export const routes = (<any[]>[]).concat([
             return h.view("Privacy", { title: "Yokubo - Privacy" });
         }
     },
+    {
+        method: "GET",
+        path: "/views/v1/imprint",
+        config: { auth: false },
+        handler: (request: Hapi.Request, h: any) => {
+            return h.view("Imprint", { title: "Yokubo - Impress" });
+        }
+    },
 ]);

@@ -8,11 +8,11 @@
   "private": false,
   "scripts": {
     "build": "rimraf ./dist && ./node_modules/.bin/tsc -p .",
-    "start": "export NODE_ENV=production && node ./dist/src/index.js | ./node_modules/.bin/bunyan",
-    "db:migrate": "export NODE_ENV=production && node ./dist/src/scripts/db/migrate.js | ./node_modules/.bin/bunyan",
-    "db:migrate-up": "export NODE_ENV=production && node ./dist/src/scripts/db/migrateUp.js | ./node_modules/.bin/bunyan",
-    "db:migrate-down": "export NODE_ENV=production && node ./dist/src/scripts/db/migrateDown.js | ./node_modules/.bin/bunyan",
-    "db:drop-tables": "export NODE_ENV=production && node ./dist/src/scripts/db/dropTables.js | ./node_modules/.bin/bunyan",
+    "start": "node ./dist/src/index.js | ./node_modules/.bin/bunyan",
+    "db:migrate": "node ./dist/src/scripts/db/migrate.js | ./node_modules/.bin/bunyan",
+    "db:migrate-up": "node ./dist/src/scripts/db/migrateUp.js | ./node_modules/.bin/bunyan",
+    "db:migrate-down": "node ./dist/src/scripts/db/migrateDown.js | ./node_modules/.bin/bunyan",
+    "db:drop-tables": "node ./dist/src/scripts/db/dropTables.js | ./node_modules/.bin/bunyan",
     "test": "export NODE_ENV=test && mocha ./dist/src/test/setup.js --exit --colors --timeout 60000 --recursive \"./dist/src/**/*.test.js\" | ./node_modules/.bin/bunyan",
     "test:update": "export CHAI_JEST_SNAPSHOT_UPDATE_ALL=true && yarn test",
     "test:sendMails": "export SEND_TEST_MAILS=true && yarn test"

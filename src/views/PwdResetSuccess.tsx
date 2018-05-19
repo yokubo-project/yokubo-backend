@@ -17,7 +17,7 @@ class View extends React.Component<IProps, {}> {
             <html>
                 <head>
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
-                    <link rel="stylesheet" type="text/css" href={`${Config.assets.externalUrl}/api/v1/assets/css/PwdResetSuccess.css`} />
+                    <link rel="stylesheet" type="text/css" href={`${Config.assets.externalUrl}/api/v1/assets/css/${Config.env === "production" ? "prod" : "dev"}/PwdResetSuccess.css`} />
                     <title>{this.props.title}</title>
                 </head>
                 <body className={"background"}>

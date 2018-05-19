@@ -1,0 +1,36 @@
+.background {
+    text-align: center;
+    background: url(http://127.0.0.1:8080/api/v1/assets/bg.jpg) center/cover fixed;
+    flex-grow: 1;
+}
+
+@media (min-width: 750px) {
+    .card {
+        background-color: white;
+        border-radius: 10px;
+        padding-bottom: 25px;
+        margin: auto;
+        width: 50%;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 749px) {
+    .card {
+        background-color: white;
+        border-radius: 10px;
+        padding-bottom: 25px;
+        padding: 20px;
+    }
+}
+
+.brand {
+    color: white;
+    margin: 42px;
+    font-size: 72px;
+}
+
+.successText {
+    color: #333333;
+    font-size: 26px;
+}

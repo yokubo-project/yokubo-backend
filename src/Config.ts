@@ -2,11 +2,6 @@ import * as path from "path";
 
 const packageJson = require("../../package.json");
 
-if (!process.env.NODE_ENV) {
-    console.error("Error: NODE_ENV not set! Exiting process ...");
-    process.exit(1);
-}
-
 if (process.env.NODE_ENV === "test") {
     require("dotenv").config({ path: path.join(__dirname, "../../env/test.env") });
 } else {
