@@ -2,7 +2,7 @@ import { expect } from "chai";
 import * as path from "path";
 
 import chaiRequest from "../../util/chaiRequest";
-import { accessToken1, image1, task1 } from "../../test/fixture";
+import { accessToken1, image1, task1, taskMetric1 } from "../../test/fixture";
 import { purify } from "../../util/purify";
 
 describe("PATCH /api/v1/task", function () {
@@ -70,6 +70,108 @@ describe("PATCH /api/v1/task", function () {
 
         expect(res.status).to.be.equal(404);
         expect(res.body).to.matchSnapshot(SNAPSHOT_FILE, "patchNonExistingTask");
+
+    });
+
+    it("should add metric to task", async () => {
+
+        const payload = {
+            name: "Running",
+            metrics: [{
+                name: "Temperature",
+                unit: "° Celsius",
+                action: "create"
+            }]
+        };
+
+        const res = await chaiRequest("PATCH", `/api/v1/tasks/${task1.uid}`, accessToken1.token)
+            .send(payload);
+        expect(res.status).to.be.equal(200);
+
+        const preparedSnapshot = purify(res.body, ["createdAt", "period", "uid"]);
+        expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "addMetricToTask");
+
+    });
+
+    it("should update metric from task", async () => {
+
+        const payload = {
+            name: "Running",
+            metrics: [{
+                uid: taskMetric1.uid,
+                name: "Temperature",
+                unit: "° Celsius",
+                action: "patch"
+            }]
+        };
+
+        const res = await chaiRequest("PATCH", `/api/v1/tasks/${task1.uid}`, accessToken1.token)
+            .send(payload);
+        expect(res.status).to.be.equal(200);
+
+        const preparedSnapshot = purify(res.body, ["createdAt", "period"]);
+        expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "patchMetricFromTask");
+
+    });
+
+    it("should delete metric from task", async () => {
+
+        const payload = {
+            name: "Running",
+            metrics: [{
+                uid: taskMetric1.uid,
+                name: taskMetric1.name,
+                unit: taskMetric1.unit,
+                action: "delete"
+            }]
+        };
+
+        const res = await chaiRequest("PATCH", `/api/v1/tasks/${task1.uid}`, accessToken1.token)
+            .send(payload);
+
+        expect(res.status).to.be.equal(200);
+
+        const preparedSnapshot = purify(res.body, ["createdAt", "period"]);
+        expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "deleteMetricFromTask");
+
+    });
+
+    it("should throw on invalid metric action", async () => {
+
+        const payload = {
+            name: "Running",
+            metrics: [{
+                uid: taskMetric1.uid,
+                name: taskMetric1.name,
+                unit: taskMetric1.unit,
+                action: "invalidAction"
+            }]
+        };
+
+        const res = await chaiRequest("PATCH", `/api/v1/tasks/${task1.uid}`, accessToken1.token)
+            .send(payload);
+
+        expect(res.status).to.be.equal(400);
+
+        const preparedSnapshot = purify(res.body, ["createdAt", "period"]);
+        expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "invalidActionForTaskMetric");
+
+    });
+
+    it.only("should succeed with empty metrics array", async () => {
+
+        const payload = {
+            name: "Running",
+            imageUid: image1.uid,
+            metrics: []
+        };
+
+        const res = await chaiRequest("PATCH", `/api/v1/tasks/${task1.uid}`, accessToken1.token)
+            .send(payload);
+        expect(res.status).to.be.equal(200);
+
+        const preparedSnapshot = purify(res.body, ["createdAt", "period"]);
+        expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "patchWithEmptyMetricsArray");
 
     });
 

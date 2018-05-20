@@ -5,6 +5,9 @@ import * as _ from "lodash";
 
 import { Task } from "../../models/Task";
 import { FullTaskSchema } from "./_schema";
+import { TaskMetric } from "../../models/TaskMetric";
+import sequelize from "../../util/sequelize";
+import { Transaction } from "sequelize";
 
 export const patchTask = [{
     method: "PATCH",
@@ -22,6 +25,14 @@ export const patchTask = [{
             },
             payload: Joi.object().keys({
                 name: Joi.string().optional(),
+                metrics: Joi.array().items(
+                    Joi.object().keys({
+                        uid: Joi.string().optional(),
+                        name: Joi.string().required(),
+                        unit: Joi.string().required(),
+                        action: Joi.string().valid("create", "delete", "patch")
+                    }).optional()
+                ).optional(),
                 imageUid: Joi.string().optional()
             })
         },
@@ -33,7 +44,8 @@ export const patchTask = [{
 
 async function patchTaskHandler(request: Hapi.Request, reply: Hapi.ResponseToolkit): Promise<any> {
 
-    const { imageUid, ...restPayload } = request.payload as any;
+    console.log("IN HERE");
+    const { metrics, imageUid, ...restPayload } = request.payload as any;
 
     const task = await Task.find({
         where: {
@@ -49,8 +61,59 @@ async function patchTaskHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
         imageUid && imageUid !== null ? { ImageUid: imageUid } : null,
         restPayload
     );
-    await task.update(payload);
 
-    return task.fullPublicJsonObject();
+    return sequelize.transaction(async (transaction: Transaction) => {
+        await task.update(payload);
 
+        if (metrics) {
+            for (const metric of metrics) {
+                switch (metric.action) {
+                    case "create":
+                        await TaskMetric.create({
+                            name: metric.name,
+                            unit: metric.unit,
+                            TaskUid: task.uid
+                        });
+                        break;
+                    case "delete":
+                        if (metric.uid) {
+                            const taskMetric = await TaskMetric.find({
+                                where: {
+                                    uid: metric.uid,
+                                }
+                            });
+                            if (!taskMetric) {
+                                throw Boom.notFound();
+                            }
+                            await taskMetric.destroy();
+                            break;
+                        } else {
+                            throw Boom.badData();
+                        }
+                    case "patch":
+                        if (metric.uid) {
+                            const taskMetric = await TaskMetric.find({
+                                where: {
+                                    uid: metric.uid,
+                                }
+                            });
+                            if (!taskMetric) {
+                                throw Boom.notFound();
+                            }
+                            await taskMetric.update({
+                                name: metric.name,
+                                unit: metric.unit,
+                            });
+                            break;
+                        } else {
+                            throw Boom.badData();
+                        }
+                    default:
+                        throw Boom.badData();
+                }
+            }
+        }
+
+        return task.fullPublicJsonObject();
+    });
 }
