@@ -8,6 +8,8 @@ import { FullTaskSchema } from "./_schema";
 import { TaskMetric } from "../../models/TaskMetric";
 import sequelize from "../../util/sequelize";
 import { Transaction } from "sequelize";
+import { TaskItem } from "../../models/TaskItem";
+import { MetricQuantity } from "../../models/MetricQuantity";
 
 export const patchTask = [{
     method: "PATCH",
@@ -44,7 +46,6 @@ export const patchTask = [{
 
 async function patchTaskHandler(request: Hapi.Request, reply: Hapi.ResponseToolkit): Promise<any> {
 
-    console.log("IN HERE");
     const { metrics, imageUid, ...restPayload } = request.payload as any;
 
     const task = await Task.find({
@@ -69,11 +70,18 @@ async function patchTaskHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
             for (const metric of metrics) {
                 switch (metric.action) {
                     case "create":
-                        await TaskMetric.create({
+                        const taskMetric = await TaskMetric.create({
                             name: metric.name,
                             unit: metric.unit,
                             TaskUid: task.uid
                         });
+                        // Add quanitity of 0 to existing items
+                        const taskItems = await task.$get("TaskItems") as TaskItem[];
+                        await Promise.map(taskItems, taskItem => MetricQuantity.create({
+                            quantity: 0,
+                            TaskItemUid: taskItem.uid,
+                            TaskMetricUid: taskMetric.uid
+                        }));
                         break;
                     case "delete":
                         if (metric.uid) {

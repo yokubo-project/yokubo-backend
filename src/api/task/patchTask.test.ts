@@ -158,7 +158,7 @@ describe("PATCH /api/v1/task", function () {
 
     });
 
-    it.only("should succeed with empty metrics array", async () => {
+    it("should succeed with empty metrics array", async () => {
 
         const payload = {
             name: "Running",
