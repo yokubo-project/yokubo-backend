@@ -94,21 +94,24 @@ export const task1 = {
     uid: "5db815b9-8e02-49bd-a42c-dd516b8468d9",
     name: "Task1",
     ImageUid: image1.uid,
-    UserUid: user1.uid
+    UserUid: user1.uid,
+    createdAt: moment().subtract(10, "minutes").toISOString(),
 };
 
 export const task2 = {
     uid: "517b620c-71a4-44c9-abe6-cfea9a4826b3",
     name: "Task2",
     ImageUid: image1.uid,
-    UserUid: user1.uid
+    UserUid: user1.uid,
+    createdAt: moment().subtract(5, "minutes").toISOString(),
 };
 
 export const task3 = {
     uid: "bae98bf7-8728-41a6-964c-04bca64da420",
     name: "Task3",
     ImageUid: image1.uid,
-    UserUid: user2.uid
+    UserUid: user2.uid,
+    createdAt: moment().subtract(0, "minutes").toISOString(),
 };
 
 

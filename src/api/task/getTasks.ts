@@ -24,7 +24,9 @@ export const getTasks = [{
 async function getTasksHandler(request: Hapi.Request, reply: Hapi.ResponseToolkit): Promise<any> {
 
     const user: User = (request.auth.credentials as any).user;
-    const tasks = await user.$get("Tasks") as Task[];
+    const tasks = await user.$get("Tasks", {
+        order: [["createdAt", "ASC"]]
+    }) as Task[];
 
     return Promise.map(tasks, async (task) => {
         return task.fullPublicJsonObject();
