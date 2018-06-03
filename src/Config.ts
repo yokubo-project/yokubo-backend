@@ -71,6 +71,15 @@ interface IAdmin {
     name: string;
 }
 
+interface ILegalDisclosure {
+    name: string;
+    address: string;
+    plz: string;
+    city: string;
+    state: string;
+    email: string;
+}
+
 class Config {
 
     static env: string = process.env.NODE_ENV || "test";
@@ -148,6 +157,15 @@ class Config {
         username: process.env.ADMIN_USERNAME || "admin",
         password: process.env.ADMIN_PWD || "password",
         name: process.env.ADMIN_NAME || "Administrator"
+    };
+
+    static legalDisclosure: ILegalDisclosure = {
+        name: process.env.LEGAL_DISCLOSURE_NAME || "",
+        address: process.env.LEGAL_DISCLOSURE_ADDRESS || "",
+        plz: process.env.LEGAL_DISCLOSURE_PLZ || "",
+        city: process.env.LEGAL_DISCLOSURE_CITY || "",
+        state: process.env.LEGAL_DISCLOSURE_STATE || "",
+        email: process.env.LEGAL_DISCLOSURE_EMAIL || "",
     };
 
 }
