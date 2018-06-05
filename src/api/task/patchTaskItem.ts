@@ -1,12 +1,12 @@
-import * as Hapi from "hapi";
 import * as Boom from "boom";
+import * as Hapi from "hapi";
 import * as Joi from "joi";
 import * as moment from "moment";
 
-import { TaskItem } from "../../models/TaskItem";
-import { TaskItemSchema } from "./_schema";
 import { MetricQuantity } from "../../models/MetricQuantity";
+import { TaskItem } from "../../models/TaskItem";
 import { errorCodes } from "./_errorCodes";
+import { TaskItemSchema } from "./_schema";
 
 export const patchTaskItem = [{
     method: "PATCH",
@@ -38,7 +38,7 @@ export const patchTaskItem = [{
         },
         response: {
             schema: TaskItemSchema
-        },
+        }
     }
 }];
 
@@ -46,7 +46,7 @@ async function patchTaskItemHandler(request: Hapi.Request, reply: Hapi.ResponseT
 
     const {
         period,
-        metrics,
+        metrics
     } = request.payload as any;
 
     // check period
@@ -61,7 +61,7 @@ async function patchTaskItemHandler(request: Hapi.Request, reply: Hapi.ResponseT
     // Patch task item
     const taskItem = await TaskItem.find({
         where: {
-            uid: request.params.itemUid,
+            uid: request.params.itemUid
         }
     });
 
@@ -70,7 +70,7 @@ async function patchTaskItemHandler(request: Hapi.Request, reply: Hapi.ResponseT
     }
 
     const updatedTaskItem = await taskItem.update({
-        ...request.payload as any,
+        ...request.payload as any
     });
 
     // Patch task item metrics
@@ -79,7 +79,7 @@ async function patchTaskItemHandler(request: Hapi.Request, reply: Hapi.ResponseT
             await MetricQuantity.update({
                 quantity: metric.quantity
             },
-                {
+                                        {
                     where: {
                         uid: metric.uid
                     }

@@ -1,13 +1,13 @@
 import { expect } from "chai";
 import * as path from "path";
 
-import chaiRequest from "../../util/chaiRequest";
 import { accessToken1, image1 } from "../../test/fixture";
+import chaiRequest from "../../util/chaiRequest";
 import { purify } from "../../util/purify";
 
-describe("POST /api/v1/task", function () {
+describe("POST /api/v1/task", () => {
 
-    const SNAPSHOT_FILE = path.join(__dirname, "../../../../../snapshots/", `task.snap`);
+    const SNAPSHOT_FILE = path.join(__dirname, "../../../../../snapshots/task.snap");
 
     it("should post task", async () => {
 
@@ -16,7 +16,7 @@ describe("POST /api/v1/task", function () {
             imageUid: image1.uid
         };
 
-        const res = await chaiRequest("POST", `/api/v1/tasks`, accessToken1.token)
+        const res = await chaiRequest("POST", "/api/v1/tasks", accessToken1.token)
             .send(payload);
 
         expect(res.status).to.be.equal(200);
@@ -42,7 +42,7 @@ describe("POST /api/v1/task", function () {
                 }
             ]
         };
-        const res = await chaiRequest("POST", `/api/v1/tasks`, accessToken1.token)
+        const res = await chaiRequest("POST", "/api/v1/tasks", accessToken1.token)
             .send(payload);
 
         expect(res.status).to.be.equal(200);
@@ -59,7 +59,7 @@ describe("POST /api/v1/task", function () {
             imageUid: null
         };
 
-        const res = await chaiRequest("POST", `/api/v1/tasks`, accessToken1.token)
+        const res = await chaiRequest("POST", "/api/v1/tasks", accessToken1.token)
             .send(payload);
 
         expect(res.status).to.be.equal(200);

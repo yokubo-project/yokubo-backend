@@ -1,8 +1,8 @@
 import * as Hapi from "hapi";
 import * as Joi from "joi";
 
-import { User } from "../../models/User";
 import { Task } from "../../models/Task";
+import { User } from "../../models/User";
 import { FullTaskSchema } from "./_schema";
 
 export const getTasks = [{
@@ -17,7 +17,7 @@ export const getTasks = [{
         tags: ["api", "get", "v1", "tasks"],
         response: {
             schema: Joi.array().items(FullTaskSchema).required()
-        },
+        }
     }
 }];
 

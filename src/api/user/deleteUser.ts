@@ -2,9 +2,9 @@ import * as Boom from "boom";
 import * as Hapi from "hapi";
 import * as Joi from "joi";
 import { User } from "../../models/User";
-import { UserSchema } from "./_schema";
 import { preventTimingAttack } from "../../util/helpers";
 import { errorCodes } from "./_errorCodes";
+import { UserSchema } from "./_schema";
 
 export const deleteUser = [{
     method: "DELETE",
@@ -21,12 +21,12 @@ export const deleteUser = [{
                 abortEarly: false
             },
             payload: Joi.object().required().keys({
-                currentPwd: Joi.string().required(),
+                currentPwd: Joi.string().required()
             })
         },
         response: {
             schema: UserSchema
-        },
+        }
     }
 }];
 

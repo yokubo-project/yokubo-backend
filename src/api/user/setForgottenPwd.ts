@@ -1,18 +1,18 @@
 import * as Boom from "boom";
 import * as Hapi from "hapi";
 import * as Joi from "joi";
-import * as zxcvbn from "zxcvbn";
 import * as moment from "moment";
+import * as zxcvbn from "zxcvbn";
 
-import Config from "../../Config";
-import { User } from "../../models/User";
-import { AccessToken } from "../../models/AccessToken";
-import { RefreshToken } from "../../models/RefreshToken";
-import { TokenSchema } from "./_schema";
-import { PwdResetToken } from "../../models/PwdResetToken";
-import sequelize from "../../util/sequelize";
 import { Transaction } from "sequelize";
+import Config from "../../Config";
+import { AccessToken } from "../../models/AccessToken";
+import { PwdResetToken } from "../../models/PwdResetToken";
+import { RefreshToken } from "../../models/RefreshToken";
+import { User } from "../../models/User";
+import sequelize from "../../util/sequelize";
 import { errorCodes } from "./_errorCodes";
+import { TokenSchema } from "./_schema";
 
 export const setForgottenPwd = [{
     method: "POST",
@@ -28,12 +28,12 @@ export const setForgottenPwd = [{
             },
             payload: Joi.object().required().keys({
                 token: Joi.string().guid().length(36).required(),
-                newPwd: Joi.string().required(),
+                newPwd: Joi.string().required()
             })
         },
         response: {
             schema: TokenSchema
-        },
+        }
     }
 }];
 

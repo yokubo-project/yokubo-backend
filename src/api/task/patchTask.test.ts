@@ -1,13 +1,13 @@
 import { expect } from "chai";
 import * as path from "path";
 
-import chaiRequest from "../../util/chaiRequest";
 import { accessToken1, image1, task1, taskMetric1 } from "../../test/fixture";
+import chaiRequest from "../../util/chaiRequest";
 import { purify } from "../../util/purify";
 
-describe("PATCH /api/v1/task", function () {
+describe("PATCH /api/v1/task", () => {
 
-    const SNAPSHOT_FILE = path.join(__dirname, "../../../../../snapshots/", `task.snap`);
+    const SNAPSHOT_FILE = path.join(__dirname, "../../../../../snapshots/task.snap");
 
     it("should patch task", async () => {
 
@@ -29,7 +29,7 @@ describe("PATCH /api/v1/task", function () {
     it("should patch name of task", async () => {
 
         const payload = {
-            name: "Running",
+            name: "Running"
         };
 
         const res = await chaiRequest("PATCH", `/api/v1/tasks/${task1.uid}`, accessToken1.token)
@@ -61,11 +61,11 @@ describe("PATCH /api/v1/task", function () {
     it("should fail patching non existing task", async () => {
 
         const payload = {
-            name: "Running",
+            name: "Running"
         };
 
-        const path = "/api/v1/tasks/954f261d-cd52-4070-8e96-b942b4b44a6d";
-        const res = await chaiRequest("PATCH", path, accessToken1.token)
+        const apiPath = "/api/v1/tasks/954f261d-cd52-4070-8e96-b942b4b44a6d";
+        const res = await chaiRequest("PATCH", apiPath, accessToken1.token)
             .send(payload);
 
         expect(res.status).to.be.equal(404);

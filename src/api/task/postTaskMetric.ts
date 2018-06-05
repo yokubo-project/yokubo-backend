@@ -20,17 +20,16 @@ export const postTaskMetric = [{
             },
             payload: Joi.object().keys({
                 name: Joi.string().required(),
-                unit: Joi.string().required(),
+                unit: Joi.string().required()
             })
         },
         response: {
             schema: TaskMetricSchema
-        },
+        }
     }
 }];
 
 async function postTaskMetricHandler(request: Hapi.Request, reply: Hapi.ResponseToolkit): Promise<any> {
-
 
     const taskMetric = await TaskMetric.create({
         ...request.payload as any,

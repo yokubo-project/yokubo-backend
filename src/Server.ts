@@ -2,16 +2,16 @@ import * as Hapi from "hapi";
 import * as Joi from "joi";
 import * as moment from "moment";
 import * as path from "path";
+
 const HapiReactViews = require("hapi-react-views");
 
 import { routes as ApiRoutes } from "./api/routes";
-import { routes as ViewRoutes } from "./views/routes";
 import Config from "./Config";
-import log from "./util/log";
-
 import { AccessToken } from "./models/AccessToken";
 import { User } from "./models/User";
 import { preventTimingAttack } from "./util/helpers";
+import log from "./util/log";
+import { routes as ViewRoutes } from "./views/routes";
 
 const packageJson = require("../../package.json");
 
@@ -33,7 +33,7 @@ class Api {
 
     }
 
-    async stop(): Promise<void> {
+    public async stop(): Promise<void> {
 
         log.info("Stopping Hapi server");
         log.debug("Stopping server");
@@ -41,7 +41,8 @@ class Api {
 
     }
 
-    async start(): Promise<Api> {
+    // tslint:disable-next-line:max-func-body-length
+    public async start(): Promise<Api> {
 
         log.debug("Registering plugins");
         await this.server.register(require("inert")); // Static file serving
@@ -73,6 +74,7 @@ class Api {
                     scope: "default_user",
                     user: accessToken.User
                 };
+
                 return { isValid: true, credentials, artifacts: {} };
             }
 
@@ -88,6 +90,7 @@ class Api {
                 }
                 if (!await User.comparePassword(password, user.password)) {
                     await preventTimingAttack();
+
                     return { credentials: null, isValid: false };
                 }
 
@@ -95,8 +98,8 @@ class Api {
                     scope: "admin_user", // admin scope
                     user: user
                 };
-                return { isValid: true, credentials };
 
+                return { isValid: true, credentials };
             }
         });
 
@@ -106,17 +109,17 @@ class Api {
                 auth: "simple", // Require authentication to access Swagger documentation
                 info: {
                     title: "Yokubo API Documentation",
-                    version: packageJson.version,
+                    version: packageJson.version
                 },
                 securityDefinitions: { // Add a Bearer Token field to the header in order to be able to perform authorized request
-                    "default": {
+                    default: {
                         type: "apiKey",
                         name: "Authorization",
                         in: "header",
                         "x-keyPrefix": "Bearer "
-                    },
+                    }
                 },
-                security: [{ "default": [] }],
+                security: [{ default: [] }]
             }
         } as any);
 
@@ -193,13 +196,13 @@ class Api {
 }
 
 // Log uncaughtExceptions and exit service as we don't know in which state service is
-process.on("uncaughtException", function (err) {
+process.on("uncaughtException", (err) => {
     log.fatal(err, "Got uncaught exception");
     process.exit(1);
 });
-process.on("unhandledRejection", function (err) {
+process.on("unhandledRejection", (err) => {
     log.fatal(err, "Got uncaught exception");
 });
 
-
+// tslint:disable-next-line:no-default-export export-name
 export default Api;

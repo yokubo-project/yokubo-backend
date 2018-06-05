@@ -1,14 +1,14 @@
 import { expect } from "chai";
-import * as path from "path";
 import * as moment from "moment";
+import * as path from "path";
 
+import { accessToken1, metricQuantity1, metricQuantity2, task1, taskItem1 } from "../../test/fixture";
 import chaiRequest from "../../util/chaiRequest";
-import { accessToken1, task1, taskItem1, metricQuantity1, metricQuantity2 } from "../../test/fixture";
 import { purify } from "../../util/purify";
 
-describe("PATCH /api/v1/tasks/{taskUid}/items", function () {
+describe("PATCH /api/v1/tasks/{taskUid}/items", () => {
 
-    const SNAPSHOT_FILE = path.join(__dirname, "../../../../../snapshots/", `task.snap`);
+    const SNAPSHOT_FILE = path.join(__dirname, "../../../../../snapshots/task.snap");
 
     it("should patch task item entity", async () => {
 
@@ -18,7 +18,7 @@ describe("PATCH /api/v1/tasks/{taskUid}/items", function () {
             period: [
                 moment().subtract(10, "hours").toISOString(),
                 moment().toISOString()
-            ],
+            ]
         };
 
         const res = await chaiRequest("PATCH", `/api/v1/tasks/${task1.uid}/items/${taskItem1.uid}`, accessToken1.token)
@@ -70,7 +70,7 @@ describe("PATCH /api/v1/tasks/{taskUid}/items", function () {
     it("should patch name of task item entity", async () => {
 
         const payload = {
-            name: "New Name",
+            name: "New Name"
         };
 
         const res = await chaiRequest("PATCH", `/api/v1/tasks/${task1.uid}/items/${taskItem1.uid}`, accessToken1.token)
@@ -131,8 +131,8 @@ describe("PATCH /api/v1/tasks/{taskUid}/items", function () {
             desc: "New Desc",
             period: [
                 moment().toISOString(),
-                moment().subtract(10, "hours").toISOString(),
-            ],
+                moment().subtract(10, "hours").toISOString()
+            ]
         };
 
         const res = await chaiRequest("PATCH", `/api/v1/tasks/${task1.uid}/items/${taskItem1.uid}`, accessToken1.token)

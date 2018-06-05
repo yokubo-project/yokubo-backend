@@ -1,13 +1,13 @@
 import { expect } from "chai";
 import * as path from "path";
 
-import chaiRequest from "../../util/chaiRequest";
 import { accessToken1 } from "../../test/fixture";
+import chaiRequest from "../../util/chaiRequest";
 import { purify } from "../../util/purify";
 
-describe("POST /api/v1/images", function () {
+describe("POST /api/v1/images", () => {
 
-    const SNAPSHOT_FILE = path.join(__dirname, "../../../../snapshots/", `image.snap`);
+    const SNAPSHOT_FILE = path.join(__dirname, "../../../../snapshots/image.snap");
 
     const testimageJpg = path.resolve(path.join(__dirname, "../../../../assets/testimage.jpg"));
     const testimagePng = path.resolve(path.join(__dirname, "../../../../assets/testimage.png"));

@@ -1,19 +1,19 @@
 import { expect } from "chai";
 import * as path from "path";
 
-import chaiRequest from "../../util/chaiRequest";
-import { user1, user2 } from "../../test/fixture";
 import { PwdResetToken } from "../../models/PwdResetToken";
+import { user1, user2 } from "../../test/fixture";
+import chaiRequest from "../../util/chaiRequest";
 import { purify } from "../../util/purify";
 
 describe("POST /api/v1/auth/forgotpwd", () => {
 
-    const SNAPSHOT_FILE = path.join(__dirname, "../../../../snapshots/", `user.snap`);
+    const SNAPSHOT_FILE = path.join(__dirname, "../../../../snapshots/user.snap");
 
     it("should create new pwdResetToken for user1", async () => {
 
         const response = await chaiRequest("POST", "/api/v1/auth/forgotpwd").send({
-            username: user1.username,
+            username: user1.username
         });
 
         expect(response.status).to.be.equal(200);
@@ -29,7 +29,7 @@ describe("POST /api/v1/auth/forgotpwd", () => {
     it("should return existing pwdResetToken for user2", async () => {
 
         const response = await chaiRequest("POST", "/api/v1/auth/forgotpwd").send({
-            username: user2.username,
+            username: user2.username
         });
 
         expect(response.status).to.be.equal(200);
@@ -37,6 +37,7 @@ describe("POST /api/v1/auth/forgotpwd", () => {
         expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "getExistingPwdToken");
 
         const pwdResetToken = await PwdResetToken.find({ where: { UserUid: user2.uid } });
+        // tslint:disable-next-line:chai-vague-errors
         expect(pwdResetToken).to.not.be.equal(null);
 
     });
@@ -44,7 +45,7 @@ describe("POST /api/v1/auth/forgotpwd", () => {
     it("should return fake response as user does not exist", async () => {
 
         const response = await chaiRequest("POST", "/api/v1/auth/forgotpwd").send({
-            username: "john@doe.com",
+            username: "john@doe.com"
         });
 
         const preparedSnapshot = purify(response.body, ["validUntil"]);

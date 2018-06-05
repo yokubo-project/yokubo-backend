@@ -11,6 +11,6 @@ export const assets = [{
     config: {
         auth: false,
         description: "Static file serving",
-        tags: ["api", "get", "v1", "user", "assets"],
+        tags: ["api", "get", "v1", "user", "assets"]
     }
 }];

@@ -1,13 +1,13 @@
 import { expect } from "chai";
 import * as path from "path";
 
-import chaiRequest from "../../util/chaiRequest";
 import { accessToken1, task1 } from "../../test/fixture";
+import chaiRequest from "../../util/chaiRequest";
 import { purify } from "../../util/purify";
 
-describe("POST /api/v1/tasks/{taskUid}/metrics", function () {
+describe("POST /api/v1/tasks/{taskUid}/metrics", () => {
 
-    const SNAPSHOT_FILE = path.join(__dirname, "../../../../../snapshots/", `task.snap`);
+    const SNAPSHOT_FILE = path.join(__dirname, "../../../../../snapshots/task.snap");
 
     it("should post task metric", async () => {
 

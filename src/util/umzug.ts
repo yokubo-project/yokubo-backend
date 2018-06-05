@@ -1,5 +1,4 @@
 import * as path from "path";
-// tslint:disable-next-line: no-require-imports no-var-requires variable-name
 const Umzug = require("umzug");
 
 import log from "./log";
@@ -47,4 +46,5 @@ export async function migrateDown(): Promise<void> {
     });
 }
 
+// tslint:disable-next-line:no-default-export
 export default umzug;

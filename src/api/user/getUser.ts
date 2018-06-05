@@ -14,7 +14,7 @@ export const getUser = [{
         tags: ["api", "get", "v1", "user"],
         response: {
             schema: UserSchema
-        },
+        }
     }
 }];
 

@@ -11,18 +11,28 @@ class View extends React.Component<IProps, {}> {
         super(props);
     }
 
-    render() {
+    public render() {
+        const env = Config.env === "production" ? "prod" : "dev";
+
         return (
             <html>
                 <head>
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
-                    <link rel="stylesheet" type="text/css" href={`${Config.assets.externalUrl}/api/v1/assets/css/${Config.env === "production" ? "prod" : "dev"}/Imprint.css`} />
+                    <link
+                        rel="stylesheet"
+                        type="text/css"
+                        href={`${Config.assets.externalUrl}/api/v1/assets/css/${env}/Imprint.css`}
+                    />
                     <title>{this.props.title}</title>
                 </head>
                 <body className={"background"}>
                     <div className={"brandContainer"}>
                         <a href="/">
-                            <img className={"brand"} src={`${Config.assets.externalUrl}/api/v1/assets/yokubo_logo.png`} />
+                            <img
+                                className={"brand"}
+                                src={`${Config.assets.externalUrl}/api/v1/assets/yokubo_logo.png`}
+                                alt="yokubo_logo.png"
+                            />
                         </a>
                     </div>
 

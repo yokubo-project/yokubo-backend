@@ -1,17 +1,17 @@
 import { expect } from "chai";
 import * as path from "path";
 
-import chaiRequest from "../../util/chaiRequest";
 import { accessToken1, user1Pwd } from "../../test/fixture";
+import chaiRequest from "../../util/chaiRequest";
 
 describe("DELETE /api/v1/auth/user", () => {
 
-    const SNAPSHOT_FILE = path.join(__dirname, "../../../../snapshots/", `user.snap`);
+    const SNAPSHOT_FILE = path.join(__dirname, "../../../../snapshots/user.snap");
 
     it("should delete user", async () => {
 
         const response = await chaiRequest("DELETE", "/api/v1/auth/user", accessToken1.token).send({
-            currentPwd: user1Pwd,
+            currentPwd: user1Pwd
         });
 
         expect(response.status).to.be.equal(200);
@@ -22,7 +22,7 @@ describe("DELETE /api/v1/auth/user", () => {
     it("should fail patching user using wrong password", async () => {
 
         const response = await chaiRequest("DELETE", "/api/v1/auth/user", accessToken1.token).send({
-            currentPwd: "wrong",
+            currentPwd: "wrong"
         });
 
         expect(response.status).to.be.equal(400);

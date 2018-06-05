@@ -1,3 +1,4 @@
+// tslint:disable-next-line:no-import-side-effect
 import "../../util/polyfills";
 
 import log from "../../util/log";
@@ -7,11 +8,11 @@ import { migrateDown } from "../../util/umzug";
 (async () => {
 
     log.debug("Loading sequelize models");
-    await sequelize.addModels([__dirname + "/../../models"]);
+    await sequelize.addModels([`${__dirname}/../../models`]);
 
     log.debug("Migrating down");
     await migrateDown();
-    
+
     sequelize.close();
 
 })();

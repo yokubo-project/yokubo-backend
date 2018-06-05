@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType, BelongsTo, ForeignKey } from "sequelize-typescript";
+import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
 import { User } from "./User";
 
 @Table({
@@ -39,12 +39,12 @@ export class RefreshToken extends Model<RefreshToken> {
     @ForeignKey(() => User)
     @Column({
         type: DataType.UUID,
-        allowNull: false,
+        allowNull: false
     })
     public UserUid: string;
 
     @BelongsTo(() => User)
-    User: User;
+    public User: User;
 
     /////////////////////////
     // Model class methods //

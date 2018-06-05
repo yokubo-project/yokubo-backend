@@ -33,11 +33,23 @@ export const routes = (<any[]>[]).concat([
             const resJson = await res.json();
 
             if (res.status === 400 && resJson.message === "PasswordWeak") {
-                return h.view("PwdResetForm", { title: "PwdReset", token: request.params.token, error: "Password to weak. Please choose a stronger one." });
+                return h.view("PwdResetForm", {
+                    title: "PwdReset",
+                    token: request.params.token,
+                    error: "Password to weak. Please choose a stronger one."
+                });
             } else if (res.status === 404) {
-                return h.view("PwdResetForm", { title: "PwdReset", token: request.params.token, error: "Invalid Request. Either the user does not exist or the email link is not valid anymore." });
+                return h.view("PwdResetForm", {
+                    title: "PwdReset",
+                    token: request.params.token,
+                    error: "Invalid Request. Either the user does not exist or the email link is not valid anymore."
+                });
             } else if (res.status !== 200) {
-                return h.view("PwdResetForm", { title: "PwdReset", token: request.params.token, error: "Sorry, an unknown error occured. Our team got notified and will fix this soon. Please try again later." });
+                return h.view("PwdResetForm", {
+                    title: "PwdReset",
+                    token: request.params.token,
+                    error: "Sorry, an unknown error occured. Our team got notified and will fix this soon. Please try again later."
+                });
             }
 
             return h.view("PwdResetSuccess", { title: "PwdReset", token: request.params.token });
@@ -58,5 +70,5 @@ export const routes = (<any[]>[]).concat([
         handler: (request: Hapi.Request, h: any) => {
             return h.view("Imprint", { title: "Yokubo - Impress" });
         }
-    },
+    }
 ]);

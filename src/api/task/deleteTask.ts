@@ -1,5 +1,5 @@
-import * as Hapi from "hapi";
 import * as Boom from "boom";
+import * as Hapi from "hapi";
 
 import { Task } from "../../models/Task";
 import { FullTaskSchema } from "./_schema";
@@ -16,7 +16,7 @@ export const deleteTask = [{
         tags: ["api", "delete", "v1", "task"],
         response: {
             schema: FullTaskSchema
-        },
+        }
     }
 }];
 
@@ -24,7 +24,7 @@ async function deleteTaskHandler(request: Hapi.Request, reply: Hapi.ResponseTool
 
     const task = await Task.find({
         where: {
-            uid: request.params.taskUid,
+            uid: request.params.taskUid
         }
     });
 

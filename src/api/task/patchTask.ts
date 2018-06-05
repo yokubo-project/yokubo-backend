@@ -1,15 +1,15 @@
+import * as Boom from "boom";
 import * as Hapi from "hapi";
 import * as Joi from "joi";
-import * as Boom from "boom";
 import * as _ from "lodash";
 
+import { Transaction } from "sequelize";
+import { MetricQuantity } from "../../models/MetricQuantity";
 import { Task } from "../../models/Task";
-import { FullTaskSchema } from "./_schema";
+import { TaskItem } from "../../models/TaskItem";
 import { TaskMetric } from "../../models/TaskMetric";
 import sequelize from "../../util/sequelize";
-import { Transaction } from "sequelize";
-import { TaskItem } from "../../models/TaskItem";
-import { MetricQuantity } from "../../models/MetricQuantity";
+import { FullTaskSchema } from "./_schema";
 
 export const patchTask = [{
     method: "PATCH",
@@ -40,7 +40,7 @@ export const patchTask = [{
         },
         response: {
             schema: FullTaskSchema
-        },
+        }
     }
 }];
 
@@ -50,7 +50,7 @@ async function patchTaskHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
 
     const task = await Task.find({
         where: {
-            uid: request.params.taskUid,
+            uid: request.params.taskUid
         }
     });
 
@@ -59,8 +59,8 @@ async function patchTaskHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
     }
 
     const payload = _.extend({},
-        imageUid && imageUid !== null ? { ImageUid: imageUid } : null,
-        restPayload
+                             imageUid && imageUid !== null ? { ImageUid: imageUid } : null,
+                             restPayload
     );
 
     return sequelize.transaction(async (transaction: Transaction) => {
@@ -70,7 +70,7 @@ async function patchTaskHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
             for (const metric of metrics) {
                 switch (metric.action) {
                     case "create":
-                        const taskMetric = await TaskMetric.create({
+                        const createTaskMetric = await TaskMetric.create({
                             name: metric.name,
                             unit: metric.unit,
                             TaskUid: task.uid
@@ -80,37 +80,37 @@ async function patchTaskHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
                         await Promise.map(taskItems, taskItem => MetricQuantity.create({
                             quantity: 0,
                             TaskItemUid: taskItem.uid,
-                            TaskMetricUid: taskMetric.uid
+                            TaskMetricUid: createTaskMetric.uid
                         }));
                         break;
                     case "delete":
                         if (metric.uid) {
-                            const taskMetric = await TaskMetric.find({
+                            const deleteTaskMetric = await TaskMetric.find({
                                 where: {
-                                    uid: metric.uid,
+                                    uid: metric.uid
                                 }
                             });
-                            if (!taskMetric) {
+                            if (!deleteTaskMetric) {
                                 throw Boom.notFound();
                             }
-                            await taskMetric.destroy();
+                            await deleteTaskMetric.destroy();
                             break;
                         } else {
                             throw Boom.badData();
                         }
                     case "patch":
                         if (metric.uid) {
-                            const taskMetric = await TaskMetric.find({
+                            const patchTaskMetric = await TaskMetric.find({
                                 where: {
-                                    uid: metric.uid,
+                                    uid: metric.uid
                                 }
                             });
-                            if (!taskMetric) {
+                            if (!patchTaskMetric) {
                                 throw Boom.notFound();
                             }
-                            await taskMetric.update({
+                            await patchTaskMetric.update({
                                 name: metric.name,
-                                unit: metric.unit,
+                                unit: metric.unit
                             });
                             break;
                         } else {

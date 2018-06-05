@@ -11,19 +11,29 @@ class View extends React.Component<IProps, {}> {
         super(props);
     }
 
-    render() {
+    // tslint:disable-next-line:max-func-body-length
+    public render() {
+        const env = Config.env === "production" ? "prod" : "dev";
 
         return (
             <html>
                 <head>
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
-                    <link rel="stylesheet" type="text/css" href={`${Config.assets.externalUrl}/api/v1/assets/css/${Config.env === "production" ? "prod" : "dev"}/Privacy.css`} />
+                    <link
+                        rel="stylesheet"
+                        type="text/css"
+                        href={`${Config.assets.externalUrl}/api/v1/assets/css/${env}/Privacy.css`}
+                    />
                     <title>{this.props.title}</title>
                 </head>
                 <body className={"background"}>
                     <div className={"brandContainer"}>
                         <a href="/">
-                            <img className={"brand"} src={`${Config.assets.externalUrl}/api/v1/assets/yokubo_logo.png`} />
+                            <img
+                                className={"brand"}
+                                src={`${Config.assets.externalUrl}/api/v1/assets/yokubo_logo.png`}
+                                alt="yokubo_logo.png"
+                            />
                         </a>
                     </div>
 
@@ -91,7 +101,8 @@ class View extends React.Component<IProps, {}> {
                         </p>
                         <h2 className={"subheader"}>More information</h2>
                         <p className={"text"}>
-                            Please feel free to contact us at mail@yokubo.org in case you have further questions or concerns about your personal data.
+                            Please feel free to contact us at mail@yokubo.org in case you have further questions or
+                            concerns about your personal data.
                         </p>
                         <h2 className={"subheader"}>Last update</h2>
                         <p className={"text"}>

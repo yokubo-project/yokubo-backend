@@ -1,8 +1,8 @@
-import { Table, Column, Model, DataType, BelongsTo, ForeignKey, HasMany } from "sequelize-typescript";
 import * as moment from "moment";
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
 
-import { Task } from "./Task";
 import { MetricQuantity } from "./MetricQuantity";
+import { Task } from "./Task";
 
 @Table({
     tableName: "TaskItems",
@@ -60,15 +60,15 @@ export class TaskItem extends Model<TaskItem> {
     @ForeignKey(() => Task)
     @Column({
         type: DataType.UUID,
-        allowNull: true,
+        allowNull: true
     })
     public TaskUid: string;
 
     @BelongsTo(() => Task)
-    Task: Task;
+    public Task: Task;
 
     @HasMany(() => MetricQuantity)
-    MetricQuantities: MetricQuantity[];
+    public MetricQuantities: MetricQuantity[];
 
     /////////////////////////
     // Model class methods //
@@ -79,6 +79,7 @@ export class TaskItem extends Model<TaskItem> {
     ////////////////////////////
 
     public publicJsonObject() {
+        // tslint:disable-next-line:no-this-assignment
         const { uid, name, desc, period, createdAt } = this;
 
         let duration;
@@ -101,12 +102,14 @@ export class TaskItem extends Model<TaskItem> {
 
     public async fullPublicJsonObject() {
         const publicJsonObject = this.publicJsonObject();
-        const metricQuantities = await Promise.all((await this.$get("MetricQuantities") as MetricQuantity[]).map(async metricQuantity => metricQuantity.fullPublicJsonObject()));
+        const metricQuantities = await Promise.all(
+            (await this.$get("MetricQuantities") as MetricQuantity[]).map(async metricQuantity => metricQuantity.fullPublicJsonObject())
+        );
+
         return {
             ...publicJsonObject,
-            metricQuantities,
+            metricQuantities
         };
     }
 
 }
-

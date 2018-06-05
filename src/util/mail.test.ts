@@ -1,8 +1,8 @@
 import { expect } from "chai";
-import { sendMail } from "./mail";
 import { user1 } from "../test/fixture";
+import { sendMail } from "./mail";
 
-describe("mail", function () {
+describe("mail", () => {
 
     it("send test mail", async () => {
 

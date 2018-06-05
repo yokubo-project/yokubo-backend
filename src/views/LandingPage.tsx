@@ -11,17 +11,27 @@ class View extends React.Component<IProps, {}> {
         super(props);
     }
 
-    render() {
+    // tslint:disable-next-line:max-func-body-length
+    public render() {
+        const env = Config.env === "production" ? "prod" : "dev";
 
         return (
             <html>
                 <head>
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
-                    <link rel="stylesheet" type="text/css" href={`${Config.assets.externalUrl}/api/v1/assets/css/${Config.env === "production" ? "prod" : "dev"}/LandingPage.css`} />
+                    <link
+                        rel="stylesheet"
+                        type="text/css"
+                        href={`${Config.assets.externalUrl}/api/v1/assets/css/${env}/LandingPage.css`}
+                    />
                     <title>{this.props.title}</title>
                 </head>
                 <body className={"background"}>
-                    <img className={"brand"} src={`${Config.assets.externalUrl}/api/v1/assets/yokubo_logo.png`} />
+                    <img
+                        className={"brand"}
+                        src={`${Config.assets.externalUrl}/api/v1/assets/yokubo_logo.png`}
+                        alt="yokubo_logo.png"
+                    />
 
                     <div className={"maincontainer"}>
 
@@ -39,13 +49,17 @@ class View extends React.Component<IProps, {}> {
                             </div>
 
                             <div className={"download-section"}>
-                                <img className={"download"} src={`${Config.assets.externalUrl}/api/v1/assets/download_android.svg`} width="200px" />
+                                <img
+                                    className={"download"}
+                                    src={`${Config.assets.externalUrl}/api/v1/assets/download_android.svg`}
+                                    width="200px"
+                                    alt="download_android.svg"
+                                />
                             </div>
                         </div>
 
                         <div className={"subcontainer"}>
-                            <div className={"android-main-menu"}>
-                            </div>
+                            <div className={"android-main-menu"} />
                         </div>
 
                     </div>

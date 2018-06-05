@@ -1,13 +1,13 @@
 import { expect } from "chai";
 import * as path from "path";
 
-import { purify } from "../../util/purify";
-import chaiRequest from "../../util/chaiRequest";
 import { user1 } from "../../test/fixture";
+import chaiRequest from "../../util/chaiRequest";
+import { purify } from "../../util/purify";
 
 describe("POST /api/v1/auth/register", () => {
 
-    const SNAPSHOT_FILE = path.join(__dirname, "../../../../snapshots/", `user.snap`);
+    const SNAPSHOT_FILE = path.join(__dirname, "../../../../snapshots/user.snap");
 
     it("should register user", async () => {
 

@@ -1,8 +1,8 @@
-import * as Hapi from "hapi";
 import * as Boom from "boom";
+import * as Hapi from "hapi";
 
-import { TaskMetricSchema } from "./_schema";
 import { TaskMetric } from "../../models/TaskMetric";
+import { TaskMetricSchema } from "./_schema";
 
 export const deleteTaskMetric = [{
     method: "DELETE",
@@ -17,11 +17,11 @@ export const deleteTaskMetric = [{
         validate: {
             options: {
                 abortEarly: false
-            },
+            }
         },
         response: {
             schema: TaskMetricSchema
-        },
+        }
     }
 }];
 
@@ -29,7 +29,7 @@ async function deleteTaskMetricHandler(request: Hapi.Request, reply: Hapi.Respon
 
     const taskMetric = await TaskMetric.find({
         where: {
-            uid: request.params.metricUid,
+            uid: request.params.metricUid
         }
     });
 
@@ -40,6 +40,5 @@ async function deleteTaskMetricHandler(request: Hapi.Request, reply: Hapi.Respon
     await taskMetric.destroy();
 
     return taskMetric.publicJsonObject();
-
 
 }

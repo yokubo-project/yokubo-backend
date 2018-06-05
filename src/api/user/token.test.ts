@@ -1,13 +1,13 @@
 import { expect } from "chai";
 import * as path from "path";
 
-import { purify } from "../../util/purify";
+import { refreshToken1, user1, user1Pwd } from "../../test/fixture";
 import chaiRequest from "../../util/chaiRequest";
-import { user1, user1Pwd, refreshToken1 } from "../../test/fixture";
+import { purify } from "../../util/purify";
 
 describe("POST /api/v1/auth/token", () => {
 
-    const SNAPSHOT_FILE = path.join(__dirname, "../../../../snapshots/", `user.snap`);
+    const SNAPSHOT_FILE = path.join(__dirname, "../../../../snapshots/user.snap");
 
     it("should get token using password", async () => {
 
@@ -58,7 +58,7 @@ describe("POST /api/v1/auth/token", () => {
 
         const response = await chaiRequest("POST", "/api/v1/auth/token").send({
             grantType: "refreshToken",
-            refreshToken: refreshToken1.token,
+            refreshToken: refreshToken1.token
         });
 
         expect(response.status).to.be.equal(200);
@@ -67,12 +67,12 @@ describe("POST /api/v1/auth/token", () => {
         expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "getTokenViaRefreshToken");
 
     });
-    
+
     it("should fail getting token using invalid refreshToken", async () => {
 
         const response = await chaiRequest("POST", "/api/v1/auth/token").send({
             grantType: "refreshToken",
-            refreshToken: "12deb8d6-5b27-4368-a212-93c89f7bfad7",
+            refreshToken: "12deb8d6-5b27-4368-a212-93c89f7bfad7"
         });
 
         expect(response.status).to.be.equal(400);

@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType, BelongsTo, ForeignKey } from "sequelize-typescript";
+import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
 import { User } from "./User";
 
 @Table({
@@ -7,9 +7,6 @@ import { User } from "./User";
 })
 export class PwdResetToken extends Model<PwdResetToken> {
 
-    length(arg0: any): any {
-        throw new Error("Method not implemented.");
-    }
     @Column({
         type: DataType.UUID,
         allowNull: false,
@@ -48,12 +45,12 @@ export class PwdResetToken extends Model<PwdResetToken> {
     @ForeignKey(() => User)
     @Column({
         type: DataType.UUID,
-        allowNull: false,
+        allowNull: false
     })
     public UserUid: string;
 
     @BelongsTo(() => User)
-    User: User;
+    public User: User;
 
     /////////////////////////
     // Model class methods //
@@ -64,9 +61,11 @@ export class PwdResetToken extends Model<PwdResetToken> {
     ////////////////////////////
 
     public publicJsonObject() {
+        // tslint:disable-next-line:no-this-assignment
         const { validUntil } = this;
+
         return {
-            validUntil,
+            validUntil
         };
     }
 

@@ -1,14 +1,14 @@
 import * as bunyan from "bunyan"; // tsd definitions get loaded.
 
-import Config from "../Config";
 import { Writable } from "stream";
-import { sendMail, Recipient } from "./mail";
+import Config from "../Config";
+import { IRecipient, sendMail } from "./mail";
 
 class EmailErrorStream extends Writable {
 
-    recipients: Recipient[];
-    subject: string;
-    html: string;
+    public recipients: IRecipient[];
+    public subject: string;
+    public html: string;
 
     constructor() {
         super();
@@ -16,7 +16,8 @@ class EmailErrorStream extends Writable {
         this.subject = "Received fatal error";
     }
 
-    async _write(entry: string) {
+    // tslint:disable-next-line:function-name
+    public async _write(entry: string) {
         const html = `<html><body><p>${entry.toString()}</p></body></html>`;
         await sendMail(this.subject, html, this.recipients);
     }
@@ -44,4 +45,5 @@ const log = bunyan.createLogger({
     ]
 });
 
+// tslint:disable-next-line:no-default-export
 export default log;

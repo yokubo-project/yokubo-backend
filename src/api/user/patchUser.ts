@@ -1,9 +1,9 @@
+import * as Boom from "boom";
 import * as Hapi from "hapi";
 import * as Joi from "joi";
 import { User } from "../../models/User";
-import { UserSchema } from "./_schema";
-import * as Boom from "boom";
 import { errorCodes } from "./_errorCodes";
+import { UserSchema } from "./_schema";
 
 export const patchUser = [{
     method: "PATCH",
@@ -26,7 +26,7 @@ export const patchUser = [{
         },
         response: {
             schema: UserSchema
-        },
+        }
     }
 }];
 

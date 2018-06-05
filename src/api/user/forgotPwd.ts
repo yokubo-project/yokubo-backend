@@ -4,9 +4,9 @@ import * as Joi from "joi";
 import * as moment from "moment";
 
 import Config from "../../Config";
+import { PwdResetToken } from "../../models/PwdResetToken";
 import { User } from "../../models/User";
 import { preventTimingAttack } from "../../util/helpers";
-import { PwdResetToken } from "../../models/PwdResetToken";
 import log from "../../util/log";
 import { sendMail } from "../../util/mail";
 import { errorCodes } from "./_errorCodes";
@@ -31,7 +31,7 @@ export const forgotPwd = [{
             schema: Joi.object().required().keys({
                 validUntil: Joi.date().required()
             })
-        },
+        }
     }
 }];
 
@@ -43,6 +43,7 @@ async function forgotPwdHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
     // Return if user does not exist --> do not throw error in order to prevent exploiting registered users
     if (!user) {
         await preventTimingAttack();
+
         return {
             validUntil: moment().add(Config.auth.tokenExpiresIn, "milliseconds").toDate()
         };
@@ -60,6 +61,7 @@ async function forgotPwdHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
 
     if (pwdResetToken) {
         await preventTimingAttack();
+
         return pwdResetToken.publicJsonObject();
     }
 
@@ -72,7 +74,11 @@ async function forgotPwdHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
     // Send mail
     try {
         const subject = "Reset Password";
-        const html = `<html><body><p>Click the following link to reset your password: ${Config.pages.forgotPwdLink}${newPwdResetToken.token}</p></body></html>`;
+        const html = `
+            <html><body><p>
+            Click the following link to reset your password: ${Config.pages.forgotPwdLink}${newPwdResetToken.token}
+            </p></body></html>
+        `;
         const recipients = [{ address: user.username }];
         await sendMail(subject, html, recipients);
     } catch (err) {

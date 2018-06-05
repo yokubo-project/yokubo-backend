@@ -7,11 +7,11 @@ const options = {
 };
 const client = new SparkPost(Config.mailing.apiKey, options);
 
-export interface Recipient {
+export interface IRecipient {
     address: string;
 }
 
-interface MailResult {
+interface IMailResult {
     results: {
         total_rejected_recipients: number;
         total_accepted_recipients: number;
@@ -19,7 +19,7 @@ interface MailResult {
     };
 }
 
-export async function sendMail(subject: string, html: string, recipients: Recipient[]): Promise<MailResult> {
+export async function sendMail(subject: string, html: string, recipients: IRecipient[]): Promise<IMailResult> {
 
     // Return stub if we are in test env and sending of mails is not set
     if (Config.env === "test" && !Config.test.sendMails) {
@@ -41,7 +41,7 @@ export async function sendMail(subject: string, html: string, recipients: Recipi
                 sandbox: false
             },
             content: {
-                from: Config.mailing.from,
+                from: Config.mailing.sender,
                 subject,
                 html
             },
@@ -57,7 +57,6 @@ export async function sendMail(subject: string, html: string, recipients: Recipi
     } catch (err) {
 
         // No logging of possible error as logger could try to send mail which may again produce error and so on
-        // TODO: Use different channel to inform mailing is not possible
 
         return Promise.resolve({
             results: {

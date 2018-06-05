@@ -1,21 +1,21 @@
+import * as Boom from "boom";
+import * as fs from "fs-extra";
 import * as Hapi from "hapi";
 import * as Joi from "joi";
-import * as fs from "fs-extra";
 import * as path from "path";
 import * as uuid from "uuid";
-import * as Boom from "boom";
 
 const readDirPromisified: any = Promise.promisify(fs.readdir);
 const copyFilePromisified: any = Promise.promisify(fs.copy);
 
-import { Task } from "../../models/Task";
-import { FullTaskSchema } from "./_schema";
-import { User } from "../../models/User";
 import { Transaction } from "sequelize";
-import sequelize from "../../util/sequelize";
-import { TaskMetric } from "../../models/TaskMetric";
 import { Image } from "../../models/Image";
+import { Task } from "../../models/Task";
+import { TaskMetric } from "../../models/TaskMetric";
+import { User } from "../../models/User";
 import log from "../../util/log";
+import sequelize from "../../util/sequelize";
+import { FullTaskSchema } from "./_schema";
 
 export const postTask = [{
     method: "POST",
@@ -36,15 +36,15 @@ export const postTask = [{
                 metrics: Joi.array().items(
                     Joi.object().keys({
                         name: Joi.string().required(),
-                        unit: Joi.string().required(),
+                        unit: Joi.string().required()
                     })
                 ).optional(),
-                imageUid: Joi.string().optional().allow(null),
+                imageUid: Joi.string().optional().allow(null)
             })
         },
         response: {
             schema: FullTaskSchema
-        },
+        }
     }
 }];
 
@@ -85,12 +85,13 @@ async function postTaskHandler(request: Hapi.Request, reply: Hapi.ResponseToolki
     }
 
     const user: User = (request.auth.credentials as any).user;
+
     return sequelize.transaction(async (transaction: Transaction) => {
 
         const createdTask = await Task.create({
             name,
             ImageUid: imageUid,
-            UserUid: user.uid,
+            UserUid: user.uid
         });
 
         if (metrics) {
@@ -109,5 +110,6 @@ async function postTaskHandler(request: Hapi.Request, reply: Hapi.ResponseToolki
 }
 
 function randomNumber(min: number, max: number) {
+    // tslint:disable-next-line:insecure-random
     return Math.floor(Math.random() * (max - min + 1) + min);
 }

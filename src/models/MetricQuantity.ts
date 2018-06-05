@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType, BelongsTo, ForeignKey } from "sequelize-typescript";
+import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
 
 import { TaskItem } from "./TaskItem";
 import { TaskMetric } from "./TaskMetric";
@@ -47,22 +47,22 @@ export class MetricQuantity extends Model<MetricQuantity> {
     @ForeignKey(() => TaskItem)
     @Column({
         type: DataType.UUID,
-        allowNull: false,
+        allowNull: false
     })
     public TaskItemUid: string;
 
     @BelongsTo(() => TaskItem)
-    TaskItem: TaskItem;
+    public TaskItem: TaskItem;
 
     @ForeignKey(() => TaskMetric)
     @Column({
         type: DataType.UUID,
-        allowNull: false,
+        allowNull: false
     })
     public TaskMetricUid: string;
 
     @BelongsTo(() => TaskMetric)
-    TaskMetric: TaskMetric;
+    public TaskMetric: TaskMetric;
 
     /////////////////////////
     // Model class methods //
@@ -73,20 +73,23 @@ export class MetricQuantity extends Model<MetricQuantity> {
     ////////////////////////////
 
     public publicJsonObject() {
+        // tslint:disable-next-line:no-this-assignment
         const { uid, quantity, createdAt } = this;
+
         return {
             uid,
             quantity,
-            createdAt,
+            createdAt
         };
     }
 
     public async fullPublicJsonObject() {
         const publicJsonObject = this.publicJsonObject();
         const metric = (await this.$get("TaskMetric") as TaskMetric).publicJsonObject();
+
         return {
             ...publicJsonObject,
-            metric,
+            metric
         };
     }
 

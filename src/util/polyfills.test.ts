@@ -1,6 +1,6 @@
 import { expect } from "chai";
 
-describe("polyfills", function () {
+describe("polyfills", () => {
 
     it("check if bluebird promise is used globally", () => {
 

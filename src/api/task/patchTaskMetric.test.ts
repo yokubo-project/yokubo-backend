@@ -1,13 +1,13 @@
 import { expect } from "chai";
 import * as path from "path";
 
+import { accessToken1, task1, taskMetric1 } from "../../test/fixture";
 import chaiRequest from "../../util/chaiRequest";
-import { taskMetric1, accessToken1, task1 } from "../../test/fixture";
 import { purify } from "../../util/purify";
 
-describe("PATCH /api/v1/tasks/{taskUid}/metrics", function () {
+describe("PATCH /api/v1/tasks/{taskUid}/metrics", () => {
 
-    const SNAPSHOT_FILE = path.join(__dirname, "../../../../../snapshots/", `task.snap`);
+    const SNAPSHOT_FILE = path.join(__dirname, "../../../../../snapshots/task.snap");
 
     it("should patch task metric entity", async () => {
 
@@ -29,7 +29,7 @@ describe("PATCH /api/v1/tasks/{taskUid}/metrics", function () {
     it("should patch name of task metric entity", async () => {
 
         const payload = {
-            name: "New Name",
+            name: "New Name"
         };
 
         const res = await chaiRequest("PATCH", `/api/v1/tasks/${task1.uid}/metrics/${taskMetric1.uid}`, accessToken1.token)
@@ -68,7 +68,6 @@ describe("PATCH /api/v1/tasks/{taskUid}/metrics", function () {
             unit: "New Metric"
         };
         const taskMetricUid = "954f261d-cd52-4070-8e96-b942b4b44a6d";
-
 
         const res = await chaiRequest("PATCH", `/api/v1/tasks/${task1.uid}/metrics/${taskMetricUid}`, accessToken1.token)
             .send(payload);

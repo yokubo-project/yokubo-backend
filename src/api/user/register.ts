@@ -1,16 +1,16 @@
 import * as Boom from "boom";
 import * as Hapi from "hapi";
 import * as Joi from "joi";
-import * as zxcvbn from "zxcvbn";
 import * as moment from "moment";
+import * as zxcvbn from "zxcvbn";
 
 import Config from "../../Config";
-import sequelize, { Transaction } from "../../util/sequelize";
-import { User } from "../../models/User";
 import { AccessToken } from "../../models/AccessToken";
 import { RefreshToken } from "../../models/RefreshToken";
-import { TokenSchema } from "./_schema";
+import { User } from "../../models/User";
+import sequelize, { Transaction } from "../../util/sequelize";
 import { errorCodes } from "./_errorCodes";
+import { TokenSchema } from "./_schema";
 
 export const register = [{
     method: "POST",
@@ -28,12 +28,12 @@ export const register = [{
                 username: Joi.string().trim().email().required(),
                 password: Joi.string().required(),
                 name: Joi.string().required(),
-                imageUid: Joi.string().guid().length(36).optional().allow(null).description("uid of user profile image"),
+                imageUid: Joi.string().guid().length(36).optional().allow(null).description("uid of user profile image")
             })
         },
         response: {
             schema: TokenSchema
-        },
+        }
     }
 }];
 
@@ -62,7 +62,7 @@ async function registerHandler(request: Hapi.Request, reply: Hapi.ResponseToolki
         const user = await User.create({
             username,
             password: await User.hashPassword(password),
-            name,
+            name
         });
 
         // Create app user profile and tokens

@@ -1,14 +1,15 @@
+// tslint:disable-next-line:no-import-side-effect
 import "../util/polyfills";
 
 const chai = require("chai");
 const chaiJestSnapshot = require("chai-jest-snapshot");
 const chaiHttp = require("chai-http");
 
+import Server from "../Server";
+import { bulkImport, dropTables } from "../util/helpers";
 import log from "../util/log";
 import sequelize from "../util/sequelize";
 import { migrateUp } from "../util/umzug";
-import { dropTables, bulkImport } from "../util/helpers";
-import Server from "../Server";
 import fixture from "./fixture";
 
 // Configuring chai plugins
@@ -17,10 +18,10 @@ chai.use(chaiJestSnapshot);
 
 let server: Server;
 
-before(async function () {
+before(async () => {
 
     log.debug("Loading sequelize models");
-    await sequelize.addModels([__dirname + "/../models"]);
+    await sequelize.addModels([`${__dirname}/../models`]);
 
     log.debug("Dropping all tables");
     await dropTables();
@@ -41,8 +42,7 @@ before(async function () {
 
 });
 
-
-beforeEach(async function () {
+beforeEach(async () => {
 
     log.debug("Dropping all tables");
     await dropTables();
@@ -51,7 +51,7 @@ beforeEach(async function () {
     await migrateUp(true);
 
     log.debug("Loading sequelize models");
-    await sequelize.addModels([__dirname + "/../models"]);
+    await sequelize.addModels([`${__dirname}/../models`]);
 
     log.debug("Importing fixture");
     await bulkImport(fixture);

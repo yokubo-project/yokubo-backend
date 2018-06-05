@@ -1,5 +1,4 @@
 import * as React from "react";
-import "./PwdResetForm";
 import Config from "../Config";
 
 interface IProps {
@@ -14,13 +13,18 @@ class View extends React.Component<IProps, {}> {
         super(props);
     }
 
-    render() {
+    public render() {
+        const env = Config.env === "production" ? "prod" : "dev";
 
         return (
             <html>
                 <head>
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
-                    <link rel="stylesheet" type="text/css" href={`${Config.assets.externalUrl}/api/v1/assets/css/${Config.env === "production" ? "prod" : "dev"}/PwdResetForm.css`} />
+                    <link
+                        rel="stylesheet"
+                        type="text/css"
+                        href={`${Config.assets.externalUrl}/api/v1/assets/css/${env}/PwdResetForm.css`}
+                    />
                     <title>{this.props.title}</title>
                 </head>
                 <body className={"background"}>

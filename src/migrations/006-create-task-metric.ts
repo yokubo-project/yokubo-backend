@@ -16,7 +16,7 @@ module.exports = {
             unit: {
                 type: DataType.STRING(2048),
                 allowNull: false
-            },            
+            },
             TaskUid: {
                 type: DataType.UUID,
                 allowNull: false,

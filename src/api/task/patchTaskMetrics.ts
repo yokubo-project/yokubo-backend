@@ -1,5 +1,5 @@
-import * as Hapi from "hapi";
 import * as Boom from "boom";
+import * as Hapi from "hapi";
 import * as Joi from "joi";
 
 import { TaskMetric } from "../../models/TaskMetric";
@@ -21,12 +21,12 @@ export const patchTaskMetric = [{
             },
             payload: Joi.object().keys({
                 name: Joi.string().optional(),
-                unit: Joi.string().optional(),
+                unit: Joi.string().optional()
             })
         },
         response: {
             schema: TaskMetricSchema
-        },
+        }
     }
 }];
 
@@ -34,7 +34,7 @@ async function patchTaskMetricHandler(request: Hapi.Request, reply: Hapi.Respons
 
     const taskMetric = await TaskMetric.find({
         where: {
-            uid: request.params.metricUid,
+            uid: request.params.metricUid
         }
     });
 

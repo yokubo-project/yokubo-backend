@@ -1,14 +1,14 @@
 import { expect } from "chai";
-import * as path from "path";
 import * as moment from "moment";
+import * as path from "path";
 
-import chaiRequest from "../../util/chaiRequest";
 import { accessToken1, task1, taskMetric1, taskMetric2 } from "../../test/fixture";
+import chaiRequest from "../../util/chaiRequest";
 import { purify } from "../../util/purify";
 
-describe("POST /api/v1/tasks/{taskUid}/items", function () {
+describe("POST /api/v1/tasks/{taskUid}/items", () => {
 
-    const SNAPSHOT_FILE = path.join(__dirname, "../../../../../snapshots/", `task.snap`);
+    const SNAPSHOT_FILE = path.join(__dirname, "../../../../../snapshots/task.snap");
 
     it("should post task item", async () => {
 
@@ -44,7 +44,7 @@ describe("POST /api/v1/tasks/{taskUid}/items", function () {
 
         const payload = {
             name: "Name of the item",
-            desc: "Desc of the item",
+            desc: "Desc of the item"
         };
 
         const res = await chaiRequest("POST", `/api/v1/tasks/${task1.uid}/items`, accessToken1.token)
@@ -82,7 +82,7 @@ describe("POST /api/v1/tasks/{taskUid}/items", function () {
 
         const payload = {
             name: "Name of the item",
-            period: [fromAt, toAt],
+            period: [fromAt, toAt]
         };
 
         const res = await chaiRequest("POST", `/api/v1/tasks/${task1.uid}/items`, accessToken1.token)
@@ -123,7 +123,7 @@ describe("POST /api/v1/tasks/{taskUid}/items", function () {
     it("should fail posting task item without name", async () => {
 
         const payload = {
-            desc: "Desc of the item",
+            desc: "Desc of the item"
         };
 
         const res = await chaiRequest("POST", `/api/v1/tasks/${task1.uid}/items`, accessToken1.token)

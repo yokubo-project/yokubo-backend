@@ -15,11 +15,11 @@ module.exports = {
             },
             desc: {
                 type: DataType.STRING(4096),
-                allowNull: true, // null indicates no description
+                allowNull: true // null indicates no description
             },
             period: {
                 type: DataType.RANGE(DataType.DATE),
-                allowNull: true, // null inidicates no period.
+                allowNull: true // null inidicates no period.
             },
             TaskUid: {
                 type: DataType.UUID,

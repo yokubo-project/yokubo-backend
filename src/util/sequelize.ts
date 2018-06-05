@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize-typescript";
 
-import log from "./log";
 import Config from "../Config";
+import log from "./log";
 
 log.debug("Creating sequelize instance");
 const sequelize = new Sequelize({
@@ -20,4 +20,5 @@ const sequelize = new Sequelize({
 
 export { Transaction } from "sequelize";
 
+// tslint:disable-next-line:no-default-export
 export default sequelize;

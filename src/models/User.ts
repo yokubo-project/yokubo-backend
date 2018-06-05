@@ -1,11 +1,11 @@
-import { Table, Column, Model, DataType, HasMany } from "sequelize-typescript";
 import * as bcrypt from "bcrypt";
+import { Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
 
 import Config from "../Config";
 import { AccessToken } from "./AccessToken";
+import { PwdResetToken } from "./PwdResetToken";
 import { RefreshToken } from "./RefreshToken";
 import { Task } from "./Task";
-import { PwdResetToken } from "./PwdResetToken";
 
 @Table({
     tableName: "Users",
@@ -79,27 +79,29 @@ export class User extends Model<User> {
     public deletedAt: Date;
 
     @HasMany(() => AccessToken)
-    AccessTokens: AccessToken[];
+    public AccessTokens: AccessToken[];
 
     @HasMany(() => RefreshToken)
-    RefreshTokens: RefreshToken[];
+    public RefreshTokens: RefreshToken[];
 
     @HasMany(() => PwdResetToken)
-    PwdResetTokens: PwdResetToken[];
+    public PwdResetTokens: PwdResetToken[];
 
     @HasMany(() => Task)
-    Tasks: Task[];
+    public Tasks: Task[];
 
     /////////////////////////
     // Model class methods //
     /////////////////////////
 
+    // tslint:disable-next-line:function-name
     public static async hashPassword(password: string): Promise<string> {
 
         return bcrypt.hash(password, Config.auth.bcryptSaltRounds);
 
     }
 
+    // tslint:disable-next-line:function-name
     public static async comparePassword(password: string, hash: string): Promise<boolean> {
 
         return bcrypt.compare(password, hash);
@@ -111,7 +113,9 @@ export class User extends Model<User> {
     ////////////////////////////
 
     public publicJsonObject() {
+        // tslint:disable-next-line:no-this-assignment
         const { uid, username, name } = this;
+
         return {
             uid,
             username,

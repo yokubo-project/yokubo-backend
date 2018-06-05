@@ -1,12 +1,12 @@
-import * as Hapi from "hapi";
 import * as Boom from "boom";
+import * as Hapi from "hapi";
 import * as Joi from "joi";
 import * as moment from "moment";
 
-import { TaskItem } from "../../models/TaskItem";
-import { TaskItemSchema } from "./_schema";
 import { MetricQuantity } from "../../models/MetricQuantity";
+import { TaskItem } from "../../models/TaskItem";
 import { errorCodes } from "./_errorCodes";
+import { TaskItemSchema } from "./_schema";
 
 export const postTaskItem = [{
     method: "POST",
@@ -38,7 +38,7 @@ export const postTaskItem = [{
         },
         response: {
             schema: TaskItemSchema
-        },
+        }
     }
 }];
 

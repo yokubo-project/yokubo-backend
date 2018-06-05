@@ -1,21 +1,21 @@
 import * as Boom from "boom";
-import * as Hapi from "hapi";
-import * as Joi from "joi";
+import * as fileType from "file-type";
 import * as fs from "fs-extra";
+import * as Hapi from "hapi";
 import * as im from "imagemagick";
+import * as Joi from "joi";
+import * as _ from "lodash";
+import * as multiparty from "multiparty";
 import * as path from "path";
 import * as readChunk from "read-chunk";
-import * as fileType from "file-type";
 import * as uuid from "uuid";
-import * as multiparty from "multiparty";
-import * as _ from "lodash";
 
 import Config from "../../Config";
-import sequelize, { Transaction } from "../../util/sequelize";
-import log from "../../util/log";
-import * as _schema from "./_schema";
 import { Image } from "../../models/Image";
+import log from "../../util/log";
+import sequelize, { Transaction } from "../../util/sequelize";
 import { errorCodes } from "./_errorCodes";
+import * as _schema from "./_schema";
 
 // ensure user upload dir exists
 fs.ensureDirSync(Config.assets.imageUploadsPath);
@@ -41,7 +41,7 @@ export const postImage = [{
         },
         response: {
             schema: Joi.array().items(_schema.ImageSchema.required()).required()
-        },
+        }
     }
 }];
 
@@ -91,7 +91,7 @@ async function postImageHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
         };
     });
 
-    return await sequelize.transaction(async (transaction: Transaction) => {
+    return sequelize.transaction(async (transaction: Transaction) => {
 
         try {
 
@@ -110,7 +110,7 @@ async function postImageHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
 
                 // Save to db
                 const image = await Image.create({
-                    file,
+                    file
                 });
 
                 return image.publicJsonObject();
@@ -122,7 +122,7 @@ async function postImageHandler(request: Hapi.Request, reply: Hapi.ResponseToolk
             log.fatal({
                 err,
                 validFilesProperties
-            }, "Unable to process image upload");
+            },        "Unable to process image upload");
 
             // Delete all files in case of error, no need to wait for the result
             await Promise.each(validFilesProperties, async (validFileProperties) => {
@@ -145,7 +145,7 @@ function extractMultipartPayload(payload: any): Promise<{
     files: any;
     fields: any;
 }> {
-    return new Promise(function (resolve, reject) {
+    return new Promise((resolve, reject) => {
         const form = new multiparty.Form({});
 
         form.parse(payload, (err: any, fields: any, files: any) => {
@@ -154,6 +154,7 @@ function extractMultipartPayload(payload: any): Promise<{
                 return reject(err);
             }
             // On Success
+
             return resolve({
                 files: files,
                 fields: fields
@@ -163,13 +164,15 @@ function extractMultipartPayload(payload: any): Promise<{
 }
 
 function extractFilesFromMultipartUpload(multipartContents: any): string[] {
-    let files = [];
-    for (let fileKey in multipartContents.files) {
+    const files = [];
+    // tslint:disable-next-line:no-for-in
+    for (const fileKey in multipartContents.files) {
         if (multipartContents.files.hasOwnProperty(fileKey)) {
-            for (let fileContents of multipartContents.files[fileKey]) {
+            for (const fileContents of multipartContents.files[fileKey]) {
                 files.push(fileContents.path);
             }
         }
     }
+
     return files;
 }

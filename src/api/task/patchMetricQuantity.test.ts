@@ -1,13 +1,13 @@
 import { expect } from "chai";
 import * as path from "path";
 
+import { accessToken1, metricQuantity1, task1 } from "../../test/fixture";
 import chaiRequest from "../../util/chaiRequest";
-import { accessToken1, task1, metricQuantity1 } from "../../test/fixture";
 import { purify } from "../../util/purify";
 
-describe("PATCH /api/v1/tasks/{taskUid}/quantities", function () {
+describe("PATCH /api/v1/tasks/{taskUid}/quantities", () => {
 
-    const SNAPSHOT_FILE = path.join(__dirname, "../../../../../snapshots/", `task.snap`);
+    const SNAPSHOT_FILE = path.join(__dirname, "../../../../../snapshots/task.snap");
 
     it("should patch metric quantity", async () => {
 

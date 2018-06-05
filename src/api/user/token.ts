@@ -4,12 +4,12 @@ import * as Joi from "joi";
 import * as moment from "moment";
 
 import Config from "../../Config";
-import { User } from "../../models/User";
 import { AccessToken } from "../../models/AccessToken";
 import { RefreshToken } from "../../models/RefreshToken";
-import { TokenSchema } from "./_schema";
+import { User } from "../../models/User";
 import { preventTimingAttack } from "../../util/helpers";
 import { errorCodes } from "./_errorCodes";
+import { TokenSchema } from "./_schema";
 
 export const token = [{
     method: "POST",
@@ -24,12 +24,12 @@ export const token = [{
                 abortEarly: false
             },
             payload: Joi.object().required().unknown(true).keys({
-                grantType: Joi.string().required().valid("password", "refreshToken"),
+                grantType: Joi.string().required().valid("password", "refreshToken")
             })
         },
         response: {
             schema: TokenSchema
-        },
+        }
     }
 }];
 
@@ -46,7 +46,7 @@ async function tokenHandler(request: Hapi.Request, reply: Hapi.ResponseToolkit):
                 validateSchema(request.payload, Joi.object().keys({
                     grantType: Joi.string().required().valid("password", "refreshToken"),
                     username: Joi.string().required(),
-                    password: Joi.string().required(),
+                    password: Joi.string().required()
                 }));
             } catch (err) {
                 throw Boom.badRequest(err.message);
@@ -75,12 +75,13 @@ async function tokenHandler(request: Hapi.Request, reply: Hapi.ResponseToolkit):
             try {
                 validateSchema(request.payload, Joi.object().keys({
                     grantType: Joi.string().required().valid("password", "refreshToken"),
-                    refreshToken: Joi.string().guid().length(36).required(),
+                    refreshToken: Joi.string().guid().length(36).required()
                 }));
             } catch (err) {
                 throw Boom.badRequest(err.message);
             }
 
+            // tslint:disable-next-line:no-shadowed-variable
             const { refreshToken } = request.payload as any;
 
             const tokenInstance = await RefreshToken.find({ where: { token: refreshToken } });
@@ -122,9 +123,10 @@ async function tokenHandler(request: Hapi.Request, reply: Hapi.ResponseToolkit):
 }
 
 function validateSchema(payload: Object, schema: Joi.JoiObject) {
-    let result = Joi.validate(payload, schema);
+    const result = Joi.validate(payload, schema);
     if (result.error) {
         throw new Error(result.error.toString());
     }
+
     return Promise.resolve(result.value);
 }

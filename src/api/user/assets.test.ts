@@ -5,7 +5,7 @@ import chaiRequest from "../../util/chaiRequest";
 
 describe("GET /api/v1/assets", () => {
 
-    const SNAPSHOT_FILE = path.join(__dirname, "../../../../snapshots/", `asset.snap`);
+    const SNAPSHOT_FILE = path.join(__dirname, "../../../../snapshots/asset.snap");
 
     it("should fetch asset", async () => {
 

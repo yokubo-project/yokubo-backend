@@ -1,7 +1,7 @@
-import { Table, Column, Model, DataType, BelongsTo, ForeignKey, HasMany } from "sequelize-typescript";
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
 
-import { Task } from "./Task";
 import { MetricQuantity } from "./MetricQuantity";
+import { Task } from "./Task";
 
 @Table({
     tableName: "TaskMetrics",
@@ -53,15 +53,15 @@ export class TaskMetric extends Model<TaskMetric> {
     @ForeignKey(() => Task)
     @Column({
         type: DataType.UUID,
-        allowNull: true,
+        allowNull: true
     })
     public TaskUid: string;
 
     @BelongsTo(() => Task)
-    Task: Task;
+    public Task: Task;
 
     @HasMany(() => MetricQuantity)
-    MetricQuantities: MetricQuantity[];
+    public MetricQuantities: MetricQuantity[];
 
     /////////////////////////
     // Model class methods //
@@ -72,7 +72,9 @@ export class TaskMetric extends Model<TaskMetric> {
     ////////////////////////////
 
     public publicJsonObject() {
+        // tslint:disable-next-line:no-this-assignment
         const { uid, name, unit, createdAt } = this;
+
         return {
             uid,
             name,

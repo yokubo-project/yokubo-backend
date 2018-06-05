@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType } from "sequelize-typescript";
+import { Column, DataType, Model, Table } from "sequelize-typescript";
 
 import Config from "./../Config";
 
@@ -52,6 +52,7 @@ export class Image extends Model<Image> {
     ////////////////////////////
 
     public publicJsonObject() {
+        // tslint:disable-next-line:no-this-assignment
         const { uid, file } = this;
         const filePath = `${Config.assets.externalUrl}${Config.assets.imageUploadsRelativeUrl}${file}`;
 
@@ -73,4 +74,3 @@ export class Image extends Model<Image> {
     }
 
 }
-

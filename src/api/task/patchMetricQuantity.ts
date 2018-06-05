@@ -1,9 +1,9 @@
-import * as Hapi from "hapi";
 import * as Boom from "boom";
+import * as Hapi from "hapi";
 import * as Joi from "joi";
 
-import { MetricQuantitySchema } from "./_schema";
 import { MetricQuantity } from "../../models/MetricQuantity";
+import { MetricQuantitySchema } from "./_schema";
 
 export const patchMetricQuantity = [{
     method: "PATCH",
@@ -25,7 +25,7 @@ export const patchMetricQuantity = [{
         },
         response: {
             schema: MetricQuantitySchema
-        },
+        }
     }
 }];
 
@@ -33,7 +33,7 @@ async function patchMetricQuantityHandler(request: Hapi.Request, reply: Hapi.Res
 
     const quantity = await MetricQuantity.find({
         where: {
-            uid: request.params.quantityUid,
+            uid: request.params.quantityUid
         }
     });
 

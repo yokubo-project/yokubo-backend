@@ -40,19 +40,18 @@ export const accessToken2 = {
     validUntil: nextYear
 };
 
-
 ////////////////////////////
 //     Refresh Tokens     //
 ////////////////////////////
 
 export const refreshToken1 = {
     UserUid: user1.uid,
-    token: "d82daf43-75f2-4564-9812-015c60ed4982",
+    token: "d82daf43-75f2-4564-9812-015c60ed4982"
 };
 
 export const refreshToken2 = {
     UserUid: user2.uid,
-    token: "e75078ea-7b34-4a4e-815c-e2f809d55caa",
+    token: "e75078ea-7b34-4a4e-815c-e2f809d55caa"
 };
 
 ////////////////////////////
@@ -77,14 +76,13 @@ export const pwdResetToken2 = {
 
 export const image1 = {
     uid: "0352a729-efe9-4ec0-bec1-f921931b75a2",
-    file: "image1.png",
+    file: "image1.png"
 };
 
 export const image2 = {
     uid: "89d317b7-2edb-41cf-822f-2f002d3b394e",
-    file: "profileImage1.png",
+    file: "profileImage1.png"
 };
-
 
 ////////////////////////////
 //         Tasks          //
@@ -95,7 +93,7 @@ export const task1 = {
     name: "Task1",
     ImageUid: image1.uid,
     UserUid: user1.uid,
-    createdAt: moment().subtract(10, "minutes").toISOString(),
+    createdAt: moment().subtract(10, "minutes").toISOString()
 };
 
 export const task2 = {
@@ -103,7 +101,7 @@ export const task2 = {
     name: "Task2",
     ImageUid: image1.uid,
     UserUid: user1.uid,
-    createdAt: moment().subtract(5, "minutes").toISOString(),
+    createdAt: moment().subtract(5, "minutes").toISOString()
 };
 
 export const task3 = {
@@ -111,9 +109,8 @@ export const task3 = {
     name: "Task3",
     ImageUid: image1.uid,
     UserUid: user2.uid,
-    createdAt: moment().subtract(0, "minutes").toISOString(),
+    createdAt: moment().subtract(0, "minutes").toISOString()
 };
-
 
 ////////////////////////////
 //     Task Metrics       //
@@ -140,7 +137,6 @@ export const taskMetric3 = {
     TaskUid: task3.uid
 };
 
-
 ////////////////////////////
 //       Task Items       //
 ////////////////////////////
@@ -162,7 +158,6 @@ export const taskItem2 = {
     TaskUid: task1.uid
 };
 
-
 ////////////////////////////
 //    Metric Quantities   //
 ////////////////////////////
@@ -180,7 +175,6 @@ export const metricQuantity2 = {
     TaskMetricUid: taskMetric2.uid,
     quantity: 2
 };
-
 
 ////////////////////////////
 // FIXTURE //
@@ -208,4 +202,5 @@ const fixture = {
 
 };
 
+// tslint:disable-next-line:no-default-export
 export default fixture;

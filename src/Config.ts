@@ -52,7 +52,7 @@ interface IImageUpload {
 interface IMailing {
     endpoint: string;
     apiKey: string;
-    from: string;
+    sender: string;
 }
 
 interface IStaticWebpages {
@@ -80,15 +80,16 @@ interface ILegalDisclosure {
     email: string;
 }
 
+// tslint:disable-next-line:cyclomatic-complexity no-unnecessary-class
 class Config {
 
-    static env: string = process.env.NODE_ENV || "test";
+    public static env: string = process.env.NODE_ENV || "test";
 
-    static host: string = process.env.SERVER_HOST || "0.0.0.0";
-    static port: string = process.env.SERVER_PORT || "8000";
+    public static host: string = process.env.SERVER_HOST || "0.0.0.0";
+    public static port: string = process.env.SERVER_PORT || "8000";
 
     // Sequelize config
-    static database: IDatabase = {
+    public static database: IDatabase = {
         dialect: "postgres",
         host: process.env.PGHOST || "127.0.0.1",
         port: process.env.PGPORT || "5432",
@@ -99,7 +100,7 @@ class Config {
     };
 
     // Bunyan config
-    static logging: ILogging = {
+    public static logging: ILogging = {
         name: packageJson.name,
         fileSeverity: process.env.FILE_SEVERITY || "error",
         filePath: process.env.FILE_PATH || `./${packageJson.name}.log`,
@@ -111,63 +112,64 @@ class Config {
     };
 
     // Auth
-    static auth: IAuth = {
+    public static auth: IAuth = {
         zxcvbnScore: 1,
         bcryptSaltRounds: 10,
-        tokenExpiresIn: 86400000, // 24 hours
+        tokenExpiresIn: 86400000 // 24 hours
     };
 
     // Assets
-    static assets: IAssets = {
+    public static assets: IAssets = {
         imageUploadsPath: path.join(__dirname, "../../assets/image-uploads/"),
         imageUploadsRelativeUrl: "/api/v1/assets/image-uploads/",
         backgroundImagePath: "/api/v1/assets/bg.jpg",
         externalUrl: process.env.EXTERNAL_ASSETS_URL_HOST || "127.0.0.1:8080",
-        thumbSize: "256x256",
+        thumbSize: "256x256"
     };
 
     // ImageUpload
-    static imageUpload: IImageUpload = {
+    public static imageUpload: IImageUpload = {
         supportedExtensions: ["png", "jpg", "jpeg"],
         supportedMimeTypes: ["image/jpeg", "image/png"],
         maxUpload: 20 * 1024 * 1024
     };
 
     // Mailing
-    static mailing: IMailing = {
+    public static mailing: IMailing = {
         endpoint: "https://api.eu.sparkpost.com:443",
         apiKey: process.env.MAIL_API_KEY || "",
-        from: process.env.MAIL_FROM || "mailing@localhost.com"
+        sender: process.env.MAIL_FROM || "mailing@localhost.com"
     };
 
     // Static pages
-    static pages: IStaticWebpages = {
+    public static pages: IStaticWebpages = {
         forgotPwdLink: `${process.env.STATIC_WEBPAGES_URL_HOST}/views/v1/pwd-reset-form/`
     };
 
     // Test
-    static test: ITest = {
+    public static test: ITest = {
         sendMails: process.env.SEND_TEST_MAILS === "true" || false,
         user1Email: process.env.TESTUSER_1_EMAIL || "user1@test.com",
         user2Email: process.env.TESTUSER_2_EMAIL || "user2@test.com"
     };
 
     // Admin user
-    static admin: IAdmin = {
+    public static admin: IAdmin = {
         username: process.env.ADMIN_USERNAME || "admin",
         password: process.env.ADMIN_PWD || "password",
         name: process.env.ADMIN_NAME || "Administrator"
     };
 
-    static legalDisclosure: ILegalDisclosure = {
+    public static legalDisclosure: ILegalDisclosure = {
         name: process.env.LEGAL_DISCLOSURE_NAME || "",
         address: process.env.LEGAL_DISCLOSURE_ADDRESS || "",
         plz: process.env.LEGAL_DISCLOSURE_PLZ || "",
         city: process.env.LEGAL_DISCLOSURE_CITY || "",
         state: process.env.LEGAL_DISCLOSURE_STATE || "",
-        email: process.env.LEGAL_DISCLOSURE_EMAIL || "",
+        email: process.env.LEGAL_DISCLOSURE_EMAIL || ""
     };
 
 }
 
+// tslint:disable-next-line:no-default-export
 export default Config;

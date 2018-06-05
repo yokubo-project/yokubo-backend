@@ -1,16 +1,16 @@
 import * as Boom from "boom";
 import * as Hapi from "hapi";
 import * as Joi from "joi";
-import * as zxcvbn from "zxcvbn";
 import * as moment from "moment";
+import * as zxcvbn from "zxcvbn";
 
 import Config from "../../Config";
-import { User } from "../../models/User";
 import { AccessToken } from "../../models/AccessToken";
 import { RefreshToken } from "../../models/RefreshToken";
-import { TokenSchema } from "./_schema";
+import { User } from "../../models/User";
 import { preventTimingAttack } from "../../util/helpers";
 import { errorCodes } from "./_errorCodes";
+import { TokenSchema } from "./_schema";
 
 export const resetPwd = [{
     method: "POST",
@@ -28,12 +28,12 @@ export const resetPwd = [{
             },
             payload: Joi.object().required().keys({
                 currentPwd: Joi.string().required(),
-                newPwd: Joi.string().required(),
+                newPwd: Joi.string().required()
             })
         },
         response: {
             schema: TokenSchema
-        },
+        }
     }
 }];
 

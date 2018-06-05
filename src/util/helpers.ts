@@ -1,6 +1,7 @@
+// tslint:disable-next-line:import-name
+import _ = require("lodash");
 import log from "./log";
 import sequelize from "./sequelize";
-import _ = require("lodash");
 
 export async function dropTables(): Promise<void> {
     await sequelize.getQueryInterface().dropAllTables();
@@ -16,5 +17,5 @@ export async function bulkImport(fixture: Object): Promise<void> {
 }
 
 export async function preventTimingAttack(): Promise<any> {
-    return await Promise.delay(_.random(50, 300));
+    return Promise.delay(_.random(50, 300));
 }
