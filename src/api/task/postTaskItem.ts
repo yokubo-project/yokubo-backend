@@ -24,7 +24,7 @@ export const postTaskItem = [{
             },
             payload: Joi.object().keys({
                 name: Joi.string().required(),
-                desc: Joi.string().optional(),
+                desc: Joi.string().optional().allow(null),
                 period: Joi.array().allow(null).items(
                     Joi.date().iso().required()
                 ).length(2).optional(),

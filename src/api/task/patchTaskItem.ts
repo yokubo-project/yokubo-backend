@@ -24,7 +24,7 @@ export const patchTaskItem = [{
             },
             payload: Joi.object().keys({
                 name: Joi.string().optional(),
-                desc: Joi.string().optional(),
+                desc: Joi.string().optional().allow(null),
                 period: Joi.array().allow(null).items(
                     Joi.date().iso().required()
                 ).length(2).optional(),
@@ -76,10 +76,11 @@ async function patchTaskItemHandler(request: Hapi.Request, reply: Hapi.ResponseT
     // Patch task item metrics
     if (metrics) {
         for (const metric of metrics) {
-            await MetricQuantity.update({
-                quantity: metric.quantity
-            },
-                                        {
+            await MetricQuantity.update(
+                {
+                    quantity: metric.quantity
+                },
+                {
                     where: {
                         uid: metric.uid
                     }
