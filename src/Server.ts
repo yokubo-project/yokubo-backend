@@ -53,7 +53,10 @@ class Api {
         this.server.auth.strategy("bearer", "bearer-access-token", {
             validate: async (request: Hapi.Request, token: string, h: any) => {
 
-                Joi.assert(token, Joi.string().guid().length(36));
+                const result = Joi.validate(token, Joi.string().guid().length(36));
+                if (result.error) {
+                    return { isValid: false, credentials: {}, artifacts: {} };
+                }
 
                 const accessToken = await AccessToken.findOne({
                     where: {
