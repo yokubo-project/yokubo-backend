@@ -8,7 +8,6 @@ class EmailErrorStream extends Writable {
 
     public recipients: IRecipient[];
     public subject: string;
-    public html: string;
 
     constructor() {
         super();

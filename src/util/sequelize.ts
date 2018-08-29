@@ -1,3 +1,4 @@
+import * as path from "path";
 import { Sequelize } from "sequelize-typescript";
 
 import Config from "../Config";
@@ -15,7 +16,8 @@ const sequelize = new Sequelize({
         min: 0
     },
     timezone: "Etc/UTC",
-    logging: Config.logging.consoleSeverity === "debug" ? true : false
+    logging: Config.logging.consoleSeverity === "debug" ? true : false,
+    modelPaths: [path.resolve(__dirname, "../models")]
 });
 
 export { Transaction } from "sequelize";
