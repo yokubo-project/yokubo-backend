@@ -8,17 +8,21 @@
 }
 
 @media (max-width: 799px) {
+
     html,
     body {
         height: calc(100% - 37.5px);
     }
+
     html {
         overflow: hidden;
     }
+
     body {
         overflow-y: scroll;
         -webkit-overflow-scrolling: touch;
     }
+
     .background {
         text-align: center;
         background: url(https://www.yokubo.org/api/v1/assets/bg.jpg) center/cover;

@@ -24,14 +24,20 @@ class View extends React.Component<IProps, {}> {
                         type="text/css"
                         href={`${Config.assets.externalUrl}/api/v1/assets/css/${env}/LandingPage.css`}
                     />
+                    <link href="https://fonts.googleapis.com/css?family=Belleza" rel="stylesheet" />
                     <title>{this.props.title}</title>
                 </head>
                 <body className={"background"}>
-                    <img
-                        className={"brand"}
-                        src={`${Config.assets.externalUrl}/api/v1/assets/yokubo_logo.png`}
-                        alt="yokubo_logo.png"
-                    />
+                    <h1
+                        // tslint:disable-next-line:jsx-no-multiline-js
+                        style={{
+                            fontFamily: "'Belleza', sans-serif",
+                            color: "#00a3ee",
+                            fontSize: 78
+                        }}
+                    >
+                        Yokubo
+                    </h1>
 
                     <div className={"maincontainer"}>
 
@@ -49,12 +55,22 @@ class View extends React.Component<IProps, {}> {
                             </div>
 
                             <div className={"download-section"}>
-                                <img
-                                    className={"download"}
-                                    src={`${Config.assets.externalUrl}/api/v1/assets/download_android.svg`}
-                                    width="200px"
-                                    alt="download_android.svg"
-                                />
+                                <a href="https://itunes.apple.com/us/app/yokubo/id1435928037">
+                                    <img
+                                        className={"download"}
+                                        src={`${Config.assets.externalUrl}/api/v1/assets/download_ios.png`}
+                                        width="200px"
+                                        alt="download_ios.png"
+                                    />
+                                </a>
+                                <a href="https://play.google.com/store/apps/details?id=org.yokubo.app">
+                                    <img
+                                        className={"download"}
+                                        src={`${Config.assets.externalUrl}/api/v1/assets/download_android.svg`}
+                                        width="200px"
+                                        alt="download_android.svg"
+                                    />
+                                </a>
                             </div>
                         </div>
 

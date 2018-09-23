@@ -58,7 +58,7 @@
     .pwdInputText {
         padding-top: 13px;
         padding-bottom: 13px;
-        font-size: 16px;
+        font-size: 20px;
         border-width: 0 0 2px 0;
         margin: 20px 0 20px 0;
         width: 100%;
@@ -83,7 +83,7 @@
         cursor: pointer;
         border-radius: 3px;
         padding: 10px;
-        font-size: 16px;
+        font-size: 20px;
         color: white;
         margin: 20px 0 20px 0;
         width: 100%;
