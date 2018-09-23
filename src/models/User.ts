@@ -7,6 +7,11 @@ import { PwdResetToken } from "./PwdResetToken";
 import { RefreshToken } from "./RefreshToken";
 import { Task } from "./Task";
 
+interface IPublicJsonObject {
+    uid: string;
+    username: string;
+    name: string;
+}
 @Table({
     tableName: "Users",
     paranoid: false
@@ -112,7 +117,7 @@ export class User extends Model<User> {
     // Model instance methods //
     ////////////////////////////
 
-    public publicJsonObject() {
+    public publicJsonObject(): IPublicJsonObject {
         // tslint:disable-next-line:no-this-assignment
         const { uid, username, name } = this;
 

@@ -2,6 +2,11 @@ import { Column, DataType, Model, Table } from "sequelize-typescript";
 
 import Config from "./../Config";
 
+export interface IPublicJsonObject {
+    uid: string;
+    file: string;
+    thumbnail: string;
+}
 @Table({
     tableName: "Images",
     paranoid: false
@@ -51,7 +56,7 @@ export class Image extends Model<Image> {
     // Model instance methods //
     ////////////////////////////
 
-    public publicJsonObject() {
+    public publicJsonObject(): IPublicJsonObject {
         // tslint:disable-next-line:no-this-assignment
         const { uid, file } = this;
         const filePath = `${Config.assets.externalUrl}${Config.assets.imageUploadsRelativeUrl}${file}`;

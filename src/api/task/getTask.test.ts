@@ -13,6 +13,7 @@ describe("GET /api/v1/task", () => {
 
         const res = await chaiRequest("GET", `/api/v1/tasks/${task1.uid}`, accessToken1.token);
 
+        console.log("res.body: ", JSON.stringify(res.body, null, 2));
         expect(res.status).to.be.equal(200);
 
         const preparedSnapshot = purify(res.body, ["createdAt", "period"]);

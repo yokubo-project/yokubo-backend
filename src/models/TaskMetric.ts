@@ -3,6 +3,12 @@ import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "
 import { MetricQuantity } from "./MetricQuantity";
 import { Task } from "./Task";
 
+export interface IPublicJsonObject {
+    uid: string;
+    name: string;
+    unit: string;
+    createdAt: Date;
+}
 @Table({
     tableName: "TaskMetrics",
     paranoid: false
@@ -71,7 +77,7 @@ export class TaskMetric extends Model<TaskMetric> {
     // Model instance methods //
     ////////////////////////////
 
-    public publicJsonObject() {
+    public publicJsonObject(): IPublicJsonObject {
         // tslint:disable-next-line:no-this-assignment
         const { uid, name, unit, createdAt } = this;
 

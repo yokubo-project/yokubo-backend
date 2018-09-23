@@ -1,10 +1,20 @@
 import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
 
-import { Image } from "./Image";
-import { TaskItem } from "./TaskItem";
-import { TaskMetric } from "./TaskMetric";
+import { Image, IPublicJsonObject as IImagePublicJsonObject } from "./Image";
+import { IFullPublicJsonObject as ITaskItemFullPublicJsonObject, TaskItem } from "./TaskItem";
+import { IPublicJsonObject as ITaskMetricFullPublicJsonObject, TaskMetric } from "./TaskMetric";
 import { User } from "./User";
 
+interface IPublicJsonObject {
+    uid: string;
+    name: string;
+    createdAt: Date;
+}
+interface IFullPublicJsonObject extends IPublicJsonObject {
+    image: IImagePublicJsonObject;
+    metrics: ITaskMetricFullPublicJsonObject[];
+    items: ITaskItemFullPublicJsonObject[];
+}
 @Table({
     tableName: "Tasks",
     paranoid: false
@@ -80,7 +90,7 @@ export class Task extends Model<Task> {
     // Model instance methods //
     ////////////////////////////
 
-    public publicJsonObject() {
+    public publicJsonObject(): IPublicJsonObject {
         // tslint:disable-next-line:no-this-assignment
         const { uid, name, createdAt } = this;
 
@@ -91,7 +101,7 @@ export class Task extends Model<Task> {
         };
     }
 
-    public async fullPublicJsonObject() {
+    public async fullPublicJsonObject(): Promise<IFullPublicJsonObject> {
         const publicJsonObject = this.publicJsonObject();
         const image = await (await this.$get("Image") as Image).publicJsonObject();
         const metrics = (await this.$get("TaskMetrics") as TaskMetric[]).map(taskMetric => taskMetric.publicJsonObject());

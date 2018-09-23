@@ -1,8 +1,17 @@
 import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
 
 import { TaskItem } from "./TaskItem";
-import { TaskMetric } from "./TaskMetric";
+import { IPublicJsonObject as ITaskMetricPublicJsonObject, TaskMetric } from "./TaskMetric";
 
+interface IPublicJsonObject {
+    uid: string;
+    quantity: number;
+    createdAt: Date;
+}
+
+export interface IFullPublicJsonObject extends IPublicJsonObject {
+    metric: ITaskMetricPublicJsonObject;
+}
 @Table({
     tableName: "MetricQuantities",
     paranoid: false
@@ -72,7 +81,7 @@ export class MetricQuantity extends Model<MetricQuantity> {
     // Model instance methods //
     ////////////////////////////
 
-    public publicJsonObject() {
+    public publicJsonObject(): IPublicJsonObject {
         // tslint:disable-next-line:no-this-assignment
         const { uid, quantity, createdAt } = this;
 
@@ -83,7 +92,7 @@ export class MetricQuantity extends Model<MetricQuantity> {
         };
     }
 
-    public async fullPublicJsonObject() {
+    public async fullPublicJsonObject(): Promise<IFullPublicJsonObject> {
         const publicJsonObject = this.publicJsonObject();
         const metric = (await this.$get("TaskMetric") as TaskMetric).publicJsonObject();
 

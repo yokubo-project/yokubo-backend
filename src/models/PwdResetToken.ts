@@ -1,6 +1,9 @@
 import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
 import { User } from "./User";
 
+interface IPublicJsonObject {
+    validUntil: Date;
+}
 @Table({
     tableName: "PwdResetTokens",
     paranoid: false
@@ -19,7 +22,7 @@ export class PwdResetToken extends Model<PwdResetToken> {
         type: DataType.DATE,
         allowNull: false
     })
-    public validUntil: string;
+    public validUntil: Date;
 
     @Column({
         type: DataType.DATE,
@@ -60,7 +63,7 @@ export class PwdResetToken extends Model<PwdResetToken> {
     // Model instance methods //
     ////////////////////////////
 
-    public publicJsonObject() {
+    public publicJsonObject(): IPublicJsonObject {
         // tslint:disable-next-line:no-this-assignment
         const { validUntil } = this;
 
