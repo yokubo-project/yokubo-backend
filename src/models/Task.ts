@@ -10,11 +10,24 @@ interface IPublicJsonObject {
     name: string;
     createdAt: Date;
 }
+
+interface ITaskItemStats {
+    metricKey: string;
+    metricName: string;
+    metricUnit: string;
+    totalItems: number;
+    totalValue: number;
+    averageValue: number;
+    minValue: number;
+    maxValue: number;
+}
 interface IFullPublicJsonObject extends IPublicJsonObject {
     image: IImagePublicJsonObject;
     metrics: ITaskMetricFullPublicJsonObject[];
     items: ITaskItemFullPublicJsonObject[];
+    stats: ITaskItemStats[];
 }
+
 @Table({
     tableName: "Tasks",
     paranoid: false
@@ -108,13 +121,79 @@ export class Task extends Model<Task> {
         const items = await Promise.all(
             (await this.$get("TaskItems") as TaskItem[]).map(async taskItem => taskItem.fullPublicJsonObject())
         );
+        const stats = getTaskItemStats(items);
 
         return {
             ...publicJsonObject,
             image,
             metrics,
-            items
+            items,
+            stats
         };
     }
 
+}
+
+function getTaskItemStats(items: ITaskItemFullPublicJsonObject[]): ITaskItemStats[] {
+
+    const stats: ITaskItemStats[] = [];
+
+    // calculate time stats
+    stats.push(
+        items.reduce(
+            (initialValue, item) => {
+                const ms = item.duration ? item.duration * 1000 : null;
+                if (ms) {
+                    initialValue.totalItems += 1;
+                    initialValue.totalValue += ms;
+                    initialValue.averageValue = initialValue.totalValue / items.length;
+                    initialValue.minValue = initialValue.minValue === 0 || ms < initialValue.minValue ? ms : initialValue.minValue;
+                    initialValue.maxValue = ms > initialValue.maxValue ? ms : initialValue.maxValue;
+                }
+
+                return initialValue;
+            },
+            {
+                metricKey: "duration",
+                metricName: "Duration",
+                metricUnit: "ms",
+                totalItems: 0,
+                totalValue: 0,
+                averageValue: 0,
+                minValue: 0,
+                maxValue: 0
+            }
+        )
+    );
+
+    // calculate metric stats
+    items.forEach(item => {
+        if (item.metricQuantities.length > 0) {
+            item.metricQuantities.forEach(metric => {
+                const metricObject = stats.filter(metricOb => metricOb.metricName === metric.metric.name)[0];
+                if (metricObject) {
+                    metricObject.totalItems += 1;
+                    metricObject.totalValue += metric.quantity;
+                    metricObject.averageValue = parseFloat((metricObject.totalValue / items.length).toFixed(2));
+                    metricObject.minValue =
+                        metric.quantity < metricObject.minValue ? metric.quantity : metricObject.minValue;
+                    metricObject.maxValue =
+                        metric.quantity > metricObject.maxValue ? metric.quantity : metricObject.maxValue;
+                } else {
+                    stats.push({
+                        metricKey: metric.uid,
+                        metricName: metric.metric.name,
+                        metricUnit: metric.metric.unit,
+                        totalItems: 1,
+                        totalValue: metric.quantity,
+                        averageValue: metric.quantity,
+                        minValue: metric.quantity,
+                        maxValue: metric.quantity
+                    });
+                }
+            });
+        }
+    });
+
+    return stats;
 }

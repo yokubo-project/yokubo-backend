@@ -32,8 +32,20 @@ export const TaskItemSchema = Joi.object().keys({
     duration: Joi.number().allow(null).description("Duration in seconds")
 }).label("TaskItemSchema");
 
+const TaskItemStatsSchema = Joi.object().keys({
+    metricKey: Joi.string().required(),
+    metricName: Joi.string().required(),
+    metricUnit: Joi.string().required(),
+    totalItems: Joi.number().required(),
+    totalValue: Joi.number().required(),
+    averageValue: Joi.number().required(),
+    minValue: Joi.number().required(),
+    maxValue: Joi.number().required()
+});
+
 export const FullTaskSchema = TaskSchema.keys({
     image: ImageSchema.required(),
     metrics: Joi.array().items(TaskMetricSchema).required(),
-    items: Joi.array().items(TaskItemSchema).required()
+    items: Joi.array().items(TaskItemSchema).required(),
+    stats: Joi.array().items(TaskItemStatsSchema).required()
 }).label("FullTaskSchema");

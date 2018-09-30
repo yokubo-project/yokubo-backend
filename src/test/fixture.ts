@@ -90,7 +90,7 @@ export const image2 = {
 
 export const task1 = {
     uid: "5db815b9-8e02-49bd-a42c-dd516b8468d9",
-    name: "Task1",
+    name: "Running",
     ImageUid: image1.uid,
     UserUid: user1.uid,
     createdAt: moment().subtract(10, "minutes").toISOString()
@@ -98,7 +98,7 @@ export const task1 = {
 
 export const task2 = {
     uid: "517b620c-71a4-44c9-abe6-cfea9a4826b3",
-    name: "Task2",
+    name: "Coding",
     ImageUid: image1.uid,
     UserUid: user1.uid,
     createdAt: moment().subtract(5, "minutes").toISOString()
@@ -106,7 +106,7 @@ export const task2 = {
 
 export const task3 = {
     uid: "bae98bf7-8728-41a6-964c-04bca64da420",
-    name: "Task3",
+    name: "Learning norwegian",
     ImageUid: image1.uid,
     UserUid: user2.uid,
     createdAt: moment().subtract(0, "minutes").toISOString()
@@ -118,22 +118,22 @@ export const task3 = {
 
 export const taskMetric1 = {
     uid: "7801cee9-6627-4eea-a1cd-2383036c7039",
-    name: "Metric1",
-    unit: "Unit1",
+    name: "Distance",
+    unit: "km",
     TaskUid: task1.uid
 };
 
 export const taskMetric2 = {
     uid: "2b7cd65c-29cb-4043-a01b-76b6ad501a1c",
-    name: "Metric2",
-    unit: "Unit2",
+    name: "Temperature",
+    unit: "Celsius",
     TaskUid: task1.uid
 };
 
 export const taskMetric3 = {
     uid: "4b25ed3c-e9f6-4580-bb8d-618da31fd56f",
-    name: "Metric3",
-    unit: "Unit3",
+    name: "new words",
+    unit: "#",
     TaskUid: task3.uid
 };
 
@@ -143,10 +143,10 @@ export const taskMetric3 = {
 
 export const taskItem1 = {
     uid: "5850d3f5-393e-4988-ac5b-316352abe6d8",
-    name: "Item1",
-    desc: "Desc1",
+    name: "Vineyard",
+    desc: "nice run with Friends",
     period: [
-        moment().subtract(7, "hours").toISOString(),
+        moment().subtract(2, "hours").toISOString(),
         moment().toISOString()
     ],
     TaskUid: task1.uid
@@ -154,7 +154,18 @@ export const taskItem1 = {
 
 export const taskItem2 = {
     uid: "918d4497-0fe8-47d2-b60e-3d2990befd61",
-    name: "Item2",
+    name: "Lake",
+    TaskUid: task1.uid
+};
+
+export const taskItem3 = {
+    uid: "7f14e391-7c87-4c15-8088-e6758a720cc5",
+    name: "Forest",
+    desc: "Running in forest at night",
+    period: [
+        moment().subtract(11, "hours").toISOString(),
+        moment().subtract(10, "hours").toISOString()
+    ],
     TaskUid: task1.uid
 };
 
@@ -166,14 +177,21 @@ export const metricQuantity1 = {
     uid: "6cc8aea1-ff01-4a35-be07-db57e76f0f3c",
     TaskItemUid: taskItem1.uid,
     TaskMetricUid: taskMetric1.uid,
-    quantity: 1
+    quantity: 21
 };
 
 export const metricQuantity2 = {
     uid: "87f385f3-0268-47fb-8528-abdef3a21cfa",
     TaskItemUid: taskItem1.uid,
     TaskMetricUid: taskMetric2.uid,
-    quantity: 2
+    quantity: 26
+};
+
+export const metricQuantity3 = {
+    uid: "373a449b-d74b-491a-89ee-25199f66d177",
+    TaskItemUid: taskItem3.uid,
+    TaskMetricUid: taskMetric1.uid,
+    quantity: 12
 };
 
 ////////////////////////////
@@ -196,9 +214,9 @@ const fixture = {
 
     TaskMetric: [taskMetric1, taskMetric2, taskMetric3],
 
-    TaskItem: [taskItem1, taskItem2],
+    TaskItem: [taskItem1, taskItem2, taskItem3],
 
-    MetricQuantity: [metricQuantity1, metricQuantity2]
+    MetricQuantity: [metricQuantity1, metricQuantity2, metricQuantity3]
 
 };
 
