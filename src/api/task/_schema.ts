@@ -43,9 +43,40 @@ const TaskItemStatsSchema = Joi.object().keys({
     maxValue: Joi.number().required()
 });
 
+const ChartDataSchema = Joi.object().keys({
+    days: Joi.array().items(
+        Joi.object().keys({
+            date: Joi.any().required(),
+            totalValue: Joi.number().required(),
+            metricKey: Joi.string().required(),
+            metricName: Joi.string().required(),
+            metricUnit: Joi.string().required()
+        }).optional()
+    ).required(),
+    weeks: Joi.array().items(
+        Joi.object().keys({
+            daterange: Joi.any().required(),
+            totalValue: Joi.number().required(),
+            metricKey: Joi.string().required(),
+            metricName: Joi.string().required(),
+            metricUnit: Joi.string().required()
+        }).optional()
+    ).required(),
+    months: Joi.array().items(
+        Joi.object().keys({
+            daterange: Joi.any().required(),
+            totalValue: Joi.number().required(),
+            metricKey: Joi.string().required(),
+            metricName: Joi.string().required(),
+            metricUnit: Joi.string().required()
+        }).optional()
+    ).required()
+});
+
 export const FullTaskSchema = TaskSchema.keys({
     image: ImageSchema.required(),
     metrics: Joi.array().items(TaskMetricSchema).required(),
     items: Joi.array().items(TaskItemSchema).required(),
-    stats: Joi.array().items(TaskItemStatsSchema).required()
+    stats: Joi.array().items(TaskItemStatsSchema).required(),
+    chartData: ChartDataSchema.required()
 }).label("FullTaskSchema");

@@ -23,7 +23,7 @@ describe("GET /api/v1/tasks", () => {
         // tslint:disable-next-line:chai-vague-errors
         expect(tasksNowOwnedByUser.every(uid => res.body.every((task: Task) => uid !== task.uid))).to.be.equal(true);
 
-        const preparedSnapshot = purify(res.body, ["createdAt", "period"]);
+        const preparedSnapshot = purify(res.body, ["createdAt", "period", "date", "daterange"]);
         expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "getTasks");
 
     });

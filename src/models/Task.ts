@@ -1,4 +1,9 @@
+import * as _ from "lodash";
+import * as Moment from "moment";
+import { DateRange, extendMoment } from "moment-range";
 import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
+
+const moment = extendMoment(Moment);
 
 import { Image, IPublicJsonObject as IImagePublicJsonObject } from "./Image";
 import { IFullPublicJsonObject as ITaskItemFullPublicJsonObject, TaskItem } from "./TaskItem";
@@ -21,11 +26,36 @@ interface ITaskItemStats {
     minValue: number;
     maxValue: number;
 }
+
+interface IChartData {
+    days: {
+        date: Moment.Moment;
+        totalValue: number;
+        metricKey: string;
+        metricName: string;
+        metricUnit: string;
+    }[];
+    weeks: {
+        daterange: DateRange;
+        totalValue: number;
+        metricKey: string;
+        metricName: string;
+        metricUnit: string;
+    }[];
+    months: {
+        daterange: DateRange;
+        totalValue: number;
+        metricKey: string;
+        metricName: string;
+        metricUnit: string;
+    }[];
+}
 interface IFullPublicJsonObject extends IPublicJsonObject {
     image: IImagePublicJsonObject;
     metrics: ITaskMetricFullPublicJsonObject[];
     items: ITaskItemFullPublicJsonObject[];
     stats: ITaskItemStats[];
+    chartData: IChartData;
 }
 
 @Table({
@@ -122,13 +152,15 @@ export class Task extends Model<Task> {
             (await this.$get("TaskItems") as TaskItem[]).map(async taskItem => taskItem.fullPublicJsonObject())
         );
         const stats = getTaskItemStats(items);
+        const chartData = getChartData(items);
 
         return {
             ...publicJsonObject,
             image,
             metrics,
             items,
-            stats
+            stats,
+            chartData
         };
     }
 
@@ -196,4 +228,66 @@ function getTaskItemStats(items: ITaskItemFullPublicJsonObject[]): ITaskItemStat
     });
 
     return stats;
+}
+
+function getChartData(items: ITaskItemFullPublicJsonObject[]): IChartData {
+
+    const momentDays = _.times(14).map(x => moment().utc().startOf("day").subtract(x, "days"));
+    const momentWeeks = _.times(12).map(x => moment.range(
+        moment().utc().startOf("isoweek" as Moment.unitOfTime.StartOf).subtract(x, "weeks"),
+        moment().utc().endOf("isoweek" as Moment.unitOfTime.StartOf).subtract(x, "weeks")
+    ));
+    const momentMonths = _.times(12).map(x => moment.range(
+        moment().utc().subtract(x, "month").startOf("month"),
+        moment().utc().subtract(x, "month").endOf("month")
+    ));
+
+    const chartData: IChartData = {
+        days: momentDays.map(((e, index, arr) => {
+            return {
+                date: arr[index],
+                totalValue: 0,
+                metricKey: "duration",
+                metricName: "Duration",
+                metricUnit: "ms"
+            };
+        })),
+        weeks: momentWeeks.map((e, index, arr) => {
+            return {
+                daterange: arr[index],
+                totalValue: 0,
+                metricKey: "duration",
+                metricName: "Duration",
+                metricUnit: "ms"
+            };
+        }),
+        months: momentMonths.map((e, index, arr) => {
+            return {
+                daterange: arr[index],
+                totalValue: 0,
+                metricKey: "duration",
+                metricName: "Duration",
+                metricUnit: "ms"
+            };
+        })
+    };
+
+    items.forEach(item => {
+        if (item.period && item.period[0]) {
+            const chartday = chartData.days.filter(day => day.date.isSame(moment(item.period[0]).utc().startOf("day")))[0];
+            if (chartday) {
+                chartday.totalValue += item.duration ? item.duration * 1000 : 0;
+            }
+            const chartweek = chartData.weeks.filter(week => week.daterange.contains(moment(item.period[0])))[0];
+            if (chartweek) {
+                chartweek.totalValue += item.duration ? item.duration * 1000 : 0;
+            }
+            const chartmonth = chartData.months.filter(month => month.daterange.contains(moment(item.period[0])))[0];
+            if (chartmonth) {
+                chartmonth.totalValue += item.duration ? item.duration * 1000 : 0;
+            }
+        }
+    });
+
+    return chartData;
 }

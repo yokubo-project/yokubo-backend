@@ -21,7 +21,7 @@ describe("PATCH /api/v1/task", () => {
 
         expect(res.status).to.be.equal(200);
 
-        const preparedSnapshot = purify(res.body, ["createdAt", "period"]);
+        const preparedSnapshot = purify(res.body, ["createdAt", "period", "date", "daterange"]);
         expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "patchTask");
 
     });
@@ -37,7 +37,7 @@ describe("PATCH /api/v1/task", () => {
 
         expect(res.status).to.be.equal(200);
 
-        const preparedSnapshot = purify(res.body, ["createdAt", "period"]);
+        const preparedSnapshot = purify(res.body, ["createdAt", "period", "date", "daterange"]);
         expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "patchTaskName");
 
     });
@@ -53,7 +53,7 @@ describe("PATCH /api/v1/task", () => {
 
         expect(res.status).to.be.equal(200);
 
-        const preparedSnapshot = purify(res.body, ["createdAt", "period"]);
+        const preparedSnapshot = purify(res.body, ["createdAt", "period", "date", "daterange"]);
         expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "patchTaskImage");
 
     });
@@ -88,7 +88,7 @@ describe("PATCH /api/v1/task", () => {
             .send(payload);
         expect(res.status).to.be.equal(200);
 
-        const preparedSnapshot = purify(res.body, ["createdAt", "period", "uid"]);
+        const preparedSnapshot = purify(res.body, ["createdAt", "period", "date", "daterange", "uid"]);
         expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "addMetricToTask");
 
     });
@@ -109,7 +109,7 @@ describe("PATCH /api/v1/task", () => {
             .send(payload);
         expect(res.status).to.be.equal(200);
 
-        const preparedSnapshot = purify(res.body, ["createdAt", "period"]);
+        const preparedSnapshot = purify(res.body, ["createdAt", "period", "date", "daterange"]);
         expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "patchMetricFromTask");
 
     });
@@ -131,7 +131,7 @@ describe("PATCH /api/v1/task", () => {
 
         expect(res.status).to.be.equal(200);
 
-        const preparedSnapshot = purify(res.body, ["createdAt", "period"]);
+        const preparedSnapshot = purify(res.body, ["createdAt", "period", "date", "daterange"]);
         expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "deleteMetricFromTask");
 
     });
@@ -153,7 +153,7 @@ describe("PATCH /api/v1/task", () => {
 
         expect(res.status).to.be.equal(400);
 
-        const preparedSnapshot = purify(res.body, ["createdAt", "period"]);
+        const preparedSnapshot = purify(res.body, ["createdAt", "period", "date", "daterange"]);
         expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "invalidActionForTaskMetric");
 
     });
@@ -170,7 +170,7 @@ describe("PATCH /api/v1/task", () => {
             .send(payload);
         expect(res.status).to.be.equal(200);
 
-        const preparedSnapshot = purify(res.body, ["createdAt", "period"]);
+        const preparedSnapshot = purify(res.body, ["createdAt", "period", "date", "daterange"]);
         expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "patchWithEmptyMetricsArray");
 
     });

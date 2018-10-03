@@ -21,7 +21,7 @@ describe("POST /api/v1/task", () => {
 
         expect(res.status).to.be.equal(200);
 
-        const preparedSnapshot = purify(res.body, ["createdAt", "period", "uid"]);
+        const preparedSnapshot = purify(res.body, ["createdAt", "period", "date", "daterange", "uid"]);
         expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "postTask");
 
     });
@@ -47,7 +47,7 @@ describe("POST /api/v1/task", () => {
 
         expect(res.status).to.be.equal(200);
 
-        const preparedSnapshot = purify(res.body, ["createdAt", "period", "uid"]);
+        const preparedSnapshot = purify(res.body, ["createdAt", "period", "date", "daterange", "uid"]);
         expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "postTaskWithMetrics");
 
     });
@@ -64,7 +64,7 @@ describe("POST /api/v1/task", () => {
 
         expect(res.status).to.be.equal(200);
 
-        const preparedSnapshot = purify(res.body, ["createdAt", "period", "uid", "file", "thumbnail"]);
+        const preparedSnapshot = purify(res.body, ["createdAt", "period", "date", "daterange", "uid", "file", "thumbnail"]);
         expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "postTaskWithDefaultImage");
 
     });

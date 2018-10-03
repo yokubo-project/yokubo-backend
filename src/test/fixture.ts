@@ -169,6 +169,26 @@ export const taskItem3 = {
     TaskUid: task1.uid
 };
 
+export const taskItem4 = {
+    uid: "b3e55a83-3af8-44a7-b0bb-bfba0e053fca",
+    name: "Riverside",
+    period: [
+        moment().subtract(55, "hours").toISOString(),
+        moment().subtract(53, "hours").toISOString()
+    ],
+    TaskUid: task1.uid
+};
+
+export const taskItem5 = {
+    uid: "ec6715f9-90df-474c-8033-cd9ce575f3aa",
+    name: "River and Lake",
+    period: [
+        moment().subtract(2, "weeks").subtract(55, "hours").toISOString(),
+        moment().subtract(2, "weeks").subtract(53, "hours").toISOString()
+    ],
+    TaskUid: task1.uid
+};
+
 ////////////////////////////
 //    Metric Quantities   //
 ////////////////////////////
@@ -194,6 +214,20 @@ export const metricQuantity3 = {
     quantity: 12
 };
 
+export const metricQuantity4 = {
+    uid: "20502e11-d776-40f6-91aa-98ae644becae",
+    TaskItemUid: taskItem4.uid,
+    TaskMetricUid: taskMetric1.uid,
+    quantity: 20
+};
+
+export const metricQuantity5 = {
+    uid: "04e6d826-0418-417e-863c-337f29f84fa1",
+    TaskItemUid: taskItem5.uid,
+    TaskMetricUid: taskMetric1.uid,
+    quantity: 18
+};
+
 ////////////////////////////
 // FIXTURE //
 ////////////////////////////
@@ -214,9 +248,9 @@ const fixture = {
 
     TaskMetric: [taskMetric1, taskMetric2, taskMetric3],
 
-    TaskItem: [taskItem1, taskItem2, taskItem3],
+    TaskItem: [taskItem1, taskItem2, taskItem3, taskItem4, taskItem5],
 
-    MetricQuantity: [metricQuantity1, metricQuantity2, metricQuantity3]
+    MetricQuantity: [metricQuantity1, metricQuantity2, metricQuantity3, metricQuantity4]
 
 };
 

@@ -14,7 +14,7 @@ describe("GET /api/v1/task", () => {
         const res = await chaiRequest("GET", `/api/v1/tasks/${task1.uid}`, accessToken1.token);
         expect(res.status).to.be.equal(200);
 
-        const preparedSnapshot = purify(res.body, ["createdAt", "period"]);
+        const preparedSnapshot = purify(res.body, ["createdAt", "period", "date", "daterange"]);
         expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "getTask");
 
     });
