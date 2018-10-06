@@ -88,7 +88,7 @@ describe("PATCH /api/v1/task", () => {
             .send(payload);
         expect(res.status).to.be.equal(200);
 
-        const preparedSnapshot = purify(res.body, ["createdAt", "period", "date", "daterange", "uid"]);
+        const preparedSnapshot = purify(res.body, ["createdAt", "period", "date", "daterange", "uid", "metricKey"]);
         expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "addMetricToTask");
 
     });

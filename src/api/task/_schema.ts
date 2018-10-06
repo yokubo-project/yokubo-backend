@@ -47,28 +47,40 @@ const ChartDataSchema = Joi.object().keys({
     days: Joi.array().items(
         Joi.object().keys({
             date: Joi.any().required(),
-            totalValue: Joi.number().required(),
-            metricKey: Joi.string().required(),
-            metricName: Joi.string().required(),
-            metricUnit: Joi.string().required()
+            dataset: Joi.array().items(
+                Joi.object().keys({
+                    totalValue: Joi.number().required(),
+                    metricKey: Joi.string().required(),
+                    metricName: Joi.string().required(),
+                    metricUnit: Joi.string().required()
+                }).optional()
+            ).required()
         }).optional()
     ).required(),
     weeks: Joi.array().items(
         Joi.object().keys({
             daterange: Joi.any().required(),
-            totalValue: Joi.number().required(),
-            metricKey: Joi.string().required(),
-            metricName: Joi.string().required(),
-            metricUnit: Joi.string().required()
+            dataset: Joi.array().items(
+                Joi.object().keys({
+                    totalValue: Joi.number().required(),
+                    metricKey: Joi.string().required(),
+                    metricName: Joi.string().required(),
+                    metricUnit: Joi.string().required()
+                }).optional()
+            ).required()
         }).optional()
     ).required(),
     months: Joi.array().items(
         Joi.object().keys({
             daterange: Joi.any().required(),
-            totalValue: Joi.number().required(),
-            metricKey: Joi.string().required(),
-            metricName: Joi.string().required(),
-            metricUnit: Joi.string().required()
+            dataset: Joi.array().items(
+                Joi.object().keys({
+                    totalValue: Joi.number().required(),
+                    metricKey: Joi.string().required(),
+                    metricName: Joi.string().required(),
+                    metricUnit: Joi.string().required()
+                }).optional()
+            ).required()
         }).optional()
     ).required()
 });

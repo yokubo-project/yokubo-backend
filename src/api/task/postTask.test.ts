@@ -47,7 +47,7 @@ describe("POST /api/v1/task", () => {
 
         expect(res.status).to.be.equal(200);
 
-        const preparedSnapshot = purify(res.body, ["createdAt", "period", "date", "daterange", "uid"]);
+        const preparedSnapshot = purify(res.body, ["createdAt", "period", "date", "daterange", "uid", "metricKey"]);
         expect(preparedSnapshot).to.matchSnapshot(SNAPSHOT_FILE, "postTaskWithMetrics");
 
     });

@@ -30,24 +30,30 @@ interface ITaskItemStats {
 interface IChartData {
     days: {
         date: Moment.Moment;
-        totalValue: number;
-        metricKey: string;
-        metricName: string;
-        metricUnit: string;
+        dataset: {
+            totalValue: number;
+            metricKey: string;
+            metricName: string;
+            metricUnit: string;
+        }[];
     }[];
     weeks: {
         daterange: DateRange;
-        totalValue: number;
-        metricKey: string;
-        metricName: string;
-        metricUnit: string;
+        dataset: {
+            totalValue: number;
+            metricKey: string;
+            metricName: string;
+            metricUnit: string;
+        }[];
     }[];
     months: {
         daterange: DateRange;
-        totalValue: number;
-        metricKey: string;
-        metricName: string;
-        metricUnit: string;
+        dataset: {
+            totalValue: number;
+            metricKey: string;
+            metricName: string;
+            metricUnit: string;
+        }[];
     }[];
 }
 interface IFullPublicJsonObject extends IPublicJsonObject {
@@ -152,7 +158,7 @@ export class Task extends Model<Task> {
             (await this.$get("TaskItems") as TaskItem[]).map(async taskItem => taskItem.fullPublicJsonObject())
         );
         const stats = getTaskItemStats(items);
-        const chartData = getChartData(items);
+        const chartData = getChartData(items, metrics);
 
         return {
             ...publicJsonObject,
@@ -230,7 +236,8 @@ function getTaskItemStats(items: ITaskItemFullPublicJsonObject[]): ITaskItemStat
     return stats;
 }
 
-function getChartData(items: ITaskItemFullPublicJsonObject[]): IChartData {
+// tslint:disable-next-line:max-func-body-length
+function getChartData(items: ITaskItemFullPublicJsonObject[], metrics: ITaskMetricFullPublicJsonObject[]): IChartData {
 
     const momentDays = _.times(14).map(x => moment().utc().startOf("day").subtract(x, "days"));
     const momentWeeks = _.times(12).map(x => moment.range(
@@ -246,28 +253,76 @@ function getChartData(items: ITaskItemFullPublicJsonObject[]): IChartData {
         days: momentDays.map(((e, index, arr) => {
             return {
                 date: arr[index],
-                totalValue: 0,
-                metricKey: "duration",
-                metricName: "Duration",
-                metricUnit: "ms"
+                dataset: [{
+                    totalValue: 0,
+                    metricKey: "count",
+                    metricName: "Count",
+                    metricUnit: "items"
+                }, {
+                    totalValue: 0,
+                    metricKey: "duration",
+                    metricName: "Duration",
+                    metricUnit: "ms"
+                },
+                ...metrics.map(metric => {
+                    return {
+                        totalValue: 0,
+                        metricKey: metric.uid,
+                        metricName: metric.name,
+                        metricUnit: metric.unit
+                    };
+                })
+                ]
             };
         })),
         weeks: momentWeeks.map((e, index, arr) => {
             return {
                 daterange: arr[index],
-                totalValue: 0,
-                metricKey: "duration",
-                metricName: "Duration",
-                metricUnit: "ms"
+                dataset: [{
+                    totalValue: 0,
+                    metricKey: "count",
+                    metricName: "Count",
+                    metricUnit: "items"
+                }, {
+                    totalValue: 0,
+                    metricKey: "duration",
+                    metricName: "Duration",
+                    metricUnit: "ms"
+                },
+                ...metrics.map(metric => {
+                    return {
+                        totalValue: 0,
+                        metricKey: metric.uid,
+                        metricName: metric.name,
+                        metricUnit: metric.unit
+                    };
+                })
+                ]
             };
         }),
         months: momentMonths.map((e, index, arr) => {
             return {
                 daterange: arr[index],
-                totalValue: 0,
-                metricKey: "duration",
-                metricName: "Duration",
-                metricUnit: "ms"
+                dataset: [{
+                    totalValue: 0,
+                    metricKey: "count",
+                    metricName: "Count",
+                    metricUnit: "items"
+                }, {
+                    totalValue: 0,
+                    metricKey: "duration",
+                    metricName: "Duration",
+                    metricUnit: "ms"
+                },
+                ...metrics.map(metric => {
+                    return {
+                        totalValue: 0,
+                        metricKey: metric.uid,
+                        metricName: metric.name,
+                        metricUnit: metric.unit
+                    };
+                })
+                ]
             };
         })
     };
@@ -276,15 +331,30 @@ function getChartData(items: ITaskItemFullPublicJsonObject[]): IChartData {
         if (item.period && item.period[0]) {
             const chartday = chartData.days.filter(day => day.date.isSame(moment(item.period[0]).utc().startOf("day")))[0];
             if (chartday) {
-                chartday.totalValue += item.duration ? item.duration * 1000 : 0;
+                chartday.dataset[0].totalValue += 1; // first item in chartData is count
+                chartday.dataset[1].totalValue += item.duration ? item.duration * 1000 : 0; // second item in chartData is duration
+
+                item.metricQuantities.forEach(metric => {
+                    chartday.dataset.filter(metricOb => metricOb.metricName === metric.metric.name)[0].totalValue += metric.quantity;
+                });
             }
             const chartweek = chartData.weeks.filter(week => week.daterange.contains(moment(item.period[0])))[0];
             if (chartweek) {
-                chartweek.totalValue += item.duration ? item.duration * 1000 : 0;
+                chartweek.dataset[0].totalValue += 1; // first item in chartData is count
+                chartweek.dataset[1].totalValue += item.duration ? item.duration * 1000 : 0; // second item in chartData is duration
+
+                item.metricQuantities.forEach(metric => {
+                    chartweek.dataset.filter(metricOb => metricOb.metricName === metric.metric.name)[0].totalValue += metric.quantity;
+                });
             }
             const chartmonth = chartData.months.filter(month => month.daterange.contains(moment(item.period[0])))[0];
             if (chartmonth) {
-                chartmonth.totalValue += item.duration ? item.duration * 1000 : 0;
+                chartmonth.dataset[0].totalValue += 1; // first item in chartData is count
+                chartmonth.dataset[1].totalValue += item.duration ? item.duration * 1000 : 0; // second item in chartData is duration
+
+                item.metricQuantities.forEach(metric => {
+                    chartmonth.dataset.filter(metricOb => metricOb.metricName === metric.metric.name)[0].totalValue += metric.quantity;
+                });
             }
         }
     });
