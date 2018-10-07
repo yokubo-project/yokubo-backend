@@ -85,10 +85,25 @@ const ChartDataSchema = Joi.object().keys({
     ).required()
 });
 
+const ContributionDataSchema = Joi.object().keys({
+    quarters: Joi.array().items(
+        Joi.object().keys({
+            daterange: Joi.any().required(),
+            dataset: Joi.array().items(
+                Joi.object().keys({
+                    date: Joi.any().required(),
+                    count: Joi.number().required()
+                }).optional()
+            ).required()
+        }).optional()
+    ).required()
+});
+
 export const FullTaskSchema = TaskSchema.keys({
     image: ImageSchema.required(),
     metrics: Joi.array().items(TaskMetricSchema).required(),
     items: Joi.array().items(TaskItemSchema).required(),
     stats: Joi.array().items(TaskItemStatsSchema).required(),
-    chartData: ChartDataSchema.required()
+    chartData: ChartDataSchema.required(),
+    contributionData: ContributionDataSchema.required()
 }).label("FullTaskSchema");

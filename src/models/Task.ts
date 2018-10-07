@@ -56,12 +56,23 @@ interface IChartData {
         }[];
     }[];
 }
+
+export interface IContributionData {
+    quarters: {
+        daterange: DateRange;
+        dataset: {
+            date: Moment.Moment;
+            count: number;
+        }[];
+    }[];
+}
 interface IFullPublicJsonObject extends IPublicJsonObject {
     image: IImagePublicJsonObject;
     metrics: ITaskMetricFullPublicJsonObject[];
     items: ITaskItemFullPublicJsonObject[];
     stats: ITaskItemStats[];
     chartData: IChartData;
+    contributionData: IContributionData;
 }
 
 @Table({
@@ -159,6 +170,7 @@ export class Task extends Model<Task> {
         );
         const stats = getTaskItemStats(items);
         const chartData = getChartData(items, metrics);
+        const contributionData = getContributionData(items);
 
         return {
             ...publicJsonObject,
@@ -166,7 +178,8 @@ export class Task extends Model<Task> {
             metrics,
             items,
             stats,
-            chartData
+            chartData,
+            contributionData
         };
     }
 
@@ -360,4 +373,40 @@ function getChartData(items: ITaskItemFullPublicJsonObject[], metrics: ITaskMetr
     });
 
     return chartData;
+}
+
+function getContributionData(items: ITaskItemFullPublicJsonObject[]): IContributionData {
+
+    const momentQuarters = _.times(4).map(x => moment.range(
+        moment().utc().subtract(x, "quarter").startOf("quarter"),
+        moment().utc().subtract(x, "quarter").endOf("quarter")
+    ));
+
+    const contributionData: IContributionData = {
+        quarters: momentQuarters.map((e, index, arr) => {
+            return {
+                daterange: arr[index],
+                dataset: []
+            };
+        })
+    };
+
+    items.forEach(item => {
+        if (item.period && item.period[0]) {
+            const chartquarter = contributionData.quarters.filter(quarter => quarter.daterange.contains(moment(item.period[0])))[0];
+            if (chartquarter) {
+                const entry = chartquarter.dataset.filter(e => moment(e.date).isSame(moment(item.period[0]).utc().startOf("day")))[0];
+                if (entry) {
+                    entry.count += 1;
+                } else {
+                    chartquarter.dataset.push({
+                        date: moment(item.period[0]).utc().startOf("day"),
+                        count: 1
+                    });
+                }
+            }
+        }
+    });
+
+    return contributionData;
 }

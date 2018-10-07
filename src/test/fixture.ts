@@ -155,6 +155,10 @@ export const taskItem1 = {
 export const taskItem2 = {
     uid: "918d4497-0fe8-47d2-b60e-3d2990befd61",
     name: "Lake",
+    period: [
+        moment().subtract(2, "hours").toISOString(),
+        moment().toISOString()
+    ],
     TaskUid: task1.uid
 };
 
