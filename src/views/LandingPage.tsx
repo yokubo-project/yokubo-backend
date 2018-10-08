@@ -85,7 +85,7 @@ class View extends React.Component<IProps, {}> {
                         <div className={"link-section"}>
                             <a className={"link"} href="/views/v1/privacy">Privacy</a>
                             <a className={"link"} href="/views/v1/imprint">Imprint</a>
-                            <a className={"link-desktop"} href="https://github.com/yokubo-app">Github</a>
+                            <a className={"link-desktop"} href="https://github.com/yokubo-project">Github</a>
                         </div>
                     </div>
 
