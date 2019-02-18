@@ -180,4 +180,4 @@ $ yarn start
 
  ## References
 
-[yokubo-app](https://github.com/yokubo-app), the corresponding React-Native app.
+[yokubo-app](https://github.com/yokubo-project/yokubo-app), the corresponding React-Native app.
